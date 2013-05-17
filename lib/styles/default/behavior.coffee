@@ -100,7 +100,7 @@ visitCurrentNode = ->
 # Only show a filter if it matches this many or fewer nodes
 MAX_FILTER_SIZE = 10
 
-# An array of of [search string, node, label text] triples
+# An array of [search string, node, label text] triples
 searchableNodes = []
 appendSearchNode = (node$) ->
   text$ = node$.find('> .label .text')
@@ -201,6 +201,8 @@ buildNav = (metaInfo) ->
       </li>
     """
 
+  metaInfo.lastDocumentPath = metaInfo.documentPath
+
   for node in tableOfContents
     toc$.append buildTOCNode node, metaInfo
 
@@ -209,25 +211,42 @@ buildNav = (metaInfo) ->
 buildTOCNode = (node, metaInfo) ->
   node$ = $("""<li class="#{node.type}"/>""")
 
+  # find and setup auto-links
+  autolinks = $(".autolink")
+  processAutolinks = (title, href) ->
+    autolinks.each ->
+      if $(this).text() == "[" + title + "]"
+        $(this).empty().append($("<a>", {href: href, text: title}))
+
   switch node.type
     when 'file'
       #} Single line to avoid extra whitespace
       node$.append """<a class="label" href="#{metaInfo.relativeRoot}#{node.data.targetPath}.html" title="#{node.data.projectPath}"><span class="text">#{node.data.title}</span></a>"""
+      metaInfo.lastDocumentPath = node.data.targetPath
+      processAutolinks node.data.title, "#{metaInfo.relativeRoot}#{node.data.targetPath}.html"
 
     when 'folder'
       node$.append """<span class="label"><span class="text">#{node.data.title}</span></span>"""
 
+    when 'heading'
+      node$.append """<a class="label" href="#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}" title="#{node.data.title}"><span class="text">#{node.data.title}</span></a>"""
+      processAutolinks node.data.title, "#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}"
+
   if node.children?.length > 0
     children$ = $('<ol class="children"/>')
     children$.append buildTOCNode c, metaInfo for c in node.children
-
     node$.append children$
+  else
+    if node.outline?.length > 0
+      children$ = $('<ol class="children"/>')
+      children$.append buildTOCNode c, metaInfo for c in node.outline
+      node$.append children$
 
   label$ = node$.find('> .label')
   label$.click -> selectNode node$
 
   discloser$ = $('<span class="discloser"/>').prependTo label$
-  discloser$.addClass 'placeholder' unless node.children?.length > 0
+  discloser$.addClass 'placeholder' unless node.children?.length > 0 or node.outline?.length > 0
   discloser$.click (evt) ->
     node$.toggleClass 'expanded'
     evt.preventDefault()
@@ -240,10 +259,10 @@ buildTOCNode = (node, metaInfo) ->
 
 $ ->
   metaInfo =
-    relativeRoot: $('meta[name="groc-relative-root"]').attr('content')
-    githubURL:    $('meta[name="groc-github-url"]').attr('content')
-    documentPath: $('meta[name="groc-document-path"]').attr('content')
-    projectPath:  $('meta[name="groc-project-path"]').attr('content')
+    relativeRoot: $('meta[name="citare-relative-root"]').attr('content')
+    githubURL:    $('meta[name="citare-github-url"]').attr('content')
+    documentPath: $('meta[name="citare-document-path"]').attr('content')
+    projectPath:  $('meta[name="citare-project-path"]').attr('content')
 
   nav$    = buildNav metaInfo
   toc$    = nav$.find '.toc'

@@ -1,4 +1,4 @@
-# # groc.Logger
+# # Logger
 
 colors = require 'colors'
 

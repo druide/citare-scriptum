@@ -1,19 +1,19 @@
 {
-  "name":        "groc",
-  "version":     "0.4.0",
+  "name":        "citare-scriptum",
+  "version":     "0.5.0",
   "description": "Documentation generation, in the spirit of literate programming.",
   "keywords":   ["documentation", "docs", "generator"],
-  "homepage":    "http://nevir.github.com/groc/",
-  "author":      "Ian MacLeod <ian@nevir.net> (https://github.com/nevir)",
+  "homepage":    "https://github.com/druide/citare-scriptum.git",
+  "author":      "Dmitry Savransky \"Druide\" (https://github.com/druide)",
 
   "licenses": [{
     "type": "MIT",
-    "url":  "https://github.com/nevir/groc/MIT-LICENSE.txt"
+    "url":  "https://github.com/druide/citare-scriptum.git/MIT-LICENSE.txt"
   }],
 
   "repository": {
     "type": "git",
-    "url":  "https://github.com/nevir/groc"
+    "url": "https://github.com/druide/citare-scriptum.git"
   },
 
   "main": "./index",
@@ -21,7 +21,7 @@
     "lib": "./lib"
   },
   "bin": {
-    "groc": "./bin/groc"
+    "citare": "./bin/citare"
   },
 
   "engines": {
@@ -34,10 +34,11 @@
     "glob":          ">= 3.0.1",
     "jade":          ">= 0.17.0",
     "optimist":      ">= 0.3.4",
-    "showdown":      ">= 0.2.0",
+    "marked":        ">= 0.2.8",
     "spate":         ">= 0.1.0",
     "uglify-js":     ">= 1.1.1",
-    "underscore":    ">= 1.2.2"
+    "underscore":    ">= 1.2.2",
+    "highlight.js":  ">=7.3.0"
   },
   "devDependencies": {},
 

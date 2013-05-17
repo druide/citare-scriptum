@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e # Stop on the first failure that occurs
 
-DOCS_PATH=.git/groc-tmp
+DOCS_PATH=.git/citare-tmp
 TARGET_BRANCH=gh-pages
 [[ $1 ]] && TARGET_REMOTE=$1 || TARGET_REMOTE=origin
 

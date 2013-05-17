@@ -20,9 +20,10 @@ module.exports = class Base
     @files.push fileInfo
 
     segments = Utils.splitSource data, fileInfo.language,
-      requireWhitespaceAfterToken: !!@project.options.requireWhitespaceAfterToken
+      requireWhitespaceAfterToken: !!@project.options.requireWhitespaceAfterToken,
+      commentsOnly: @project.options.commentsOnly
 
-    @log.debug 'Split %s into %d segments', fileInfo.sourcePath, segments.length
+    @log.debug 'Split %s into %d segments', fileInfo.projectPath, segments.length
 
     Utils.highlightCode segments, fileInfo.language, (error) =>
       if error
@@ -32,22 +33,28 @@ module.exports = class Base
             @log.warn   segments[i]?.code.join '\n'
             @log.error  highlight
 
-        @log.error 'Failed to highlight %s as %s: %s', fileInfo.sourcePath, fileInfo.language.name, error.message or error
+        @log.error 'Failed to highlight %s as %s: %s', fileInfo.projectPath, fileInfo.language.name, error.message or error
         return callback error
 
       Utils.markdownComments segments, @project, (error) =>
         if error
-          @log.error 'Failed to markdown %s: %s', fileInfo.sourcePath, error.message
+          @log.error 'Failed to markdown %s: %s', fileInfo.projectPath, error.message
           return callback error
 
         @outline[fileInfo.targetPath] = StyleHelpers.outlineHeaders segments
 
         # We also prefer to split out solo headers
-        segments = StyleHelpers.segmentizeSoloHeaders segments
+        # segments = StyleHelpers.segmentizeSoloHeaders segments
 
-        @renderDocFile segments, fileInfo, callback
+        missingDoc = true
+        for segment in segments
+          if segment.markdownedComments != ''
+            missingDoc = false
+            break
 
-  renderDocFile: (segments, fileInfo, callback) ->
+        @renderDocFile segments, fileInfo, missingDoc, callback
+
+  renderDocFile: (segments, fileInfo, missingDoc, callback) ->
     @log.trace 'BaseStyle#renderDocFile(..., %j, ...)', fileInfo
 
     throw new Error "@templateFunc must be defined by subclasses!" unless @templateFunc
@@ -66,9 +73,11 @@ module.exports = class Base
       templateContext =
         project:     @project
         segments:    segments
-        sourcePath:  fileInfo.sourcePath
+        # sourcePath:  fileInfo.sourcePath
         targetPath:  fileInfo.targetPath
         projectPath: fileInfo.projectPath
+        commentsOnly: fileInfo.language.commentsOnly || @project.options.commentsOnly
+        missingDoc: missingDoc
 
       # How many levels deep are we?
       pathChunks = path.dirname(fileInfo.targetPath).split(/[\/\\]/)

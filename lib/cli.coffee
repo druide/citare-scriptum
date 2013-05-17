@@ -13,7 +13,7 @@ PACKAGE_INFO = require './package_info'
 Project      = require './project'
 styles       = require './styles'
 Utils        = require './utils'
-
+marked       = require 'marked'
 
 # Readable command line output is just as important as readable documentation!  It is the first
 # interaction that a developer will have with a tool like this, so we want to leave a good
@@ -39,13 +39,13 @@ module.exports = CLI = (inputArgs, callback) ->
   # impression with nicely formatted and readable output.
   opts
     .usage("""
-    Usage: groc [options] "lib/**/*.coffee" doc/*.md
+    Usage: citare [options] "lib/**/*.coffee" doc/*.md
 
-    groc accepts lists of files and (quoted) glob expressions to match the files you would like to
+    Citare accepts lists of files and (quoted) glob expressions to match the files you would like to
     generate documentation for.  Any unnamed options are shorthand for --glob arg.
 
     You can also specify arguments via a configuration file in the current directory named
-    .groc.json.  It should contain a mapping between option names and their values.  For example:
+    .citare.json.  It should contain a mapping between option names and their values.  For example:
 
       { "glob": ["lib", "vendor"], out: "documentation", strip: [] }
     """)
@@ -76,7 +76,7 @@ module.exports = CLI = (inputArgs, callback) ->
       type:     'boolean'
 
     'repository-url':
-      describe: "Supply your GitHub repository URL (if groc fails to guess it)."
+      describe: "Supply your GitHub repository URL (if citare fails to guess it)."
       type:     'string'
 
     out:
@@ -110,15 +110,25 @@ module.exports = CLI = (inputArgs, callback) ->
       default:  true
       type:     'boolean'
 
+    'comments-only':
+      describe: "Generate documentation only from comment, source code will not be included."
+      default:  false
+      type:     'boolean'
+
+    'gfm':
+      describe: "Github flavored markdown."
+      default:  true
+      type:     'boolean'
+
     silent:
       describe: "Output errors only."
 
     version:
-      describe: "Shows you the current version of groc (#{PACKAGE_INFO.version})"
+      describe: "Shows you the current version of citare (#{PACKAGE_INFO.version})"
       alias:    'v'
 
     verbose:
-      describe: "Output the inner workings of groc to help diagnose issues."
+      describe: "Output the inner workings of citare to help diagnose issues."
 
    'very-verbose':
       describe: "Hey, you asked for it."
@@ -126,21 +136,34 @@ module.exports = CLI = (inputArgs, callback) ->
 
   # ## Argument processing
 
-  # We treat the values within the current project's `.groc.json` as defaults, so that you can
+  # We treat the values within the current project's `.citare.json` as defaults, so that you can
   # easily override the persisted configuration when testing and tweaking.
   #
-  # For example, if you have configured your `.groc.json` to include `"github": true`, it is
-  # extremely helpful to use `groc --no-github` until you are satisfied with the generated output.
-  projectConfigPath = path.resolve '.groc.json'
+  # For example, if you have configured your `.citare.json` to include `"github": true`, it is
+  # extremely helpful to use `citare --no-github` until you are satisfied with the generated output.
+  projectConfigPath = path.resolve '.citare.json'
   try
     projectConfig = JSON.parse fs.readFileSync projectConfigPath
   catch err
     unless err.code == 'ENOENT' || err.code == 'EBADF'
       console.log opts.help()
       console.log
-      Logger.error "Failed to load .groc.json: %s", err.message
+      Logger.error "Failed to load .citare.json: %s", err.message
 
       return callback err
+
+  # In compatability with groc, if `.groc.json` is present, configuration will be taken from there
+  # and processed same way as `.citare.json`.
+  if !projectConfig
+    try
+      projectConfig = JSON.parse fs.readFileSync path.resolve '.groc.json'
+    catch err
+      unless err.code == 'ENOENT' || err.code == 'EBADF'
+        console.log opts.help()
+        console.log
+        Logger.error "Failed to load .groc.json: %s", err.message
+
+        return callback err
 
   # We rely on [CLIHelpers.configureOptimist](utils/cli_helpers.html#configureoptimist) to provide
   # the extra options behavior that we require.
@@ -176,6 +199,25 @@ module.exports = CLI = (inputArgs, callback) ->
 
   # Set up project-specific options as we get them.
   project.options.requireWhitespaceAfterToken = !!argv['whitespace-after-token']
+  project.options.commentsOnly = !!argv['comments-only']
+  project.options.gfm = !!argv['gfm']
+
+  # configure marked
+  marked.setOptions
+    gfm: project.options.gfm,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    langPrefix: '',
+    highlight: (code, lang) =>
+      if !lang?
+        code
+      else if lang == 'js'
+        hljs.highlight("javascript", code).value
+      else
+        hljs.highlight(lang, code).value
 
   # We expand the `--glob` expressions into a poor-man's set, so that we can easily remove
   # exclusions defined by `--except` before we add the result to the project's file list.
@@ -215,10 +257,10 @@ module.exports = CLI = (inputArgs, callback) ->
 
       project.githubURL = url
 
-      # We hide the docs inside `.git/groc-tmp` so that we can switch branches without losing the
+      # We hide the docs inside `.git/citare-tmp` so that we can switch branches without losing the
       # generated output.  It also keeps us out of the business of finding an OS-sanctioned
       # temporary path.
-      project.outPath = path.resolve path.join '.git', 'groc-tmp'
+      project.outPath = path.resolve path.join '.git', 'citare-tmp'
 
       # Dealing with generation for github pages is pretty involved, and requires a lot of back
       # and forth with git.  Rather than descend into callback hell in Node, we farm the logic
@@ -233,7 +275,7 @@ module.exports = CLI = (inputArgs, callback) ->
         # Roughly, the publishing script:
         #
         # 1. Switches to the `gh-pages` branch (creating it if necessary)
-        # 2. Copies the generated docs from `.git/groc-tmp` over any existing files in the branch.
+        # 2. Copies the generated docs from `.git/citare-tmp` over any existing files in the branch.
         # 3. Creates a commit with _just_ the generated docs; any additional files are removed.
         # 4. Cleans up and switches back to the user's original branch.
         script = childProcess.spawn path.resolve(__dirname, '..', 'scripts', 'publish-git-pages.sh'), [remote]

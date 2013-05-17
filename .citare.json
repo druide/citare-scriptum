@@ -1,0 +1,5 @@
+{
+  "glob": ["lib/**/*.coffee", "lib/**/*.js", "README.md"],
+  "repository-url": "https://github.com/druide/citare-scriptum",
+  "gfm": false
+}

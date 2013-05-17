@@ -6,12 +6,12 @@ childProcess = require 'child_process'
 path         = require 'path'
 
 _        = require 'underscore'
-showdown = require 'showdown'
+marked   = require 'marked'
 
 CompatibilityHelpers = require './utils/compatibility_helpers'
 LANGUAGES            = require './languages'
 Logger               = require './utils/logger'
-
+hljs = require('highlight.js')
 
 module.exports = Utils =
   # Escape regular expression characters in a string
@@ -101,25 +101,51 @@ module.exports = Utils =
     # Enforced whitespace after the comment token
     whitespaceMatch = if options.requireWhitespaceAfterToken then '\\s' else '\\s?'
 
-    # We only support single line comments for the time being.
     singleLineMatcher = ///^\s*(#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///
+    multiLineMatcher1 = ///^\s*/\*+\s*///
+    multiLineMatcher2 = ///\s*\*+/\s*$///
+    if language.multiLineComment?
+      multiLineMatcher1 = language.multiLineComment[0]
+      multiLineMatcher2 = language.multiLineComment[1]
+    incomment = false
 
     for line in lines
       # Match that line to the language's single line comment syntax.
       #
       # However, we treat all comments beginning with } as inline code commentary.
       match = line.match singleLineMatcher
+      match2 = line.match multiLineMatcher1
+      match3 = line.match multiLineMatcher2
 
       #} For example, this comment should be treated as part of our code.
-      if match? and match[2]?[0] != '}'
+      if !incomment and match? and match[2]?[0] != '}'
         if currSegment.code.length > 0
           segments.push currSegment
           currSegment = new @Segment
-
         currSegment.comments.push match[2]
-
       else
-        currSegment.code.push line
+        if match2?
+          incomment = true
+          currSegment.comments.push ""
+          if match3?
+            incomment = false
+            if currSegment.code.length > 0
+              segments.push currSegment
+              currSegment = new @Segment
+            currSegment.comments.push line.replace(multiLineMatcher1,"").replace(multiLineMatcher2,"")
+        else
+          if match3?
+            incomment = false
+            currSegment.comments.push ""
+          else
+            if incomment
+              if currSegment.code.length > 0
+                segments.push currSegment
+                currSegment = new @Segment
+              currSegment.comments.push line
+            else
+              if !options.commentsOnly
+                currSegment.code.push line
 
     segments.push currSegment
     segments
@@ -130,6 +156,9 @@ module.exports = Utils =
       @code     = code
       @comments = comments
 
+  unescape: (value) =>
+    return value.replace(/&amp;/gm, '&').replace(/&lt;/gm, '<').replace(/&gt;/gm, '>')
+
   # Annotate an array of segments by running their code through [Pygments](http://pygments.org/).
   highlightCode: (segments, language, callback) ->
     # Don't bother spawning pygments if we have nothing to highlight
@@ -137,92 +166,40 @@ module.exports = Utils =
     if numCodeLines == 0
       for segment in segments
         segment.highlightedCode = ''
-
       return callback()
 
-    errListener = (error) ->
-      # This appears to only occur when pygmentize is missing:
-      Logger.error "Unable to find 'pygmentize' on your PATH.  Please install pygments."
-      Logger.info ''
-
-      # Lack of pygments is a one time setup task, we don't feel bad about killing the process
-      # off until the user does so.  It's a hard requirement.
-      process.exit 1
-
-    pygmentize = childProcess.spawn 'pygmentize', [
-      '-l', language.pygmentsLexer
-      '-f', 'html'
-      '-O', 'encoding=utf-8,tabsize=2'
-    ]
-    pygmentize.stderr.addListener 'data', (data)  -> callback data.toString()
-    pygmentize.stdin.addListener 'error', errListener
-    pygmentize.on 'error', errListener
-
-
-    # We'll just split the output at the end.  pygmentize doesn't stream its output, and a given
-    # source file is small enough that it shouldn't matter.
-    result = ''
-    pygmentize.stdout.addListener 'data', (data) =>
-      result += data.toString()
-
-    # v0.8 changed exit/close event semantics.
-    match = process.version.match /v(\d+\.\d+)/
-    closeEvent = if parseFloat(match[1]) < 0.8 then 'exit' else 'close'
-
-    pygmentize.addListener closeEvent, (args...) =>
-      # pygments spits it out wrapped in `<div class="highlight"><pre>...</pre></div>`.  We want to
-      # manage the styling ourselves, so remove that.
-      result = result.replace('<div class="highlight"><pre>', '').replace('</pre></div>', '')
-
-      # Extract our segments from the pygmentized source.
-      highlighted = "\n#{result}\n".split /.*<span.*SEGMENT DIVIDER<\/span>.*/
-
-      if highlighted.length != segments.length
-        error = new Error CompatibilityHelpers.format 'pygmentize rendered %d of %d segments; expected to be equal',
-          highlighted.length, segments.length
-
-        error.pygmentsOutput   = result
-        error.failedHighlights = highlighted
-        return callback error
-
-      # Attach highlighted source to the highlightedCode property of a Segment.
-      for segment, i in segments
-        segment.highlightedCode = highlighted[i]
-
-      callback()
-
-    # Rather than spawning pygments for each segment, we stream it all in, separated by 'magic'
-    # comments so that we can split the highlighted source back into segments.
-    #
-    # To further complicate things, pygments doesn't let us cheat with indentation-aware languages:
-    # We have to match the indentation of the line following the divider comment.
-    mergedCode = ''
     for segment, i in segments
       segmentCode = segment.code.join '\n'
+      segment.highlightedCode = hljs.highlight(language.lexer, segmentCode).value
 
-      if i > 0
-        # Double negative: match characters that are spaces but not newlines
-        indentation = segmentCode.match(/^[^\S\n]+/)?[0] || ''
-        mergedCode += "\n#{indentation}#{language.singleLineComment[0]} SEGMENT DIVIDER\n"
-
-      mergedCode += segmentCode
-
-    pygmentize.stdin.write mergedCode
-    pygmentize.stdin.end()
+    return callback()
 
   # Annotate an array of segments by running their comments through
-  # [showdown](https://github.com/coreyti/showdown).
+  # [marked](https://github.com/chjj/marked).
   markdownComments: (segments, project, callback) ->
-    converter = new showdown.converter()
-
     try
+      tocHeaders = []
+
       for segment, segmentIndex in segments
-        markdown = converter.makeHtml segment.comments.join '\n'
+
+        # sort out the smallest amount of space prefixing each line.
+        spaces = 1000
+        for line, i in segment.comments
+          if line.trim().length > 0
+            curspaces = /^(\s*)(.*)/.exec(line)[1].length
+            if curspaces < spaces
+              spaces = curspaces
+        # now remove spaces from each line above.
+        for line, i in segment.comments
+          segment.comments[i] = line.slice(spaces)
+
+        # put this back together.
+        markdown = marked segment.comments.join '\n'
         headers  = []
 
         # showdown generates header ids by lowercasing & dropping non-word characters.  We'd like
         # something a bit more readable.
-        markdown = @gsub markdown, /<h(\d) id="[^"]+">([^<]+)<\/h\d>/g, (match) =>
+        markdown = @gsub markdown, /<h(\d)>([^<]+)<\/h\d>/g, (match) =>
           header =
             level: parseInt match[1]
             title: match[2]
@@ -231,21 +208,49 @@ module.exports = Utils =
           header.isFileHeader = true if header.level == 1 && segmentIndex == 0 && match.index == 0
 
           headers.push header
+          tocHeaders.push header
 
           "<h#{header.level} id=\"#{header.slug}\">#{header.title}</h#{header.level}>"
+
+        # find and process auto-link nodes
+        markdown = @gsub markdown, /\[[^\]]+\]/g, (match) =>
+          text = match[0]
+          "<span class=\"autolink\">#{text}</span>"
 
         # We attach the rendered markdown to the comment
         segment.markdownedComments = markdown
         # As well as the extracted headers to aid in outline building.
         segment.headers = headers
 
+      # make TOC
+      for segment, segmentIndex in segments
+        # search for {{TOC}} tag
+        segment.markdownedComments = @gsub segment.markdownedComments, /{{TOC}}/g, (match) =>
+          text = ""
+          if tocHeaders.length
+            text = "<div class=\"toc\">"
+            for header, i in tocHeaders
+              if i == 0
+                continue
+              text += @repeat(header.level) + "<a href=\"##{header.slug}\">#{header.title}</a><br/>"
+            text = text + "</div>"
+          text
+
     catch error
       return callback error
 
     callback()
 
+  repeat: (count) ->
+    text = ""
+    for i in [1..count-1]
+      text += "&nbsp;&nbsp;&nbsp;&nbsp;"
+    text
+
   # Sometimes you just don't want any of them hanging around.
   trimBlankLines: (string) ->
+    if not string
+      return ""
     string.replace(/^[\r\n]+/, '').replace(/[\r\n]+$/, '')
 
   # Given a title, convert it into a URL-friendly slug.

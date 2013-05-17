@@ -1,4 +1,4 @@
-# # groc API
+# # Citare API
 
 fs   = require 'fs'
 path = require 'path'
@@ -8,9 +8,10 @@ spate = require 'spate'
 CompatibilityHelpers = require './utils/compatibility_helpers'
 Logger               = require './utils/logger'
 Utils                = require './utils'
+hljs = require('highlight.js')
+hljs.LANGUAGES['brief'] = require('./utils/brief.js')(hljs);
 
-
-# A core concept of `groc` is that your code is grouped into a project, and that there is a certain
+# A core concept of `citare` is that your code is grouped into a project, and that there is a certain
 # amount of context that it lends to your documentation.
 #
 # A project:
@@ -33,7 +34,7 @@ module.exports = class Project
 
   # Annoyingly, we seem to be hitting a race condition within Node 0.10's
   # emulation for old-style streams.  For now, we're dropping concurrent doc
-  # generation to play it safe.  People are still using groc with 0.6.
+  # generation to play it safe.
   oldNode = process.version.match /v0\.[0-8]\./
   # This is both a performance (over-)optimization and debugging aid.  Instead of spamming the
   # system with file I/O and overhead all at once, we only process a certain number of source files
@@ -74,7 +75,7 @@ module.exports = class Project
 
         fileInfo =
           language:    language
-          sourcePath:  currentFile
+          # sourcePath:  currentFile
           projectPath: currentFile.replace ///^#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, ''
           targetPath:  if currentFile == indexPath then 'index' else fileMap[currentFile]
 

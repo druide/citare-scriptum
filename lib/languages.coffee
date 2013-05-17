@@ -2,130 +2,117 @@
 
 module.exports = LANGUAGES =
   Markdown:
-    nameMatchers: ['.md']
+    nameMatchers: ['.md', '.txt']
     commentsOnly: true
 
-  C:
-    nameMatchers:      ['.c', '.h']
-    pygmentsLexer:     'c'
+  ActionScript:
+    nameMatchers: ['.as']
+    lexer: 'actionscript'
     singleLineComment: ['//']
 
   CSharp:
-    nameMatchers:      ['.cs']
-    pygmentsLexer:     'csharp'
+    nameMatchers: ['.cs']
+    lexer: 'cs'
     singleLineComment: ['//']
 
-  'C++':
-    nameMatchers:      ['.cpp', '.hpp', '.c++', '.h++', '.cc', '.hh', '.cxx', '.hxx']
-    pygmentsLexer:     'cpp'
+  CSS:
+    nameMatchers: ['.css']
+    lexer: 'css'
+    singleLineComment: ['//']
+
+  CPP:
+    nameMatchers: ['.c', '.h', '.cpp', '.hpp', '.c++', '.h++', '.cc', '.hh', '.cxx', '.hxx']
+    lexer: 'cpp'
     singleLineComment: ['//']
 
   Clojure:
     nameMatchers:      ['.clj']
-    pygmentsLexer:     'clojure'
+    lexer:     'clojure'
     singleLineComment: [';;']
 
   CoffeeScript:
     nameMatchers:      ['.coffee', 'Cakefile']
-    pygmentsLexer:     'coffee-script'
+    lexer:     'coffeescript'
     singleLineComment: ['#']
 
   Go:
     nameMatchers:      ['.go']
-    pygmentsLexer:     'go'
+    lexer:     'go'
     singleLineComment: ['//']
 
   Haskell:
     nameMatchers:      ['.hs']
-    pygmentsLexer:     'haskell'
+    lexer:     'haskell'
     singleLineComment: ['--']
 
-  Jade:
-    nameMatchers:      ['.jade']
-    pygmentsLexer:     'jade'
-    singleLineComment: ['//', '//-']
+  Ini:
+    nameMatchers: ['.ini']
+    lexer: 'ini'
+    singleLineComment: [';']
 
   Java:
     nameMatchers:      ['.java']
-    pygmentsLexer:     'java'
+    lexer:     'java'
     singleLineComment: ['//']
 
   JavaScript:
     nameMatchers:      ['.js']
-    pygmentsLexer:     'javascript'
+    lexer:     'javascript'
     singleLineComment: ['//']
 
-  Jake:
-    nameMatchers:      ['.jake']
-    pygmentsLexer:     'javascript'
+  JSON:
+    nameMatchers:      ['.json']
+    lexer:     'json'
     singleLineComment: ['//']
 
   LaTeX:
     nameMatchers:      ['.tex', '.latex', '.sty']
-    pygmentsLexer:     'latex'
+    lexer:     'tex'
     singleLineComment: ['%']
 
   Lua:
     nameMatchers:      ['.lua']
-    pygmentsLexer:     'lua'
+    lexer:     'lua'
     singleLineComment: ['--']
+    multiLineComment:  [///^\s*\-\-+\[=*\[\s*///, ///\s*\]=*\]$///]
 
   Make:
     nameMatchers:      ['Makefile']
-    pygmentsLexer:     'make'
+    lexer:     'make'
     singleLineComment: ['#']
 
   'Objective-C':
     nameMatchers:      ['.m', '.mm']
-    pygmentsLexer:     'objc'
+    lexer:     'objectivec'
     singleLineComment: ['//']
 
   Perl:
     nameMatchers:      ['.pl', '.pm']
-    pygmentsLexer:     'perl'
+    lexer:     'perl'
     singleLineComment: ['#']
 
   PHP:
     nameMatchers:      [/\.php\d?$/, '.fbp']
-    pygmentsLexer:     'php'
+    lexer:     'php'
     singleLineComment: ['//']
-
-  Puppet:
-    nameMatchers:      ['.pp']
-    pygmentsLexer:     'puppet'
-    singleLineComment: ['#']
 
   Python:
     nameMatchers:      ['.py']
-    pygmentsLexer:     'python'
+    lexer:     'python'
     singleLineComment: ['#']
 
   Ruby:
     nameMatchers:      ['.rb', '.ru', '.gemspec']
-    pygmentsLexer:     'ruby'
-    singleLineComment: ['#']
-
-  Sass:
-    nameMatchers:      ['.sass']
-    pygmentsLexer:     'sass'
-    singleLineComment: ['//']
-
-  SCSS:
-    nameMatchers:      ['.scss']
-    pygmentsLexer:     'scss'
-    singleLineComment: ['//']
-
-  Shell:
-    nameMatchers:      ['.sh']
-    pygmentsLexer:     'sh'
+    lexer:     'ruby'
     singleLineComment: ['#']
 
   SQL:
     nameMatchers:      ['.sql']
-    pygmentsLexer:     'sql'
+    lexer:     'sql'
     singleLineComment: ['--']
 
-  YAML:
-    nameMatchers:      ['.yml', '.yaml']
-    pygmentsLexer:     'yaml'
-    singleLineComment: ['#']
+  XML:
+    nameMatchers:      ['.xml','.rdf']
+    lexer: 'xml'
+    singleLineComment: ['<!---']
+    multiLineComment:  [///^\s*\<\!\-\-+\s*///, ///\s*\-+\>$///]
