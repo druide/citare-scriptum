@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><title>lib\utils\cli_helpers</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib\utils\cli_helpers"><meta name="citare-project-path" content="lib\utils\cli_helpers.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\utils\cli_helpers.coffee</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
+path         = require <span class="string">'path'</span>
+
+_ = require <span class="string">'underscore'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="command-line-helpers">Command Line Helpers</h1></div></div><div class="code"><div class="wrapper">module.exports = CLIHelpers =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="configureoptimist">configureOptimist</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><a href="https://github.com/substack/node-optimist">Optimist</a> fails to provide a few conveniences, so we
+layer on a little bit of additional structure when defining our options.</p></div></div><div class="code"><div class="wrapper">  configureOptimist: (opts, config, extraDefaults) -&gt;
+    <span class="keyword">for</span> optName, optConfig <span class="keyword">of</span> config</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>We support two tiers of default values.  First, we set up the hard-coded defaults specified
+as part of <code>config</code>.</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Also, <code>default</code> is a reserved name, hence <code>defaultVal</code>.</p></div></div><div class="code"><div class="wrapper">      defaultVal = extraDefaults?[optName] ? optConfig.<span class="reserved">default</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>We also want the ability to specify reactionary default values, so that the user can
+inspect the current state of things by tacking on a <code>--help</code>.</li>
+</ul></div></div><div class="code"><div class="wrapper">      defaultVal = defaultVal opts <span class="keyword">if</span> _.isFunction defaultVal</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>And set it all up with our key as the canonical option name.</p></div></div><div class="code"><div class="wrapper">      opts.options optName, _(optConfig).extend(<span class="reserved">default</span>: defaultVal)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="extractargv">extractArgv</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In addition to the extended configuration that we desire, we also want special handling for
+generated values:</p></div></div><div class="code"><div class="wrapper">  extractArgv: (opts, config) -&gt;
+    argv = opts.argv</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>With regular optimist parsing, you either get an individual value or an array.  For
+list-style options, we always want an array.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="keyword">for</span> optName, optConfig <span class="keyword">of</span> config
+      <span class="keyword">if</span> optConfig.type == <span class="string">'list'</span> <span class="keyword">and</span> <span class="keyword">not</span> _.isArray opts.argv[optName]
+        argv[optName] = _.compact [ argv[optName] ]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>It&#39;s also handy to auto-resolve paths.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="keyword">for</span> optName, optConfig <span class="keyword">of</span> config
+      argv[optName] = path.resolve argv[optName] <span class="keyword">if</span> optConfig.type == <span class="string">'path'</span>
+
+    argv</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="guessprimarygithuburl">guessPrimaryGitHubURL</h2></div></div><div class="code"><div class="wrapper">  guessPrimaryGitHubURL: (repository_url, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><code>git config --list</code> provides information about branches and remotes - everything we need to
+attempt to guess the project&#39;s GitHub repository.</p></div></div><div class="code"><div class="wrapper">    <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>There are several states that a GitHub-based repository could be in, and we&#39;ve probably missed
+a few.  We attempt to guess it through a few means:</p></div></div><div class="code"><div class="wrapper">    childProcess.exec <span class="string">'git config --list'</span>, (error, stdout, stderr) =&gt;
+      <span class="keyword">return</span> error <span class="keyword">if</span> error
+
+      config = {}
+      <span class="keyword">for</span> line <span class="keyword">in</span> stdout.split <span class="string">'\n'</span>
+        pieces = line.split <span class="string">'='</span>
+        config[pieces[<span class="number">0</span>]] = pieces[<span class="number">1</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>If the user has a tracked <code>gh-pages</code> branch, chances are extremely high that its tracked
+remote is the correct github project.</li>
+</ul></div></div><div class="code"><div class="wrapper">      pagesRemote = config[<span class="string">'branch.gh-pages.remote'</span>] ? <span class="string">"origin"</span>
+      <span class="keyword">if</span> repository_url?
+        <span class="keyword">return</span> callback <span class="literal">null</span>, repository_url, pagesRemote
+      <span class="keyword">else</span>
+        <span class="keyword">if</span> config[<span class="string">"remote.<span class="subst">#{pagesRemote}</span>.url"</span>]
+          url = <span class="property">@extractGitHubURL</span> config[<span class="string">"remote.<span class="subst">#{pagesRemote}</span>.url"</span>]
+          <span class="keyword">return</span> callback <span class="literal">null</span>, url, pagesRemote <span class="keyword">if</span> url</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>If that fails, we fall back to the origin remote if it is a GitHub repository.</li>
+</ul></div></div><div class="code"><div class="wrapper">        url = <span class="property">@extractGitHubURL</span> config[<span class="string">'remote.origin.url'</span>]
+        <span class="keyword">return</span> callback <span class="literal">null</span>, url, pagesRemote <span class="keyword">if</span> url</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>We fall back to searching all remotes for a GitHub repository, and choose the first one
+we encounter.</li>
+</ul></div></div><div class="code"><div class="wrapper">        <span class="keyword">for</span> key, value <span class="keyword">of</span> config
+          url = <span class="property">@extractGitHubURL</span> value
+          <span class="keyword">return</span> callback <span class="literal">null</span>, url, pagesRemote <span class="keyword">if</span> url
+
+        callback <span class="keyword">new</span> Error <span class="string">"Could not guess a GitHub URL for the current repository :("</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A quick helper that extracts a GitHub project URL from its repository URL.</p></div></div><div class="code"><div class="wrapper">  extractGitHubURL: (url) -&gt;
+    match = url?.match <span class="regexp">/github\.com[:\/]([^\/]+)\/([^\/]+)/</span>
+    <span class="keyword">return</span> <span class="literal">null</span> <span class="keyword">unless</span> match
+
+    owner = match[<span class="number">1</span>]
+    repo  = <span class="keyword">if</span> match[<span class="number">2</span>][-<span class="number">4.</span>.] == <span class="string">'.git'</span> <span class="keyword">then</span> match[<span class="number">2</span>][<span class="number">0.</span>..-<span class="number">4</span>] <span class="keyword">else</span> match[<span class="number">2</span>]
+
+    <span class="string">"https://github.com/<span class="subst">#{owner}</span>/<span class="subst">#{repo}</span>"</span>
+
+module.exports = CLIHelpers</div></div></div></div></body></html>

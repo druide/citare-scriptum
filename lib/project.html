@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><title>lib\project</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib\project"><meta name="citare-project-path" content="lib\project.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\project.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="citare-api">Citare API</h1></div></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
+path = require <span class="string">'path'</span>
+
+spate = require <span class="string">'spate'</span>
+
+CompatibilityHelpers = require <span class="string">'./utils/compatibility_helpers'</span>
+Logger               = require <span class="string">'./utils/logger'</span>
+Utils                = require <span class="string">'./utils'</span>
+hljs = require(<span class="string">'highlight.js'</span>)
+hljs.LANGUAGES[<span class="string">'brief'</span>] = require(<span class="string">'./utils/brief.js'</span>)(hljs);</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A core concept of <code>citare</code> is that your code is grouped into a project, and that there is a certain
+amount of context that it lends to your documentation.</p></div></div><div class="code"><div class="wrapper"><span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A project:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Project</span></span>
+  constructor: (root, outPath, minLogLevel=Logger::INFO) -&gt;
+    <span class="property">@options</span> = {}
+    <span class="property">@log</span>     = <span class="keyword">new</span> Logger minLogLevel</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Has a single root directory that contains (most of) it.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="property">@root</span> = path.resolve root</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Generally wants documented generated somewhere within its tree.  We default the output path
+to be relative to the project root, unless you pass an absolute path.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="property">@outPath</span> = path.resolve <span class="property">@root</span>, outPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Contains a set of files to generate documentation from, source code or otherwise.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="property">@files</span> = []</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Should strip specific prefixes of a file&#39;s path when generating relative paths for
+documentation.  For example, this could be used to ensure that <code>lib/some/source.file</code> maps
+to <code>doc/some/source.file</code> and not <code>doc/lib/some/source.file</code>.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="property">@stripPrefixes</span> = []</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annoyingly, we seem to be hitting a race condition within Node 0.10&#39;s
+emulation for old-style streams.  For now, we&#39;re dropping concurrent doc
+generation to play it safe.</p></div></div><div class="code"><div class="wrapper">  oldNode = process.version.match <span class="regexp">/v0\.[0-8]\./</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>This is both a performance (over-)optimization and debugging aid.  Instead of spamming the
+system with file I/O and overhead all at once, we only process a certain number of source files
+concurrently.  This is similar to what <a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
+accomplishes.</p></div></div><div class="code"><div class="wrapper">  BATCH_SIZE: <span class="keyword">if</span> oldNode <span class="keyword">then</span> <span class="number">10</span> <span class="keyword">else</span> <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Where the magic happens.</p></div></div><div class="code"><div class="wrapper">  <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Currently, the only supported option is:</p></div></div><div class="code"><div class="wrapper">  generate: (options, callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'Project#Generate(%j, ...)'</span>, options
+    <span class="property">@log</span>.info <span class="string">'Generating documentation...'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>style: The style prototype to use.  Defaults to <code>styles.Default</code></li>
+</ul></div></div><div class="code"><div class="wrapper">    style = <span class="keyword">new</span> (options.style || styles.Default) @</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We need to ensure that the project root is a strip prefix so that we properly generate
+relative paths for our files.  Since strip prefixes are relative, it must be the first prefix,
+so that they can strip from the remainder.</p></div></div><div class="code"><div class="wrapper">    <span class="property">@stripPrefixes</span> = [<span class="property">@root</span> + CompatibilityHelpers.pathSep].concat <span class="property">@stripPrefixes</span>
+
+    fileMap   = Utils.mapFiles <span class="property">@root</span>, <span class="property">@files</span>, <span class="property">@stripPrefixes</span>
+    indexPath = path.resolve <span class="property">@root</span>, <span class="property">@index</span>
+
+    pool = spate.pool (k <span class="keyword">for</span> k <span class="keyword">of</span> fileMap), maxConcurrency: <span class="property">@BATCH_SIZE</span>, (currentFile, done) =&gt;
+      <span class="property">@log</span>.debug <span class="string">"Processing %s"</span>, currentFile
+
+      language = Utils.getLanguage currentFile
+      <span class="keyword">unless</span> language?
+        <span class="property">@log</span>.warn <span class="string">'%s is not in a supported language, skipping.'</span>, currentFile
+        <span class="keyword">return</span> done()
+
+      fs.readFile currentFile, <span class="string">'utf-8'</span>, (error, data) =&gt;
+        <span class="keyword">if</span> error
+          <span class="property">@log</span>.error <span class="string">"Failed to process %s: %s"</span>, currentFile, error.message
+          <span class="keyword">return</span> callback error
+
+        fileInfo =
+          language:    language</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  currentFile</p></div></div><div class="code"><div class="wrapper">          projectPath: currentFile.replace <span class="regexp">///^<span class="comment">#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, ''</span>
+          targetPath:  if currentFile == indexPath then 'index' else fileMap[currentFile]
+
+        style.renderFile data, fileInfo, done
+
+    pool.exec (error) =&gt;
+      return callback error if error
+
+      style.renderCompleted (error) =&gt;
+        return callback error if error
+
+        @log.info ''
+        @log.pass 'Documentation generated'
+        callback()</div></div></div></div></body></html>

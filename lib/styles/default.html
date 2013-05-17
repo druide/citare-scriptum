@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head><title>lib\styles\default</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib\styles\default"><meta name="citare-project-path" content="lib\styles\default.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\styles\default.coffee</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
+path = require <span class="string">'path'</span>
+
+_            = require <span class="string">'underscore'</span>
+coffeeScript = require <span class="string">'coffee-script'</span>
+fsTools      = require <span class="string">'fs-tools'</span>
+jade         = require <span class="string">'jade'</span>
+uglifyJs     = require <span class="string">'uglify-js'</span>
+
+Base = require <span class="string">'./base'</span>
+
+
+module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Default</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
+  STATIC_ASSETS: [<span class="string">'style.css'</span>]
+
+  constructor: (args...) -&gt;
+    <span class="keyword">super</span>(args...)
+
+    <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'default'</span>
+    <span class="property">@targetAssets</span> = path.resolve <span class="property">@project</span>.outPath, <span class="string">'assets'</span>
+
+    templateData  = fs.readFileSync path.join(<span class="property">@sourceAssets</span>, <span class="string">'docPage.jade'</span>), <span class="string">'utf-8'</span>
+    <span class="property">@templateFunc</span> = jade.compile templateData
+
+  renderCompleted: (callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'styles.Default#renderCompleted(...)'</span>
+
+    <span class="keyword">super</span> (error) =&gt;
+      <span class="keyword">return</span> error <span class="keyword">if</span> error
+      <span class="property">@copyAssets</span> callback
+
+  copyAssets: (callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'styles.Default#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
+over it (permissions), as well as wanting to avoid contention.</p></div></div><div class="code"><div class="wrapper">    fsTools.mkdir <span class="property">@targetAssets</span>, <span class="string">'0755'</span>, (error) =&gt;
+      <span class="keyword">if</span> error
+        <span class="property">@log</span>.error <span class="string">'Unable to create directory %s: %s'</span>, <span class="property">@targetAssets</span>, error.message
+        <span class="keyword">return</span> callback error
+      <span class="property">@log</span>.trace <span class="string">'mkdir: %s'</span>, <span class="property">@targetAssets</span>
+
+      numCopied = <span class="number">0</span>
+      <span class="keyword">for</span> asset <span class="keyword">in</span> <span class="property">@STATIC_ASSETS</span>
+        <span class="keyword">do</span> (asset) =&gt;
+          assetTarget = path.join <span class="property">@targetAssets</span>, asset
+          fsTools.copy path.join(<span class="property">@sourceAssets</span>, asset), assetTarget, (error) =&gt;
+            <span class="keyword">if</span> error
+              <span class="property">@log</span>.error <span class="string">'Unable to copy %s: %s'</span>, assetTarget, error.message
+              <span class="keyword">return</span> callback error
+            <span class="property">@log</span>.trace <span class="string">'Copied %s'</span>, assetTarget
+
+            numCopied += <span class="number">1</span>
+            <span class="property">@compileScript</span> callback <span class="keyword">unless</span> numCopied &lt; <span class="property">@STATIC_ASSETS</span>.length
+
+  compileScript: (callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'styles.Default#compileScript(...)'</span>
+
+    scriptPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'behavior.coffee'</span>
+    fs.readFile scriptPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
+      <span class="keyword">if</span> error
+        <span class="property">@log</span>.error <span class="string">'Failed to read %s: %s'</span>, scriptPath, error.message
+        <span class="keyword">return</span> callback error
+
+      <span class="keyword">try</span>
+        scriptSource = _.template data, @
+      <span class="keyword">catch</span> error
+        <span class="property">@log</span>.error <span class="string">'Failed to interpolate %s: %s'</span>, scriptPath, error.message
+        <span class="keyword">return</span> callback error
+
+      <span class="keyword">try</span>
+        scriptSource = coffeeScript.compile scriptSource
+        <span class="property">@log</span>.trace <span class="string">'Compiled %s'</span>, scriptPath
+      <span class="keyword">catch</span> error
+        <span class="property">@log</span>.debug scriptSource
+        <span class="property">@log</span>.error <span class="string">'Failed to compile %s: %s'</span>, scriptPath, error.message
+        <span class="keyword">return</span> callback error
+
+      <span class="comment">#@compressScript scriptSource, callback</span>
+      <span class="property">@concatenateScripts</span> scriptSource, callback
+
+  compressScript: (scriptSource, callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'styles.Default#compressScript(..., ...)'</span>
+
+    <span class="keyword">try</span>
+      ast = uglifyJs.parser.parse scriptSource
+      ast = uglifyJs.uglify.ast_mangle  ast
+      ast = uglifyJs.uglify.ast_squeeze ast
+
+      compiledSource = uglifyJs.uglify.gen_code ast
+
+    <span class="keyword">catch</span> error
+      <span class="property">@log</span>.error <span class="string">'Failed to compress assets/behavior.js: %s'</span>, error.message
+      <span class="keyword">return</span> callback error
+
+    <span class="property">@concatenateScripts</span> compiledSource, callback
+
+  concatenateScripts: (scriptSource, callback) -&gt;
+    <span class="property">@log</span>.trace <span class="string">'styles.Default#concatenateScripts(..., ...)'</span>
+
+    jqueryPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'jquery.min.js'</span>
+    fs.readFile jqueryPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
+      <span class="keyword">if</span> error
+        <span class="property">@log</span>.error <span class="string">'Failed to read %s: %s'</span>, jqueryPath, error.message
+        <span class="keyword">return</span> callback error
+
+      outputPath = path.join <span class="property">@targetAssets</span>, <span class="string">'behavior.js'</span>
+      fs.writeFile outputPath, data + scriptSource, (error) =&gt;
+        <span class="keyword">if</span> error
+          <span class="property">@log</span>.error <span class="string">'Failed to write %s: %s'</span>, outputPath, error.message
+          <span class="keyword">return</span> callback error
+        <span class="property">@log</span>.trace <span class="string">'Wrote %s'</span>, outputPath
+
+        callback()</div></div></div></div></body></html>

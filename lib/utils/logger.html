@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><title>lib\utils\logger</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib\utils\logger"><meta name="citare-project-path" content="lib\utils\logger.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\utils\logger.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="logger">Logger</h1></div></div><div class="code"><div class="wrapper">colors = require <span class="string">'colors'</span>
+
+CompatibilityHelpers = require <span class="string">'./compatibility_helpers'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We have pretty simple needs for a logger, and so far have been unable to find a reasonable
+off-the-shelf solution that fits them without being too overbearing:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>We want the standard levels of output, plus a few more.</li>
+</ul></div></div><div class="code"><div class="wrapper">  LEVELS:
+    TRACE: <span class="number">0</span>
+    DEBUG: <span class="number">1</span>
+    INFO:  <span class="number">2</span>
+    PASS:  <span class="number">2</span>
+    WARN:  <span class="number">3</span>
+    ERROR: <span class="number">4</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Full on level: labels are <strong>extremely</strong> heavy for what is primarily a command-line tool.  The
+common case - <code>INFO</code> - does not even expose a label.  We only want it to call out uncommon
+events with some slight symbolism.</li>
+</ul></div></div><div class="code"><div class="wrapper">  LEVEL_PREFIXES:
+    TRACE: <span class="string">'∴ '</span>
+    DEBUG: <span class="string">'‡ '</span>
+    INFO:  <span class="string">'  '</span>
+    PASS:  <span class="string">'✓ '</span>
+    WARN:  <span class="string">'» '</span>
+    ERROR: <span class="string">'! '</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Colors make the world better.</li>
+</ul></div></div><div class="code"><div class="wrapper">  LEVEL_COLORS:
+    TRACE: <span class="string">'grey'</span>
+    DEBUG: <span class="string">'grey'</span>
+    INFO:  <span class="string">'black'</span>
+    PASS:  <span class="string">'green'</span>
+    WARN:  <span class="string">'yellow'</span>
+    ERROR: <span class="string">'red'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Don&#39;t forget the semantics of our output.</li>
+</ul></div></div><div class="code"><div class="wrapper">  LEVEL_STREAMS:
+    TRACE: console.log
+    DEBUG: console.log
+    INFO:  console.log
+    PASS:  console.log
+    WARN:  console.error
+    ERROR: console.error
+
+  constructor: (minLevel = <span class="property">@LEVELS</span>.INFO) -&gt;
+    <span class="property">@minLevel</span> = minLevel
+
+    <span class="keyword">for</span> name <span class="keyword">of</span> <span class="property">@LEVELS</span>
+      <span class="keyword">do</span> (name) =&gt;
+        @[name.toLowerCase()] = (args...) -&gt;
+          <span class="property">@emit</span> name, args...
+
+  emit: (levelName, args...) -&gt;
+    <span class="keyword">if</span> <span class="property">@LEVELS</span>[levelName] &gt;= <span class="property">@minLevel</span>
+      output = CompatibilityHelpers.format args...</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>We like nicely indented output</li>
+</ul></div></div><div class="code"><div class="wrapper">      output = output.split(<span class="regexp">/\r?\n/</span>).join(<span class="string">'\n  '</span>)
+
+      <span class="property">@LEVEL_STREAMS</span>[levelName] colors[<span class="property">@LEVEL_COLORS</span>[levelName]] <span class="string">"<span class="subst">#{@LEVEL_PREFIXES[levelName]}</span><span class="subst">#{output}</span>"</span>
+
+      output</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Sometimes we just want one-off logging</li>
+</ul></div></div><div class="code"><div class="wrapper">globalLogger = <span class="keyword">new</span> Logger Logger::LEVELS.TRACE
+
+<span class="keyword">for</span> level <span class="keyword">of</span> globalLogger.LEVELS
+  <span class="keyword">do</span> (level) -&gt;
+    Logger[level.toLowerCase()] = (args...) -&gt; globalLogger[level.toLowerCase()] args...</div></div></div></div></body></html>
