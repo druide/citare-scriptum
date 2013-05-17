@@ -14,6 +14,7 @@ Project      = require './project'
 styles       = require './styles'
 Utils        = require './utils'
 marked       = require 'marked'
+hljs         = require('highlight.js')
 
 # Readable command line output is just as important as readable documentation!  It is the first
 # interaction that a developer will have with a tool like this, so we want to leave a good
