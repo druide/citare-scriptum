@@ -19,7 +19,7 @@ outline (table of contents!)</p></div></div><div class="code"><div class="wrappe
 </ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> a.targetPath == <span class="string">'index'</span>
       <span class="keyword">return</span>  <span class="number">1</span> <span class="keyword">if</span> b.targetPath == <span class="string">'index'</span>
 
-      <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> a.targetPath == b.targetPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+      <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> a.targetPath == b.targetPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>README.md comes first</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> a.targetPath.indexOf(<span class="string">"README.md"</span>) != -<span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>files matching a directory name come directly before it.  E.g. &quot;foo&quot; &lt; &quot;foo/bar&quot; &lt; &quot;foz&quot;</li>
 </ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> a.targetPath &lt; b.targetPath <span class="keyword">then</span> -<span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span>
 

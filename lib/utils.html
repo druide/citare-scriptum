@@ -45,7 +45,7 @@ assumption is that you don&#39;t want merged paths, but probably did specify the
 source directory first.</p></div></div><div class="code"><div class="wrapper">    result = _(result).uniq()[..<span class="number">.1</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>How many directories deep is a given path?</p></div></div><div class="code"><div class="wrapper">  pathDepth: (path) -&gt;
     path.split(<span class="regexp">/[\/\\]/</span>).length</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Split source code into segments (comment + code pairs)</p></div></div><div class="code"><div class="wrapper">  splitSource: (data, language, options={}) -&gt;
     lines = data.split <span class="regexp">/\r?\n/</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Always strip shebangs - but don&#39;t shift it off the array to avoid the perf hit of walking the
-array to update indices.</p></div></div><div class="code"><div class="wrapper">    lines[<span class="number">0</span>] = <span class="string">''</span> <span class="keyword">if</span> lines[<span class="number">0</span>][<span class="number">0.</span><span class="number">.1</span>] == <span class="string">'#!'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Special case: If the language is comments-only, we can skip pygments</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">return</span> [<span class="keyword">new</span> <span class="property">@Segment</span> [], lines] <span class="keyword">if</span> language.commentsOnly
+array to update indices.</p></div></div><div class="code"><div class="wrapper">    lines[<span class="number">0</span>] = <span class="string">''</span> <span class="keyword">if</span> lines[<span class="number">0</span>][<span class="number">0.</span><span class="number">.1</span>] == <span class="string">'#!'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Special case: If the language is comments-only, we can skip syntax highlight</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">return</span> [<span class="keyword">new</span> <span class="property">@Segment</span> [], lines] <span class="keyword">if</span> language.commentsOnly
 
     segments = []
     currSegment = <span class="keyword">new</span> <span class="property">@Segment</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Enforced whitespace after the comment token</p></div></div><div class="code"><div class="wrapper">    whitespaceMatch = <span class="keyword">if</span> options.requireWhitespaceAfterToken <span class="keyword">then</span> <span class="string">'\\s'</span> <span class="keyword">else</span> <span class="string">'\\s?'</span>
@@ -91,15 +91,30 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
             <span class="keyword">else</span>
               <span class="keyword">if</span> !options.commentsOnly
                 currSegment.code.push line
+              <span class="keyword">else</span>
+                currSegment.code.push <span class="string">''</span>
 
     segments.push currSegment
+    <span class="keyword">if</span> options.commentsOnly
+      currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
+      <span class="keyword">for</span> segment <span class="keyword">in</span> segments
+        <span class="property">@trimLeftSpace</span> segment
+        currSegment.comments.push(segment.comments.join(<span class="string">'\n'</span>))
+      segments = [currSegment]
     segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Just a convenient prototype for building segments</p></div></div><div class="code"><div class="wrapper">  Segment: <span class="class"><span class="keyword">class</span> <span class="title">Segment</span></span>
     constructor: (code=[], comments=[]) -&gt;
       <span class="property">@code</span>     = code
       <span class="property">@comments</span> = comments
 
-  unescape: (value) =&gt;
-    <span class="keyword">return</span> value.replace(<span class="regexp">/&amp;amp;/gm, '&amp;').replace(/&amp;lt;/gm, '&lt;').replace(/&amp;gt;/gm</span>, <span class="string">'&gt;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their code through <a href="http://pygments.org/">Pygments</a>.</p></div></div><div class="code"><div class="wrapper">  highlightCode: (segments, language, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Don&#39;t bother spawning pygments if we have nothing to highlight</p></div></div><div class="code"><div class="wrapper">    numCodeLines = segments.reduce ( (c,s) -&gt; c + s.code.length ), <span class="number">0</span>
+  unescape: (value) -&gt;
+    value.replace(<span class="regexp">/&amp;amp;/gm, '&amp;').replace(/&amp;lt;/gm, '&lt;').replace(/&amp;gt;/gm</span>, <span class="string">'&gt;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">  trimLeftSpace: (segment) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">    spaces = <span class="number">1000</span>
+    <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
+      <span class="keyword">if</span> line.trim().length &gt; <span class="number">0</span>
+        curspaces = <span class="regexp">/^(\s*)(.*)/</span>.exec(line)[<span class="number">1</span>].length
+        <span class="keyword">if</span> curspaces &lt; spaces
+          spaces = curspaces</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>now remove spaces from each line above.</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
+      segment.comments[i] = line.slice(spaces)
+    segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their code through <a href="https://github.com/isagalaev/highlight.js">highlight.js</a>.</p></div></div><div class="code"><div class="wrapper">  highlightCode: (segments, language, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Don&#39;t bother spawning highlight.js if we have nothing to highlight</p></div></div><div class="code"><div class="wrapper">    numCodeLines = segments.reduce ( (c,s) -&gt; c + s.code.length ), <span class="number">0</span>
     <span class="keyword">if</span> numCodeLines == <span class="number">0</span>
       <span class="keyword">for</span> segment <span class="keyword">in</span> segments
         segment.highlightedCode = <span class="string">''</span>
@@ -114,13 +129,9 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
     <span class="keyword">try</span>
       tocHeaders = []
 
-      <span class="keyword">for</span> segment, segmentIndex <span class="keyword">in</span> segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">        spaces = <span class="number">1000</span>
-        <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
-          <span class="keyword">if</span> line.trim().length &gt; <span class="number">0</span>
-            curspaces = <span class="regexp">/^(\s*)(.*)/</span>.exec(line)[<span class="number">1</span>].length
-            <span class="keyword">if</span> curspaces &lt; spaces
-              spaces = curspaces</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>now remove spaces from each line above.</p></div></div><div class="code"><div class="wrapper">        <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
-          segment.comments[i] = line.slice(spaces)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>put this back together.</p></div></div><div class="code"><div class="wrapper">        markdown = marked segment.comments.join <span class="string">'\n'</span>
+      <span class="keyword">for</span> segment, segmentIndex <span class="keyword">in</span> segments
+
+        <span class="property">@trimLeftSpace</span> segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>put this back together.</p></div></div><div class="code"><div class="wrapper">        markdown = marked segment.comments.join <span class="string">'\n'</span>
         headers  = []</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>showdown generates header ids by lowercasing &amp; dropping non-word characters.  We&#39;d like
 something a bit more readable.</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/&lt;h(\d)&gt;([^&lt;]+)&lt;\/h\d&gt;/g</span>, (match) =&gt;
           header =
@@ -139,8 +150,7 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
           text = <span class="string">""</span>
           <span class="keyword">if</span> tocHeaders.length
             text = <span class="string">"&lt;div class=\"toc\"&gt;"</span>
-            <span class="keyword">for</span> header, i <span class="keyword">in</span> tocHeaders
-              <span class="keyword">if</span> i == <span class="number">0</span>
+            <span class="keyword">for</span> header, i <span class="keyword">in</span> tocHeaders</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>always skip first header, usually it is top level header, and TOC is placed after it</p></div></div><div class="code"><div class="wrapper">              <span class="keyword">if</span> i == <span class="number">0</span>
                 <span class="keyword">continue</span>
               text += <span class="property">@repeat</span>(header.level) + <span class="string">"&lt;a href=\"#<span class="subst">#{header.slug}</span>\"&gt;<span class="subst">#{header.title}</span>&lt;/a&gt;&lt;br/&gt;"</span>
             text = text + <span class="string">"&lt;/div&gt;"</span>
@@ -149,9 +159,7 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
     <span class="keyword">catch</span> error
       <span class="keyword">return</span> callback error
 
-    callback()
-
-  repeat: (count) -&gt;
+    callback()</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>add <em>count</em> whitespaces</p></div></div><div class="code"><div class="wrapper">  repeat: (count) -&gt;
     text = <span class="string">""</span>
     <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1.</span>.count-<span class="number">1</span>]
       text += <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>

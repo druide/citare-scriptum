@@ -11,7 +11,8 @@ PACKAGE_INFO = require <span class="string">'./package_info'</span>
 Project      = require <span class="string">'./project'</span>
 styles       = require <span class="string">'./styles'</span>
 Utils        = require <span class="string">'./utils'</span>
-marked       = require <span class="string">'marked'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Readable command line output is just as important as readable documentation!  It is the first
+marked       = require <span class="string">'marked'</span>
+hljs         = require(<span class="string">'highlight.js'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Readable command line output is just as important as readable documentation!  It is the first
 interaction that a developer will have with a tool like this, so we want to leave a good
 impression with nicely formatted and readable command line output.</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="function"><span class="title">CLI</span></span> = (inputArgs, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In keeping with our console beautification project, make sure that our output isn&#39;t getting
 too comfortable with the user&#39;s next shell line.</p></div></div><div class="code"><div class="wrapper">  actualCallback = callback

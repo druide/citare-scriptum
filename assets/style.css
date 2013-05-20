@@ -4,6 +4,7 @@
 html,body{height:100%}
 body {
   background-color: #f2f2ff;
+  min-width: 460px;
 }
 #document {
   min-height:100%;
@@ -209,17 +210,16 @@ em, i {
 .segment .code {
   float: left;
   height: 100%;
-  width: 57%;
+  width: 44%;
   font-family: Menlo, Monaco, 'Courier New', monospace;
   font-size: 14px;
   white-space: pre;
-  padding: 14px 1em 0 1em;
-  overflow: auto;
+  padding: 14px 1em 0 1.2em;
 }
 
 .segment .comments blockquote {
-  border-left: 3px solid silver;
-  margin-left: 26px;
+  border-left: 4px solid silver;
+  margin-left: 0;
   padding: 2px 14px;
   background: #F5F5F5;
 }
