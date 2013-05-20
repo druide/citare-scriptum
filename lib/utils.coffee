@@ -92,7 +92,7 @@ module.exports = Utils =
     # array to update indices.
     lines[0] = '' if lines[0][0..1] == '#!'
 
-    # Special case: If the language is comments-only, we can skip pygments
+    # Special case: If the language is comments-only, we can skip syntax highlight
     return [new @Segment [], lines] if language.commentsOnly
 
     segments = []
@@ -146,8 +146,16 @@ module.exports = Utils =
             else
               if !options.commentsOnly
                 currSegment.code.push line
+              else
+                currSegment.code.push ''
 
     segments.push currSegment
+    if options.commentsOnly
+      currSegment = new @Segment
+      for segment in segments
+        @trimLeftSpace segment
+        currSegment.comments.push(segment.comments.join('\n'))
+      segments = [currSegment]
     segments
 
   # Just a convenient prototype for building segments
@@ -156,12 +164,26 @@ module.exports = Utils =
       @code     = code
       @comments = comments
 
-  unescape: (value) =>
-    return value.replace(/&amp;/gm, '&').replace(/&lt;/gm, '<').replace(/&gt;/gm, '>')
+  unescape: (value) ->
+    value.replace(/&amp;/gm, '&').replace(/&lt;/gm, '<').replace(/&gt;/gm, '>')
 
-  # Annotate an array of segments by running their code through [Pygments](http://pygments.org/).
+  # sort out the smallest amount of space prefixing each line.
+  trimLeftSpace: (segment) ->
+    # sort out the smallest amount of space prefixing each line.
+    spaces = 1000
+    for line, i in segment.comments
+      if line.trim().length > 0
+        curspaces = /^(\s*)(.*)/.exec(line)[1].length
+        if curspaces < spaces
+          spaces = curspaces
+    # now remove spaces from each line above.
+    for line, i in segment.comments
+      segment.comments[i] = line.slice(spaces)
+    segment
+
+  # Annotate an array of segments by running their code through [highlight.js](https://github.com/isagalaev/highlight.js).
   highlightCode: (segments, language, callback) ->
-    # Don't bother spawning pygments if we have nothing to highlight
+    # Don't bother spawning highlight.js if we have nothing to highlight
     numCodeLines = segments.reduce ( (c,s) -> c + s.code.length ), 0
     if numCodeLines == 0
       for segment in segments
@@ -182,16 +204,7 @@ module.exports = Utils =
 
       for segment, segmentIndex in segments
 
-        # sort out the smallest amount of space prefixing each line.
-        spaces = 1000
-        for line, i in segment.comments
-          if line.trim().length > 0
-            curspaces = /^(\s*)(.*)/.exec(line)[1].length
-            if curspaces < spaces
-              spaces = curspaces
-        # now remove spaces from each line above.
-        for line, i in segment.comments
-          segment.comments[i] = line.slice(spaces)
+        @trimLeftSpace segment
 
         # put this back together.
         markdown = marked segment.comments.join '\n'
@@ -230,6 +243,7 @@ module.exports = Utils =
           if tocHeaders.length
             text = "<div class=\"toc\">"
             for header, i in tocHeaders
+              # always skip first header, usually it is top level header, and TOC is placed after it
               if i == 0
                 continue
               text += @repeat(header.level) + "<a href=\"##{header.slug}\">#{header.title}</a><br/>"
@@ -241,6 +255,7 @@ module.exports = Utils =
 
     callback()
 
+  # add *count* whitespaces
   repeat: (count) ->
     text = ""
     for i in [1..count-1]

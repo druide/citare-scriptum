@@ -39,6 +39,8 @@ module.exports = StyleHelpers =
       return  1 if b.targetPath == 'index'
 
       return 0 if a.targetPath == b.targetPath
+      # README.md comes first
+      return -1 if a.targetPath.indexOf("README.md") != -1
       # * files matching a directory name come directly before it.  E.g. "foo" < "foo/bar" < "foz"
       if a.targetPath < b.targetPath then -1 else 1
 
