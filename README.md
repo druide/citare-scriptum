@@ -25,6 +25,11 @@ Citare will:
 * Read a configuration file so that you don't have to think when you want your documentation built;
   you just type `citare`.
 
+Contains [brief](lib/utils/brief.html) function specification highlight (works with github flavored markdown):
+
+```
+functionName(Type argument1, Type1/Type2 argument2, Type optionalArgument1?): Type
+```
 
 ## How?
 
