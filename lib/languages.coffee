@@ -2,7 +2,7 @@
 
 module.exports = LANGUAGES =
   Markdown:
-    nameMatchers: ['.md', '.txt']
+    nameMatchers: ['.md', '.txt', '.litcoffee']
     commentsOnly: true
 
   ActionScript:
@@ -34,6 +34,7 @@ module.exports = LANGUAGES =
     nameMatchers:      ['.coffee', 'Cakefile']
     lexer:     'coffeescript'
     singleLineComment: ['#']
+    multiLineComment:  [///^\s*###\s*$///]
 
   Go:
     nameMatchers:      ['.go']
@@ -116,3 +117,8 @@ module.exports = LANGUAGES =
     lexer: 'xml'
     singleLineComment: ['<!---']
     multiLineComment:  [///^\s*\<\!\-\-+\s*///, ///\s*\-+\>$///]
+
+  CMD:
+    nameMatchers: ['.cmd', '.bat']
+    lexer: 'dos'
+    singleLineComment: ['@rem']

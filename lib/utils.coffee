@@ -106,7 +106,10 @@ module.exports = Utils =
     multiLineMatcher2 = ///\s*\*+/\s*$///
     if language.multiLineComment?
       multiLineMatcher1 = language.multiLineComment[0]
-      multiLineMatcher2 = language.multiLineComment[1]
+      if language.multiLineComment[1]?
+        multiLineMatcher2 = language.multiLineComment[1]
+      else
+        multiLineMatcher2 = null
     incomment = false
 
     for line in lines
@@ -115,7 +118,14 @@ module.exports = Utils =
       # However, we treat all comments beginning with } as inline code commentary.
       match = line.match singleLineMatcher
       match2 = line.match multiLineMatcher1
-      match3 = line.match multiLineMatcher2
+      if multiLineMatcher2?
+        match3 = line.match multiLineMatcher2
+      else
+        if incomment
+          match3 = match2
+          match2 = null
+        else
+          match3 = null
 
       #} For example, this comment should be treated as part of our code.
       if !incomment and match? and match[2]?[0] != '}'
