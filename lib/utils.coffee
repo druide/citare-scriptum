@@ -235,6 +235,16 @@ module.exports = Utils =
 
           "<h#{header.level} id=\"#{header.slug}\">#{header.title}</h#{header.level}>"
 
+        # temporary replace auto-links inside code blocks
+        markdown = @gsub markdown, /(\<pre\>.*)(\[[^\]]+\])(.*\<\/pre\>)/g, (match) =>
+          match[1] + match[2].replace("[", "{{_{{").replace("]", "}}_}}") + match[3]
+        markdown = @gsub markdown, /(\<code\>.*)(\[[^\]]+\])(.*\<\/code\>)/g, (match) =>
+          match[1] + match[2].replace("[", "{{_{{").replace("]", "}}_}}") + match[3]
+        markdown = @gsub markdown, /(\<pre\>.*)({{TOC}})(.*\<\/pre\>)/g, (match) =>
+          match[1] + "{{TOC__}}" + match[3]
+        markdown = @gsub markdown, /(\<code\>.*)({{TOC}})(.*\<\/code\>)/g, (match) =>
+          match[1] + "{{TOC__}}" + match[3]
+
         # find and process auto-link nodes
         markdown = @gsub markdown, /\[[^\]]+\]/g, (match) =>
           text = match[0]
@@ -259,6 +269,17 @@ module.exports = Utils =
               text += @repeat(header.level) + "<a href=\"##{header.slug}\">#{header.title}</a><br/>"
             text = text + "</div>"
           text
+
+      # revert temporary replaced code text
+      for segment, segmentIndex in segments
+        segment.markdownedComments = @gsub segment.markdownedComments, /(\<pre\>.*)({{_{{.*}}_}})(.*\<\/pre\>)/g, (match) =>
+          match[1] + match[2].replace('{{_{{', "[").replace('}}_}}', "]") + match[3]
+        segment.markdownedComments = @gsub segment.markdownedComments, /(\<code\>.*)({{_{{.*}}_}})(.*\<\/code\>)/g, (match) =>
+          match[1] + match[2].replace('{{_{{', "[").replace('}}_}}', "]") + match[3]
+        segment.markdownedComments = @gsub segment.markdownedComments, /(\<pre\>.*)({{TOC__}})(.*\<\/pre\>)/g, (match) =>
+          match[1] + "{{TOC}}" + match[3]
+        segment.markdownedComments = @gsub segment.markdownedComments, /(\<code\>.*)({{TOC__}})(.*\<\/code\>)/g, (match) =>
+          match[1] + "{{TOC}}" + match[3]
 
     catch error
       return callback error

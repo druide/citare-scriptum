@@ -83,7 +83,7 @@ example, citare's own configuration is:
 From now on, if you call `citare` without any arguments, it will use your pre-defined configuration.
 
 ## Difference from groc
-Citare is a fork of another documentation project [groc](https://github.com/nevir/groc) written by
+Citare is a fork of documentation project [groc](https://github.com/nevir/groc) written by
 [Ian MacLeod](https://github.com/nevir). It is backward-compatable with groc (have the same options and
 understands `.groc.json`) and have the following changes:
 
@@ -92,7 +92,7 @@ understands `.groc.json`) and have the following changes:
   syntax highlighter
 - default style is changed to look more like [lit](https://github.com/apres/lit.js)
 - table of contents includes all the files with all the titles from project
-- `{ { TOC } }` tag to insert auto generated table of contents in your markdown
+- `{{TOC}}` tag to insert auto generated table of contents in your markdown
 - `[Any Title]` syntax for auto linking to any title in the project (for now citare does
   not resolve duplicate titles so link will point to the first found duplicate title)
 
