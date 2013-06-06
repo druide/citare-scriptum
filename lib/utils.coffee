@@ -189,6 +189,16 @@ module.exports = Utils =
     # now remove spaces from each line above.
     for line, i in segment.comments
       segment.comments[i] = line.slice(spaces)
+    # handle "*" started block comments
+    if segment.comments.length > 1
+      isAsterixComment = true
+      for line, i in segment.comments
+        if line != "" and line[0] != "*"
+          isAsterixComment = false
+          break
+      if isAsterixComment
+        for line, i in segment.comments
+          segment.comments[i] = line.substring(1)
     segment
 
   # Annotate an array of segments by running their code through [highlight.js](https://github.com/isagalaev/highlight.js).
