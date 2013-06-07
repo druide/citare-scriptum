@@ -131,9 +131,11 @@ module.exports = CLI = (inputArgs, callback) ->
     verbose:
       describe: "Output the inner workings of citare to help diagnose issues."
 
-   'very-verbose':
+    'very-verbose':
       describe: "Hey, you asked for it."
 
+    'footer':
+      describe: "Footer text"
 
   # ## Argument processing
 
@@ -202,6 +204,7 @@ module.exports = CLI = (inputArgs, callback) ->
   project.options.requireWhitespaceAfterToken = !!argv['whitespace-after-token']
   project.options.commentsOnly = !!argv['comments-only']
   project.options.gfm = !!argv['gfm']
+  project.options.footer = argv['footer'] || ''
 
   # configure marked
   marked.setOptions

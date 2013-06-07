@@ -9,7 +9,7 @@ CompatibilityHelpers = require './utils/compatibility_helpers'
 Logger               = require './utils/logger'
 Utils                = require './utils'
 hljs = require('highlight.js')
-hljs.LANGUAGES['brief'] = require('./utils/brief.js')(hljs);
+hljs.LANGUAGES['brief'] = require('./utils/brief')(hljs);
 
 # A core concept of `citare` is that your code is grouped into a project, and that there is a certain
 # amount of context that it lends to your documentation.
@@ -76,8 +76,8 @@ module.exports = class Project
         fileInfo =
           language:    language
           # sourcePath:  currentFile
-          projectPath: currentFile.replace(///^#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, '').replace("\\", "/")
-          targetPath:  (if currentFile == indexPath then 'index' else fileMap[currentFile])
+          projectPath: currentFile.replace(///^#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, '').replace(///\\///g, "/")
+          targetPath:  (if currentFile == indexPath then 'index' else fileMap[currentFile]).replace(///\\///g, "/")
 
         style.renderFile data, fileInfo, done
 
