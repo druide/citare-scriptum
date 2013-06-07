@@ -75,7 +75,7 @@ module.exports = class Base
         segments:    segments
         # sourcePath:  fileInfo.sourcePath
         targetPath:  fileInfo.targetPath
-        projectPath: fileInfo.projectPath
+        projectPath: fileInfo.projectPath.replace("\\", "/")
         commentsOnly: fileInfo.language.commentsOnly || @project.options.commentsOnly
         missingDoc: missingDoc
 

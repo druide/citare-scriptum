@@ -11,8 +11,8 @@ body {
   display:inline-block;
   padding-right:0.5em;
   width:100%;
+  background-color: #f2f2ff;
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  padding-bottom: 0.5em;
 }
 #meta{float:right;margin-right:320px;padding:0 1em 0.25em;color:brown;}
 
@@ -23,7 +23,6 @@ body {
   font-style: italic;
   color: silver;
   margin: 0;
-  text-align: right;
   float: left;
   width: 38%;
 }
@@ -42,6 +41,8 @@ body {
   color: #A0A0A0;
   width: 97%;
   float: none;
+  text-align: right;
+  padding-bottom: 0.5em;
 }
 #footer.commentsonly a {
   color: #A0A0A0;
@@ -163,15 +164,51 @@ em, i {
   width: 38%;
   font-size: 14px;
   padding: 0 1em 0 1em;
+  background-color: white;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  box-shadow: 1px 1px 15px #cbcbcb;
+  margin: 5px 5px 5px 10px;
   z-index: 998;
-}
-
-.segment.nocomment .comments {
-  margin: 1px 0;
 }
 
 .segment .comments>* {
   overflow: hidden;
+}
+
+/* callout shadow */
+.segment:after {
+  position: absolute;
+  top: 7px;
+  left: 38%; /* set same as .comment width */
+  margin-left: 34px;
+  font-size: 27px;
+  content: "►";
+  color: transparent;
+  text-shadow: 0 0 15px #cbcbcb;
+  z-index: 997;
+}
+
+/* callout arrow */
+.segment .comments:after {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: -7px;
+  font-size: 27px;
+  content: "►";
+  color: white;
+  z-index: 999;
+}
+
+.segment.nocomment:after {
+  content: "";
+  text-shadow: 0;
+}
+.segment.nocomment .comments:after {
+  content: "";
+  display: none;
 }
 
 .segment .commentsonly {
@@ -179,26 +216,11 @@ em, i {
   max-width:900px;
   float: none;
   margin: 0.5em auto 0 auto;
-  background-color: white;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  box-shadow: 1px 1px 15px #cbcbcb;
-  margin: 0.5em auto 0 auto;
 }
 
-#bg {
-  position: fixed;
-  width: 38%;
-  min-width: 180px;
-  background-color: white;
-  box-shadow: 1px 1px 15px #cbcbcb;
-  padding: 0 1em 0 1em;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow:hidden;
-  z-index: -1;
+.segment .commentsonly:after {
+  content: "";
+  display: none;
 }
 
 .segment .comments code {

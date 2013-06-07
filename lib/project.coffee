@@ -76,8 +76,8 @@ module.exports = class Project
         fileInfo =
           language:    language
           # sourcePath:  currentFile
-          projectPath: currentFile.replace ///^#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, ''
-          targetPath:  if currentFile == indexPath then 'index' else fileMap[currentFile]
+          projectPath: currentFile.replace(///^#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, '').replace("\\", "/")
+          targetPath:  (if currentFile == indexPath then 'index' else fileMap[currentFile])
 
         style.renderFile data, fileInfo, done
 
