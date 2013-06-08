@@ -146,6 +146,7 @@ clearFilter = ->
 
   for nodeInfo in searchableNodes
     nodeInfo[1].removeClass 'filtered matched-child'
+    nodeInfo[1].removeClass 'matched'
     clearHighlight nodeInfo[2]
 
 highlightMatch = (text$, queryString) ->
@@ -229,7 +230,7 @@ buildTOCNode = (node, metaInfo) ->
       node$.append """<span class="label"><span class="text">#{node.data.title}</span></span>"""
 
     when 'heading'
-      node$.append """<a class="label" href="#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}" title="#{node.data.title}"><span class="text">#{node.data.title}</span></a>"""
+      node$.append """<a class="label" href="#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}"><span class="text">#{node.data.title}</span></a>"""
       processAutolinks node.data.title, "#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}"
 
   if node.children?.length > 0

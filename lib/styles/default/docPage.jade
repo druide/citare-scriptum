@@ -15,24 +15,20 @@ html(lang="en")
   body
     - if (!commentsOnly)
       #bg
-    #meta
+    #meta(class=commentsOnly ? "commentsonly" : "")
       - if (project.githubURL)
         .file-path
           a(href=project.githubURL + '/blob/master/' + projectPath)= projectPath
       - else
         .file-path= projectPath
 
-    #document
+    #document(class=commentsOnly ? "commentsonly" : "")
       - for (var i in segments)
         - if (missingDoc || segments[i].markdownedComments != '')
-          .segment
+          .segment(class=commentsOnly ? "commentsonly" : "")
             - if (segments[i].markdownedComments != '')
-              - if (commentsOnly)
-                .comments.commentsonly
-                  .wrapper!= segments[i].markdownedComments
-              - else
-                .comments
-                  .wrapper!= segments[i].markdownedComments
+              .comments(class=commentsOnly ? "commentsonly" : "")
+                .wrapper!= segments[i].markdownedComments
             - else
               .comments
                 .wrapper!= "<p>... is missing some documentation.</p>"
@@ -48,7 +44,5 @@ html(lang="en")
               .code
                 .wrapper!= segments[i].highlightedCode
 
-      - if (commentsOnly)
-        #footer.commentsonly!= footerText
-      - else
-        #footer!= footerText
+      #segment-footer
+        #footer(class=commentsOnly ? "commentsonly" : "")!= footerText
