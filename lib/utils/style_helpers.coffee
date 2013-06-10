@@ -83,11 +83,19 @@ module.exports = StyleHelpers =
       else
         fileData.title = path.basename file.targetPath
 
+      depth = file.targetPath.split( '/' ).length
+
+      # change previouse node style if it is file with same name with folder
+      if nodes.length
+        prevNode = nodes[nodes.length - 1]
+        if prevNode.type == 'file' and prevNode.depth < depth
+          prevNode.isFileFolder = true
+
       nodes.push
         type:   'file'
         data:    fileData
         #depth:   file.targetPath.split( path.join('/') ).length
-        depth:   file.targetPath.split( '/' ).length
+        depth:   depth
         outline: outlines[file.targetPath]
 
     @buildNodeTree nodes

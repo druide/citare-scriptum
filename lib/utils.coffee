@@ -102,6 +102,7 @@ module.exports = Utils =
     whitespaceMatch = if options.requireWhitespaceAfterToken then '\\s' else '\\s?'
 
     singleLineMatcher = ///^\s*(#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///
+    singleEmptyLineMatcher = ///^\s*(#{language.singleLineComment.join('|')})(\s*)$///
     multiLineMatcher1 = ///^\s*/\*+\s*///
     multiLineMatcher2 = ///\s*\*+/\s*$///
     if language.multiLineComment?
@@ -126,13 +127,17 @@ module.exports = Utils =
           match2 = null
         else
           match3 = null
+      emptyMatch = line.match singleEmptyLineMatcher
 
       #} For example, this comment should be treated as part of our code.
-      if !incomment and match? and match[2]?[0] != '}'
+      if !incomment and (match? and match[2]?[0] != '}' or emptyMatch?)
         if currSegment.code.length > 0
           segments.push currSegment
           currSegment = new @Segment
-        currSegment.comments.push match[2]
+        if match?
+          currSegment.comments.push match[2]
+        else
+          currSegment.comments.push ""
       else
         if match2?
           incomment = true
@@ -235,7 +240,7 @@ module.exports = Utils =
         markdown = @gsub markdown, /<h(\d)>([^<]+)<\/h\d>/g, (match) =>
           header =
             level: parseInt match[1]
-            title: match[2]
+            title: match[2].replace ///#\{///g, '\\0x23{' # escape coffescript "#{}" interpolation
             slug:  @slugifyTitle match[2]
 
           header.isFileHeader = true if header.level == 1 && segmentIndex == 0 && match.index == 0

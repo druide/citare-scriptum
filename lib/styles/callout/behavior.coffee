@@ -210,7 +210,10 @@ buildNav = (metaInfo) ->
   nav$
 
 buildTOCNode = (node, metaInfo) ->
-  node$ = $("""<li class="#{node.type}"/>""")
+  if node.isFileFolder
+    node$ = $("""<li class="#{node.type} file-folder"/>""")
+  else
+    node$ = $("""<li class="#{node.type}"/>""")
 
   # find and setup auto-links
   autolinks = $(".autolink")
