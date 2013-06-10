@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><title>lib\utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib\utils"><meta name="citare-project-path" content="lib\utils.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\utils.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>Miscellaneous code fragments reside here.</p></div></div><div class="code"><div class="wrapper"><span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>TODO: These should be migrated into <code>lib/utils</code>.</p></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/utils"><meta name="citare-project-path" content="lib/utils.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/utils.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>Miscellaneous code fragments reside here.</p>
+<p>TODO: These should be migrated into <code>lib/utils</code>.</p></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
 path         = require <span class="string">'path'</span>
 
 _        = require <span class="string">'underscore'</span>
@@ -9,8 +10,10 @@ LANGUAGES            = require <span class="string">'./languages'</span>
 Logger               = require <span class="string">'./utils/logger'</span>
 hljs = require(<span class="string">'highlight.js'</span>)
 
-module.exports = Utils =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Escape regular expression characters in a string</p></div></div><div class="code"><div class="wrapper">  <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Code from http://zetafleet.com/ via http://simonwillison.net/2006/Jan/20/escape/</p></div></div><div class="code"><div class="wrapper">  regexpEscape: (string) -&gt;
-    string.replace(<span class="regexp">/[-[\]{}()*+?.,\\^$|#\s]/g</span>, <span class="string">'\\$&amp;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Detect and return the language that a given file is written in.</p></div></div><div class="code"><div class="wrapper">  <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The language is also annotated with a name property, matching the laguages key in LANGUAGES.</p></div></div><div class="code"><div class="wrapper">  getLanguage: (filePath) -&gt;
+module.exports = Utils =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Escape regular expression characters in a string</p>
+<p>Code from http://zetafleet.com/ via http://simonwillison.net/2006/Jan/20/escape/</p></div></div><div class="code"><div class="wrapper">  regexpEscape: (string) -&gt;
+    string.replace(<span class="regexp">/[-[\]{}()*+?.,\\^$|#\s]/g</span>, <span class="string">'\\$&amp;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Detect and return the language that a given file is written in.</p>
+<p>The language is also annotated with a name property, matching the laguages key in LANGUAGES.</p></div></div><div class="code"><div class="wrapper">  getLanguage: (filePath) -&gt;
     <span class="keyword">unless</span> <span class="property">@_languageDetectionCache</span>?
       <span class="property">@_languageDetectionCache</span> = []
 
@@ -51,23 +54,39 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
     currSegment = <span class="keyword">new</span> <span class="property">@Segment</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Enforced whitespace after the comment token</p></div></div><div class="code"><div class="wrapper">    whitespaceMatch = <span class="keyword">if</span> options.requireWhitespaceAfterToken <span class="keyword">then</span> <span class="string">'\\s'</span> <span class="keyword">else</span> <span class="string">'\\s?'</span>
 
     singleLineMatcher = <span class="regexp">///^\s*(<span class="comment">#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///</span>
-    multiLineMatcher1 = ///</span>^\s*<span class="regexp">/\*+\s*///</span>
+    singleEmptyLineMatcher = ///</span>^\s*(<span class="comment">#{language.singleLineComment.join('|')})(\s*)$///</span>
+    multiLineMatcher1 = <span class="regexp">///^\s*/\*+\s*///</span>
     multiLineMatcher2 = <span class="regexp">///\s*\*+/\s*$///</span>
     <span class="keyword">if</span> language.multiLineComment?
       multiLineMatcher1 = language.multiLineComment[<span class="number">0</span>]
-      multiLineMatcher2 = language.multiLineComment[<span class="number">1</span>]
+      <span class="keyword">if</span> language.multiLineComment[<span class="number">1</span>]?
+        multiLineMatcher2 = language.multiLineComment[<span class="number">1</span>]
+      <span class="keyword">else</span>
+        multiLineMatcher2 = <span class="literal">null</span>
     incomment = <span class="literal">false</span>
 
-    <span class="keyword">for</span> line <span class="keyword">in</span> lines</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Match that line to the language&#39;s single line comment syntax.</p></div></div><div class="code"><div class="wrapper">      <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>However, we treat all comments beginning with } as inline code commentary.</p></div></div><div class="code"><div class="wrapper">      match = line.match singleLineMatcher
+    <span class="keyword">for</span> line <span class="keyword">in</span> lines</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Match that line to the language&#39;s single line comment syntax.</p>
+<p>However, we treat all comments beginning with } as inline code commentary.</p></div></div><div class="code"><div class="wrapper">      match = line.match singleLineMatcher
       match2 = line.match multiLineMatcher1
-      match3 = line.match multiLineMatcher2
+      <span class="keyword">if</span> multiLineMatcher2?
+        match3 = line.match multiLineMatcher2
+      <span class="keyword">else</span>
+        <span class="keyword">if</span> incomment
+          match3 = match2
+          match2 = <span class="literal">null</span>
+        <span class="keyword">else</span>
+          match3 = <span class="literal">null</span>
+      emptyMatch = line.match singleEmptyLineMatcher
 
       <span class="comment">#} For example, this comment should be treated as part of our code.</span>
-      <span class="keyword">if</span> !incomment <span class="keyword">and</span> match? <span class="keyword">and</span> match[<span class="number">2</span>]?[<span class="number">0</span>] != <span class="string">'}'</span>
+      <span class="keyword">if</span> !incomment <span class="keyword">and</span> (match? <span class="keyword">and</span> match[<span class="number">2</span>]?[<span class="number">0</span>] != <span class="string">'}'</span> <span class="keyword">or</span> emptyMatch?)
         <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
           segments.push currSegment
           currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
-        currSegment.comments.push match[<span class="number">2</span>]
+        <span class="keyword">if</span> match?
+          currSegment.comments.push match[<span class="number">2</span>]
+        <span class="keyword">else</span>
+          currSegment.comments.push <span class="string">""</span>
       <span class="keyword">else</span>
         <span class="keyword">if</span> match2?
           incomment = <span class="literal">true</span>
@@ -113,7 +132,15 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
         curspaces = <span class="regexp">/^(\s*)(.*)/</span>.exec(line)[<span class="number">1</span>].length
         <span class="keyword">if</span> curspaces &lt; spaces
           spaces = curspaces</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>now remove spaces from each line above.</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
-      segment.comments[i] = line.slice(spaces)
+      segment.comments[i] = line.slice(spaces)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>handle &quot;*&quot; started block comments</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">if</span> segment.comments.length &gt; <span class="number">1</span>
+      isAsterixComment = <span class="literal">true</span>
+      <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
+        <span class="keyword">if</span> line != <span class="string">""</span> <span class="keyword">and</span> line[<span class="number">0</span>] != <span class="string">"*"</span>
+          isAsterixComment = <span class="literal">false</span>
+          <span class="keyword">break</span>
+      <span class="keyword">if</span> isAsterixComment
+        <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
+          segment.comments[i] = line.substring(<span class="number">1</span>)
     segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their code through <a href="https://github.com/isagalaev/highlight.js">highlight.js</a>.</p></div></div><div class="code"><div class="wrapper">  highlightCode: (segments, language, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Don&#39;t bother spawning highlight.js if we have nothing to highlight</p></div></div><div class="code"><div class="wrapper">    numCodeLines = segments.reduce ( (c,s) -&gt; c + s.code.length ), <span class="number">0</span>
     <span class="keyword">if</span> numCodeLines == <span class="number">0</span>
       <span class="keyword">for</span> segment <span class="keyword">in</span> segments
@@ -136,15 +163,22 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
 something a bit more readable.</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/&lt;h(\d)&gt;([^&lt;]+)&lt;\/h\d&gt;/g</span>, (match) =&gt;
           header =
             level: parseInt match[<span class="number">1</span>]
-            title: match[<span class="number">2</span>]
-            slug:  <span class="property">@slugifyTitle</span> match[<span class="number">2</span>]
+            title: match[<span class="number">2</span>].replace <span class="regexp">///<span class="comment">#\{///g, '\\0x23{' # escape coffescript "#{}" interpolation</span>
+            slug:  @slugifyTitle match[2]
 
-          header.isFileHeader = <span class="literal">true</span> <span class="keyword">if</span> header.level == <span class="number">1</span> &amp;&amp; segmentIndex == <span class="number">0</span> &amp;&amp; match.index == <span class="number">0</span>
+          header.isFileHeader = true if header.level == 1 &amp;&amp; segmentIndex == 0 &amp;&amp; match.index == 0
 
           headers.push header
           tocHeaders.push header
 
-          <span class="string">"&lt;h<span class="subst">#{header.level}</span> id=\"<span class="subst">#{header.slug}</span>\"&gt;<span class="subst">#{header.title}</span>&lt;/h<span class="subst">#{header.level}</span>&gt;"</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and process auto-link nodes</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/\[[^\]]+\]/g</span>, (match) =&gt;
+          "&lt;h<span class="comment">#{header.level} id=\"#{header.slug}\"&gt;#{header.title}&lt;/h#{header.level}&gt;"</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>temporary replace auto-links inside code blocks</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/(\&lt;pre\&gt;.*)(\[[^\]]+\])(.*\&lt;\/pre\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + match[<span class="number">2</span>].replace(<span class="string">"["</span>, <span class="string">"{{_{{"</span>).replace(<span class="string">"]"</span>, <span class="string">"}}_}}"</span>) + match[<span class="number">3</span>]
+        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/(\&lt;code\&gt;.*)(\[[^\]]+\])(.*\&lt;\/code\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + match[<span class="number">2</span>].replace(<span class="string">"["</span>, <span class="string">"{{_{{"</span>).replace(<span class="string">"]"</span>, <span class="string">"}}_}}"</span>) + match[<span class="number">3</span>]
+        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/(\&lt;pre\&gt;.*)({{TOC}})(.*\&lt;\/pre\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + <span class="string">"{{TOC__}}"</span> + match[<span class="number">3</span>]
+        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/(\&lt;code\&gt;.*)({{TOC}})(.*\&lt;\/code\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + <span class="string">"{{TOC__}}"</span> + match[<span class="number">3</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and process auto-link nodes</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/\[[^\]]+\]/g</span>, (match) =&gt;
           text = match[<span class="number">0</span>]
           <span class="string">"&lt;span class=\"autolink\"&gt;<span class="subst">#{text}</span>&lt;/span&gt;"</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We attach the rendered markdown to the comment</p></div></div><div class="code"><div class="wrapper">        segment.markdownedComments = markdown</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>As well as the extracted headers to aid in outline building.</p></div></div><div class="code"><div class="wrapper">        segment.headers = headers</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>make TOC</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">for</span> segment, segmentIndex <span class="keyword">in</span> segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>search for  tag</p></div></div><div class="code"><div class="wrapper">        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">/{{TOC}}/g</span>, (match) =&gt;
           text = <span class="string">""</span>
@@ -154,7 +188,15 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
                 <span class="keyword">continue</span>
               text += <span class="property">@repeat</span>(header.level) + <span class="string">"&lt;a href=\"#<span class="subst">#{header.slug}</span>\"&gt;<span class="subst">#{header.title}</span>&lt;/a&gt;&lt;br/&gt;"</span>
             text = text + <span class="string">"&lt;/div&gt;"</span>
-          text
+          text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>revert temporary replaced code text</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">for</span> segment, segmentIndex <span class="keyword">in</span> segments
+        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">/(\&lt;pre\&gt;.*)({{_{{.*}}_}})(.*\&lt;\/pre\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + match[<span class="number">2</span>].replace(<span class="string">'{{_{{'</span>, <span class="string">"["</span>).replace(<span class="string">'}}_}}'</span>, <span class="string">"]"</span>) + match[<span class="number">3</span>]
+        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">/(\&lt;code\&gt;.*)({{_{{.*}}_}})(.*\&lt;\/code\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + match[<span class="number">2</span>].replace(<span class="string">'{{_{{'</span>, <span class="string">"["</span>).replace(<span class="string">'}}_}}'</span>, <span class="string">"]"</span>) + match[<span class="number">3</span>]
+        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">/(\&lt;pre\&gt;.*)({{TOC__}})(.*\&lt;\/pre\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + <span class="string">"{{TOC}}"</span> + match[<span class="number">3</span>]
+        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">/(\&lt;code\&gt;.*)({{TOC__}})(.*\&lt;\/code\&gt;)/g</span>, (match) =&gt;
+          match[<span class="number">1</span>] + <span class="string">"{{TOC}}"</span> + match[<span class="number">3</span>]
 
     <span class="keyword">catch</span> error
       <span class="keyword">return</span> callback error
@@ -179,4 +221,4 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
 
       furthestIndex = matcher.lastIndex
 
-    result + string[furthestIndex...]</div></div></div></div></body></html>
+    result + string[furthestIndex...]</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>

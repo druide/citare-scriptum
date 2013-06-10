@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/default</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/default"><meta name="citare-project-path" content="lib/styles/default.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/styles/default.coffee</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/callout"><meta name="citare-project-path" content="lib/styles/callout.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/styles/callout.coffee</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
 path = require <span class="string">'path'</span>
 
 _            = require <span class="string">'underscore'</span>
@@ -10,27 +10,27 @@ uglifyJs     = require <span class="string">'uglify-js'</span>
 Base = require <span class="string">'./base'</span>
 
 
-module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Default</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
+module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Callout</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
   STATIC_ASSETS: [<span class="string">'style.css'</span>]
 
   constructor: (args...) -&gt;
     <span class="keyword">super</span>(args...)
 
-    <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'default'</span>
+    <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'callout'</span>
     <span class="property">@targetAssets</span> = path.resolve <span class="property">@project</span>.outPath, <span class="string">'assets'</span>
 
     templateData  = fs.readFileSync path.join(<span class="property">@sourceAssets</span>, <span class="string">'docPage.jade'</span>), <span class="string">'utf-8'</span>
     <span class="property">@templateFunc</span> = jade.compile templateData
 
   renderCompleted: (callback) -&gt;
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#renderCompleted(...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Callout#renderCompleted(...)'</span>
 
     <span class="keyword">super</span> (error) =&gt;
       <span class="keyword">return</span> error <span class="keyword">if</span> error
       <span class="property">@copyAssets</span> callback
 
   copyAssets: (callback) -&gt;
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
+    <span class="property">@log</span>.trace <span class="string">'styles.Callout#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
 over it (permissions), as well as wanting to avoid contention.</p></div></div><div class="code"><div class="wrapper">    fsTools.mkdir <span class="property">@targetAssets</span>, <span class="string">'0755'</span>, (error) =&gt;
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Unable to create directory %s: %s'</span>, <span class="property">@targetAssets</span>, error.message
@@ -51,7 +51,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
             <span class="property">@compileScript</span> callback <span class="keyword">unless</span> numCopied &lt; <span class="property">@STATIC_ASSETS</span>.length
 
   compileScript: (callback) -&gt;
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#compileScript(...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Callout#compileScript(...)'</span>
 
     scriptPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'behavior.coffee'</span>
     fs.readFile scriptPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
@@ -77,7 +77,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
       <span class="property">@concatenateScripts</span> scriptSource, callback
 
   compressScript: (scriptSource, callback) -&gt;
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#compressScript(..., ...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Callout#compressScript(..., ...)'</span>
 
     <span class="keyword">try</span>
       ast = uglifyJs.parser.parse scriptSource
@@ -93,7 +93,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
     <span class="property">@concatenateScripts</span> compiledSource, callback
 
   concatenateScripts: (scriptSource, callback) -&gt;
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#concatenateScripts(..., ...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Callout#concatenateScripts(..., ...)'</span>
 
     jqueryPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'jquery.min.js'</span>
     fs.readFile jqueryPath, <span class="string">'utf-8'</span>, (error, data) =&gt;

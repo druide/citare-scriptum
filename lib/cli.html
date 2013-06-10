@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib\cli</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib\cli"><meta name="citare-project-path" content="lib\cli.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\cli.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="command-line-interface">Command Line Interface</h1></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/cli</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/cli"><meta name="citare-project-path" content="lib/cli.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/cli.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="command-line-interface">Command Line Interface</h1></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
 fs           = require <span class="string">'fs'</span>
 path         = require <span class="string">'path'</span>
 
@@ -110,9 +110,13 @@ impression with nicely formatted and readable output.</p></div></div><div class=
     verbose:
       describe: <span class="string">"Output the inner workings of citare to help diagnose issues."</span>
 
-   <span class="string">'very-verbose'</span>:
-      describe: <span class="string">"Hey, you asked for it."</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="argument-processing">Argument processing</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We treat the values within the current project&#39;s <code>.citare.json</code> as defaults, so that you can
-easily override the persisted configuration when testing and tweaking.</p></div></div><div class="code"><div class="wrapper">  <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>For example, if you have configured your <code>.citare.json</code> to include <code>&quot;github&quot;: true</code>, it is
+    <span class="string">'very-verbose'</span>:
+      describe: <span class="string">"Hey, you asked for it."</span>
+
+    <span class="string">'footer'</span>:
+      describe: <span class="string">"Footer text"</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="argument-processing">Argument processing</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We treat the values within the current project&#39;s <code>.citare.json</code> as defaults, so that you can
+easily override the persisted configuration when testing and tweaking.</p>
+<p>For example, if you have configured your <code>.citare.json</code> to include <code>&quot;github&quot;: true</code>, it is
 extremely helpful to use <code>citare --no-github</code> until you are satisfied with the generated output.</p></div></div><div class="code"><div class="wrapper">  projectConfigPath = path.resolve <span class="string">'.citare.json'</span>
   <span class="keyword">try</span>
     projectConfig = JSON.parse fs.readFileSync projectConfigPath
@@ -147,7 +151,8 @@ charge of kicking that off.</p></div></div><div class="code"><div class="wrapper
   project.log.minLevel = Logger::LEVELS.DEBUG <span class="keyword">if</span> argv.verbose
   project.log.minLevel = Logger::LEVELS.TRACE <span class="keyword">if</span> argv[<span class="string">'very-verbose'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set up project-specific options as we get them.</p></div></div><div class="code"><div class="wrapper">  project.options.requireWhitespaceAfterToken = !!argv[<span class="string">'whitespace-after-token'</span>]
   project.options.commentsOnly = !!argv[<span class="string">'comments-only'</span>]
-  project.options.gfm = !!argv[<span class="string">'gfm'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
+  project.options.gfm = !!argv[<span class="string">'gfm'</span>]
+  project.options.footer = argv[<span class="string">'footer'</span>] || <span class="string">''</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
     gfm: project.options.gfm,
     tables: <span class="literal">true</span>,
     breaks: <span class="literal">true</span>,
@@ -190,7 +195,8 @@ out to a shell script.</p></div></div><div class="code"><div class="wrapper">   
         <span class="keyword">return</span> callback error <span class="keyword">if</span> error
 
         project.log.info <span class="string">''</span>
-        project.log.info <span class="string">'Publishing documentation to github...'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Roughly, the publishing script:</p></div></div><div class="code"><div class="wrapper">        <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ol>
+        project.log.info <span class="string">'Publishing documentation to github...'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Roughly, the publishing script:</p>
+<ol>
 <li>Switches to the <code>gh-pages</code> branch (creating it if necessary)</li>
 <li>Copies the generated docs from <code>.git/citare-tmp</code> over any existing files in the branch.</li>
 <li>Creates a commit with <em>just</em> the generated docs; any additional files are removed.</li>
@@ -203,4 +209,4 @@ out to a shell script.</p></div></div><div class="code"><div class="wrapper">   
         script.<span class="literal">on</span> <span class="string">'exit'</span>, (code) -&gt;
           <span class="keyword">return</span> callback <span class="keyword">new</span> Error <span class="string">'Git publish failed'</span> <span class="keyword">if</span> code != <span class="number">0</span>
 
-          callback()</div></div></div></div></body></html>
+          callback()</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>

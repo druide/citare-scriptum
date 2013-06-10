@@ -11,7 +11,7 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
       "type": "file",
       "data": {
         "language": {
-          "nameMatchers": [".md", ".txt"],
+          "nameMatchers": [".md", ".txt", ".litcoffee"],
           "commentsOnly": true,
           "name": "Markdown"
         },
@@ -169,10 +169,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\cli.coffee",
-            "targetPath": "lib\\cli",
+            "projectPath": "lib/cli.coffee",
+            "targetPath": "lib/cli",
             "firstHeader": {
               "type": "heading",
               "data": {
@@ -279,10 +280,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\languages.coffee",
-            "targetPath": "lib\\languages",
+            "projectPath": "lib/languages.coffee",
+            "targetPath": "lib/languages",
             "firstHeader": {
               "type": "heading",
               "data": {
@@ -304,10 +306,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\package_info.coffee",
-            "targetPath": "lib\\package_info",
+            "projectPath": "lib/package_info.coffee",
+            "targetPath": "lib/package_info",
             "title": "package_info"
           },
           "depth": 2,
@@ -319,10 +322,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\project.coffee",
-            "targetPath": "lib\\project",
+            "projectPath": "lib/project.coffee",
+            "targetPath": "lib/project",
             "firstHeader": {
               "type": "heading",
               "data": {
@@ -344,14 +348,16 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\styles.coffee",
-            "targetPath": "lib\\styles",
+            "projectPath": "lib/styles.coffee",
+            "targetPath": "lib/styles",
             "title": "styles"
           },
           "depth": 2,
           "outline": [],
+          "isFileFolder": true,
           "children": [
             {
               "type": "file",
@@ -360,10 +366,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\styles\\base.coffee",
-                "targetPath": "lib\\styles\\base",
+                "projectPath": "lib/styles/base.coffee",
+                "targetPath": "lib/styles/base",
                 "title": "base"
               },
               "depth": 3,
@@ -375,14 +382,16 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\styles\\default.coffee",
-                "targetPath": "lib\\styles\\default",
-                "title": "default"
+                "projectPath": "lib/styles/callout.coffee",
+                "targetPath": "lib/styles/callout",
+                "title": "callout"
               },
               "depth": 3,
               "outline": [],
+              "isFileFolder": true,
               "children": [
                 {
                   "type": "file",
@@ -391,10 +400,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                       "nameMatchers": [".coffee", "Cakefile"],
                       "lexer": "coffeescript",
                       "singleLineComment": ["#"],
+                      "multiLineComment": [{}],
                       "name": "CoffeeScript"
                     },
-                    "projectPath": "lib\\styles\\default\\behavior.coffee",
-                    "targetPath": "lib\\styles\\default\\behavior",
+                    "projectPath": "lib/styles/callout/behavior.coffee",
+                    "targetPath": "lib/styles/callout/behavior",
                     "title": "behavior"
                   },
                   "depth": 4,
@@ -456,8 +466,107 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                       "singleLineComment": ["//"],
                       "name": "JavaScript"
                     },
-                    "projectPath": "lib\\styles\\default\\jquery.min.js",
-                    "targetPath": "lib\\styles\\default\\jquery.min",
+                    "projectPath": "lib/styles/callout/jquery.min.js",
+                    "targetPath": "lib/styles/callout/jquery.min",
+                    "title": "jquery.min"
+                  },
+                  "depth": 4,
+                  "outline": []
+                }
+              ]
+            }, {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".coffee", "Cakefile"],
+                  "lexer": "coffeescript",
+                  "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
+                  "name": "CoffeeScript"
+                },
+                "projectPath": "lib/styles/default.coffee",
+                "targetPath": "lib/styles/default",
+                "title": "default"
+              },
+              "depth": 3,
+              "outline": [],
+              "isFileFolder": true,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile"],
+                      "lexer": "coffeescript",
+                      "singleLineComment": ["#"],
+                      "multiLineComment": [{}],
+                      "name": "CoffeeScript"
+                    },
+                    "projectPath": "lib/styles/default/behavior.coffee",
+                    "targetPath": "lib/styles/default/behavior",
+                    "title": "behavior"
+                  },
+                  "depth": 4,
+                  "outline": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "Page Behavior",
+                        "slug": "page-behavior"
+                      },
+                      "depth": 1,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Table of Contents",
+                            "slug": "table-of-contents"
+                          },
+                          "depth": 2,
+                          "children": [
+                            {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Node Navigation",
+                                "slug": "node-navigation"
+                              },
+                              "depth": 3
+                            }
+                          ]
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Node Search",
+                            "slug": "node-search"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "DOM Construction",
+                            "slug": "dom-construction"
+                          },
+                          "depth": 2
+                        }
+                      ]
+                    }
+                  ]
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "lexer": "javascript",
+                      "singleLineComment": ["//"],
+                      "name": "JavaScript"
+                    },
+                    "projectPath": "lib/styles/default/jquery.min.js",
+                    "targetPath": "lib/styles/default/jquery.min",
                     "title": "jquery.min"
                   },
                   "depth": 4,
@@ -473,27 +582,40 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
               "nameMatchers": [".coffee", "Cakefile"],
               "lexer": "coffeescript",
               "singleLineComment": ["#"],
+              "multiLineComment": [{}],
               "name": "CoffeeScript"
             },
-            "projectPath": "lib\\utils.coffee",
-            "targetPath": "lib\\utils",
+            "projectPath": "lib/utils.coffee",
+            "targetPath": "lib/utils",
             "title": "utils"
           },
           "depth": 2,
           "outline": [],
+          "isFileFolder": true,
           "children": [
             {
               "type": "file",
               "data": {
                 "language": {
-                  "nameMatchers": [".js"],
-                  "lexer": "javascript",
-                  "singleLineComment": ["//"],
-                  "name": "JavaScript"
+                  "nameMatchers": [".coffee", "Cakefile"],
+                  "lexer": "coffeescript",
+                  "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
+                  "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\utils\\brief.js",
-                "targetPath": "lib\\utils\\brief",
-                "title": "brief"
+                "projectPath": "lib/utils/brief.coffee",
+                "targetPath": "lib/utils/brief",
+                "firstHeader": {
+                  "type": "heading",
+                  "data": {
+                    "level": 1,
+                    "title": "Brief syntax highlighter",
+                    "slug": "brief-syntax-highlighter",
+                    "isFileHeader": true
+                  },
+                  "depth": 1
+                },
+                "title": "Brief syntax highlighter"
               },
               "depth": 3,
               "outline": []
@@ -504,10 +626,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\utils\\cli_helpers.coffee",
-                "targetPath": "lib\\utils\\cli_helpers",
+                "projectPath": "lib/utils/cli_helpers.coffee",
+                "targetPath": "lib/utils/cli_helpers",
                 "title": "cli_helpers"
               },
               "depth": 3,
@@ -556,10 +679,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\utils\\compatibility_helpers.coffee",
-                "targetPath": "lib\\utils\\compatibility_helpers",
+                "projectPath": "lib/utils/compatibility_helpers.coffee",
+                "targetPath": "lib/utils/compatibility_helpers",
                 "title": "compatibility_helpers"
               },
               "depth": 3,
@@ -571,10 +695,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\utils\\logger.coffee",
-                "targetPath": "lib\\utils\\logger",
+                "projectPath": "lib/utils/logger.coffee",
+                "targetPath": "lib/utils/logger",
                 "firstHeader": {
                   "type": "heading",
                   "data": {
@@ -596,10 +721,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
                   "nameMatchers": [".coffee", "Cakefile"],
                   "lexer": "coffeescript",
                   "singleLineComment": ["#"],
+                  "multiLineComment": [{}],
                   "name": "CoffeeScript"
                 },
-                "projectPath": "lib\\utils\\style_helpers.coffee",
-                "targetPath": "lib\\utils\\style_helpers",
+                "projectPath": "lib/utils/style_helpers.coffee",
+                "targetPath": "lib/utils/style_helpers",
                 "title": "style_helpers"
               },
               "depth": 3,
@@ -627,7 +753,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   setTableOfContentsActive = function(active) {
     var html$;
-
     html$ = $('html');
     if (active) {
       nav$.addClass('active');
@@ -646,7 +771,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   focusCurrentNode = function() {
     var currentNodeBottom, currentNodeTop;
-
     currentNodeTop = currentNode$.offset().top - toc$.children(':visible').first().offset().top;
     currentNodeBottom = currentNodeTop + currentNode$.children('.label').height();
     if (currentNodeTop < toc$.scrollTop()) {
@@ -659,7 +783,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   setCurrentNodeExpanded = function(expanded) {
     var parents$;
-
     if (expanded) {
       currentNode$.addClass('expanded');
     } else {
@@ -684,7 +807,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   selectNodeByDocumentPath = function(documentPath, headerSlug) {
     var link, urlChunks, _i, _len, _ref;
-
     if (headerSlug == null) {
       headerSlug = null;
     }
@@ -707,7 +829,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   moveCurrentNode = function(up) {
     var i, newIndex, node, visibleNodes$, _i, _len;
-
     visibleNodes$ = toc$.find('li:visible:not(.filtered)');
     newIndex = 0;
     for (i = _i = 0, _len = visibleNodes$.length; _i < _len; i = ++_i) {
@@ -728,7 +849,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   visitCurrentNode = function() {
     var labelLink$;
-
     labelLink$ = currentNode$.children('a.label');
     if (labelLink$.length > 0) {
       return window.location = labelLink$.attr('href');
@@ -741,7 +861,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   appendSearchNode = function(node$) {
     var text$;
-
     text$ = node$.find('> .label .text');
     return searchableNodes.push([text$.text().toLowerCase(), node$, text$]);
   };
@@ -750,7 +869,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   searchNodes = function(queryString) {
     var c, filtered, matched, matcher, nodeInfo, p, _i, _j, _k, _len, _len1, _len2, _results;
-
     queryString = queryString.toLowerCase().replace(/\s+/, '');
     if (queryString === currentQuery) {
       return;
@@ -761,7 +879,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
     }
     matcher = new RegExp(((function() {
       var _i, _len, _results;
-
       _results = [];
       for (_i = 0, _len = queryString.length; _i < _len; _i++) {
         c = queryString[_i];
@@ -797,7 +914,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
       highlightMatch(nodeInfo[2], queryString);
       _results.push((function() {
         var _l, _len3, _ref, _results1;
-
         _ref = nodeInfo[1].parents('li');
         _results1 = [];
         for (_l = 0, _len3 = _ref.length; _l < _len3; _l++) {
@@ -812,13 +928,13 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   clearFilter = function() {
     var nodeInfo, _i, _len, _results;
-
     nav$.removeClass('searching');
     currentQuery = '';
     _results = [];
     for (_i = 0, _len = searchableNodes.length; _i < _len; _i++) {
       nodeInfo = searchableNodes[_i];
       nodeInfo[1].removeClass('filtered matched-child');
+      nodeInfo[1].removeClass('matched');
       _results.push(clearHighlight(nodeInfo[2]));
     }
     return _results;
@@ -826,7 +942,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   highlightMatch = function(text$, queryString) {
     var char, foundIndex, furthestIndex, lowerText, markedText, nodeText, _i, _len;
-
     nodeText = text$.text();
     lowerText = nodeText.toLowerCase();
     markedText = '';
@@ -848,7 +963,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   buildNav = function(metaInfo) {
     var node, sourceURL, _i, _len;
-
     nav$ = $("<nav>\n  <ul class=\"tools\">\n    <li class=\"toggle\">Table of Contents</li>\n    <li class=\"search\">\n      <input id=\"search\" type=\"search\" autocomplete=\"off\"/>\n    </li>\n  </ul>\n  <ol class=\"toc\"/>\n  </div>\n</nav>").appendTo($('body'));
     toc$ = nav$.find('.toc');
     if (metaInfo.githubURL) {
@@ -869,8 +983,11 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   buildTOCNode = function(node, metaInfo) {
     var autolinks, c, children$, discloser$, label$, node$, processAutolinks, _i, _j, _len, _len1, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
-
-    node$ = $("<li class=\"" + node.type + "\"/>");
+    if (node.isFileFolder) {
+      node$ = $("<li class=\"" + node.type + " file-folder\"/>");
+    } else {
+      node$ = $("<li class=\"" + node.type + "\"/>");
+    }
     autolinks = $(".autolink");
     processAutolinks = function(title, href) {
       return autolinks.each(function() {
@@ -892,7 +1009,7 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
         node$.append("<span class=\"label\"><span class=\"text\">" + node.data.title + "</span></span>");
         break;
       case 'heading':
-        node$.append("<a class=\"label\" href=\"" + metaInfo.relativeRoot + metaInfo.lastDocumentPath + ".html#" + node.data.slug + "\" title=\"" + node.data.title + "\"><span class=\"text\">" + node.data.title + "</span></a>");
+        node$.append("<a class=\"label\" href=\"" + metaInfo.relativeRoot + metaInfo.lastDocumentPath + ".html#" + node.data.slug + "\"><span class=\"text\">" + node.data.title + "</span></a>");
         processAutolinks(node.data.title, "" + metaInfo.relativeRoot + metaInfo.lastDocumentPath + ".html#" + node.data.slug);
     }
     if (((_ref = node.children) != null ? _ref.length : void 0) > 0) {
@@ -935,7 +1052,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
   $(function() {
     var lastMousedownTimestamp, metaInfo, search$, toggle$;
-
     metaInfo = {
       relativeRoot: $('meta[name="citare-relative-root"]').attr('content'),
       githubURL: $('meta[name="citare-github-url"]').attr('content'),

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib\project</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib\project"><meta name="citare-project-path" content="lib\project.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\project.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="citare-api">Citare API</h1></div></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/project</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/project"><meta name="citare-project-path" content="lib/project.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/project.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="citare-api">Citare API</h1></div></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
 path = require <span class="string">'path'</span>
 
 spate = require <span class="string">'spate'</span>
@@ -7,8 +7,9 @@ CompatibilityHelpers = require <span class="string">'./utils/compatibility_helpe
 Logger               = require <span class="string">'./utils/logger'</span>
 Utils                = require <span class="string">'./utils'</span>
 hljs = require(<span class="string">'highlight.js'</span>)
-hljs.LANGUAGES[<span class="string">'brief'</span>] = require(<span class="string">'./utils/brief.js'</span>)(hljs);</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A core concept of <code>citare</code> is that your code is grouped into a project, and that there is a certain
-amount of context that it lends to your documentation.</p></div></div><div class="code"><div class="wrapper"><span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A project:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Project</span></span>
+hljs.LANGUAGES[<span class="string">'brief'</span>] = require(<span class="string">'./utils/brief'</span>)(hljs);</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A core concept of <code>citare</code> is that your code is grouped into a project, and that there is a certain
+amount of context that it lends to your documentation.</p>
+<p>A project:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Project</span></span>
   constructor: (root, outPath, minLogLevel=Logger::INFO) -&gt;
     <span class="property">@options</span> = {}
     <span class="property">@log</span>     = <span class="keyword">new</span> Logger minLogLevel</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
@@ -27,7 +28,8 @@ emulation for old-style streams.  For now, we&#39;re dropping concurrent doc
 generation to play it safe.</p></div></div><div class="code"><div class="wrapper">  oldNode = process.version.match <span class="regexp">/v0\.[0-8]\./</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>This is both a performance (over-)optimization and debugging aid.  Instead of spamming the
 system with file I/O and overhead all at once, we only process a certain number of source files
 concurrently.  This is similar to what <a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
-accomplishes.</p></div></div><div class="code"><div class="wrapper">  BATCH_SIZE: <span class="keyword">if</span> oldNode <span class="keyword">then</span> <span class="number">10</span> <span class="keyword">else</span> <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Where the magic happens.</p></div></div><div class="code"><div class="wrapper">  <span class="comment">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Currently, the only supported option is:</p></div></div><div class="code"><div class="wrapper">  generate: (options, callback) -&gt;
+accomplishes.</p></div></div><div class="code"><div class="wrapper">  BATCH_SIZE: <span class="keyword">if</span> oldNode <span class="keyword">then</span> <span class="number">10</span> <span class="keyword">else</span> <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Where the magic happens.</p>
+<p>Currently, the only supported option is:</p></div></div><div class="code"><div class="wrapper">  generate: (options, callback) -&gt;
     <span class="property">@log</span>.trace <span class="string">'Project#Generate(%j, ...)'</span>, options
     <span class="property">@log</span>.info <span class="string">'Generating documentation...'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>style: The style prototype to use.  Defaults to <code>styles.Default</code></li>
@@ -52,8 +54,8 @@ so that they can strip from the remainder.</p></div></div><div class="code"><div
           <span class="keyword">return</span> callback error
 
         fileInfo =
-          language:    language</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  currentFile</p></div></div><div class="code"><div class="wrapper">          projectPath: currentFile.replace <span class="regexp">///^<span class="comment">#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, ''</span>
-          targetPath:  if currentFile == indexPath then 'index' else fileMap[currentFile]
+          language:    language</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  currentFile</p></div></div><div class="code"><div class="wrapper">          projectPath: currentFile.replace(<span class="regexp">///^<span class="comment">#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, '').replace(///\\///g, "/")</span>
+          targetPath:  (if currentFile == indexPath then 'index' else fileMap[currentFile]).replace(///</span>\\<span class="regexp">///g, "/")
 
         style.renderFile data, fileInfo, done
 
@@ -65,4 +67,4 @@ so that they can strip from the remainder.</p></div></div><div class="code"><div
 
         @log.info ''
         @log.pass 'Documentation generated'
-        callback()</div></div></div></div></body></html>
+        callback()</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>

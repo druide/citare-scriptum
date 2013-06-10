@@ -1,46 +1,47 @@
-<!DOCTYPE html><html lang="en"><head><title>lib\utils\brief</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib\utils\brief"><meta name="citare-project-path" content="lib\utils\brief.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib\utils\brief.js</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>... is missing some documentation.</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="keyword">function</span>(hljs) {
-  <span class="keyword">var</span> TYPENAME = {
-    begin: <span class="string">'[\\w/]+\\s+'</span>, end: <span class="string">'[\\w]+'</span>,
-    excludeEnd: <span class="literal">true</span>,
-    endsWithParent: <span class="literal">true</span>,
-    className: <span class="string">'attribute'</span>
-  };
-  <span class="keyword">var</span> SNIPPET =[
-    {
-      begin: <span class="string">'^\\s*\\w+'</span>, end: <span class="string">'\\('</span>,
-      excludeEnd: <span class="literal">true</span>,
-      className: <span class="string">'title'</span>
-    },
-    {
-      end: <span class="string">'\\)'</span>,
-      excludeEnd: <span class="literal">true</span>,
-      contains: [
-        {
-          end: <span class="string">','</span>,
-          endsWithParent: <span class="literal">true</span>,
-          contains: [
-            {
-              begin: <span class="string">'\\['</span>, end: <span class="string">'\\]'</span>,
-              endsWithParent: <span class="literal">true</span>,
-              className: <span class="string">'optional'</span>,
-              contains: [
-                TYPENAME
-              ]
-            },
-            TYPENAME,
-            {
-              begin: <span class="string">':\\s*'</span>, end: <span class="string">'[\\w]+'</span>,
-              excludeBegin: <span class="literal">true</span>,
-              endsWithParent: <span class="literal">true</span>,
-              className: <span class="string">'attribute'</span>
-            }
-          ]
-        }
-      ]
-    }
-  ];
+<!DOCTYPE html><html lang="en"><head><title>lib/utils/brief</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/utils/brief"><meta name="citare-project-path" content="lib/utils/brief.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/utils/brief.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="brief-syntax-highlighter">Brief syntax highlighter</h1>
+<p>Highlights <code>brief</code> function specification in the following format:</p>
+<p><code>functionName(Type argument1, Type1/Type2 argument2, Type optionalArgument1?): Type</code></p>
+<p><code>functionName(Type argument1, Type1/Type2 argument2, [Type optionalArgument1]): Type</code></p>
+<p>Optional arguments are marked by the <code>?</code> at the end, or are surrounded in square braces <code>[...]</code>.<br>Possible argument types are delimited by slash <code>/</code>.  </p></div></div><div class="code"><div class="wrapper">module.<span class="function"><span class="title">exports</span></span> = (hljs) -&gt;
+  TYPENAME =
+    begin: <span class="string">"[\\w/]+\\s+"</span>
+    end: <span class="string">"[\\w]+"</span>
+    excludeEnd: <span class="literal">true</span>
+    endsWithParent: <span class="literal">true</span>
+    className: <span class="string">"attribute"</span>
 
-  <span class="keyword">return</span> {
-    contains: SNIPPET
-  };
-};</div></div></div></div></body></html>
+  SNIPPET = [
+    begin: <span class="string">"^\\s*\\w+"</span>
+    end: <span class="string">"\\("</span>
+    excludeEnd: <span class="literal">true</span>
+    className: <span class="string">"title"</span>
+  ,
+    end: <span class="string">"\\)"</span>
+    excludeEnd: <span class="literal">true</span>
+    contains: [
+      begin: <span class="string">"\\s*"</span>
+      end: <span class="string">","</span>
+      excludeBegin: <span class="literal">true</span>
+      endsWithParent: <span class="literal">true</span>
+      contains: [
+        begin: <span class="string">"\\["</span>
+        end: <span class="string">"\\]"</span>
+        endsWithParent: <span class="literal">true</span>
+        className: <span class="string">"optional"</span>
+        contains: [TYPENAME]
+      ,
+        begin: <span class="string">"[\\w/\\s]+\\?+"</span>
+        endsWithParent: <span class="literal">true</span>
+        returnBegin: <span class="literal">true</span>
+        className: <span class="string">"optional"</span>
+        contains: [TYPENAME]
+      , TYPENAME,
+        begin: <span class="string">":\\s*"</span>
+        end: <span class="string">"[\\w]+"</span>
+        excludeBegin: <span class="literal">true</span>
+        endsWithParent: <span class="literal">true</span>
+        className: <span class="string">"attribute"</span>
+      ]
+    ]
+  ]
+  contains: SNIPPET</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>
