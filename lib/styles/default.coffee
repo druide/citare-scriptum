@@ -6,12 +6,13 @@ coffeeScript = require 'coffee-script'
 fsTools      = require 'fs-tools'
 jade         = require 'jade'
 uglifyJs     = require 'uglify-js'
+stylus       = require 'stylus'
 
 Base = require './base'
 
 
 module.exports = class Default extends Base
-  STATIC_ASSETS: ['style.css']
+  STATIC_ASSETS: []
 
   constructor: (args...) ->
     super(args...)
@@ -27,7 +28,9 @@ module.exports = class Default extends Base
 
     super (error) =>
       return error if error
-      @copyAssets callback
+      @copyAssets =>
+        @compileScript =>
+          @compileCss callback
 
   copyAssets: (callback) ->
     @log.trace 'styles.Default#copyAssets(...)'
@@ -51,7 +54,7 @@ module.exports = class Default extends Base
             @log.trace 'Copied %s', assetTarget
 
             numCopied += 1
-            @compileScript callback unless numCopied < @STATIC_ASSETS.length
+      callback()
 
   compileScript: (callback) ->
     @log.trace 'styles.Default#compileScript(...)'
@@ -76,18 +79,13 @@ module.exports = class Default extends Base
         @log.error 'Failed to compile %s: %s', scriptPath, error.message
         return callback error
 
-      #@compressScript scriptSource, callback
-      @concatenateScripts scriptSource, callback
+      @compressScript scriptSource, callback
 
   compressScript: (scriptSource, callback) ->
     @log.trace 'styles.Default#compressScript(..., ...)'
 
     try
-      ast = uglifyJs.parser.parse scriptSource
-      ast = uglifyJs.uglify.ast_mangle  ast
-      ast = uglifyJs.uglify.ast_squeeze ast
-
-      compiledSource = uglifyJs.uglify.gen_code ast
+      compiledSource = uglifyJs.minify(scriptSource, {fromString: true, mangle: true, unsafe: true}).code
 
     catch error
       @log.error 'Failed to compress assets/behavior.js: %s', error.message
@@ -112,3 +110,22 @@ module.exports = class Default extends Base
         @log.trace 'Wrote %s', outputPath
 
         callback()
+
+  compileCss: (callback) ->
+    stylusPath = path.join @sourceAssets, 'style.styl'
+    fs.readFile stylusPath, 'utf-8', (error, data) =>
+      if error
+        @log.error 'Failed to read %s: %s', stylusPath, error.message
+        return callback error
+      stylus(data).set("filename", stylusPath).set("compress", true)
+        .define("url", stylus.url()).render (error, css) =>
+          if error
+            @log.error 'Failed to compile CSS %s: %s', stylusPath, error.message
+            return callback error
+          outputPath = path.join @targetAssets, 'style.css'
+          fs.writeFile outputPath, css, (error) =>
+            if error
+              @log.error 'Failed to write %s: %s', outputPath, error.message
+              return callback error
+            @log.trace 'Wrote %s', outputPath
+            callback()

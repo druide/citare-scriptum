@@ -15,8 +15,9 @@ module.exports = LANGUAGES =
     lexer: 'cs'
     singleLineComment: ['//']
 
+  # TODO: use Stylus lexer
   CSS:
-    nameMatchers: ['.css']
+    nameMatchers: ['.css', '.styl']
     lexer: 'css'
     singleLineComment: ['//']
 
@@ -50,6 +51,12 @@ module.exports = LANGUAGES =
     nameMatchers: ['.ini']
     lexer: 'ini'
     singleLineComment: [';']
+
+  # TODO: use Jade lexer
+  Jade:
+    nameMatchers:      ['.jade']
+    lexer:     'javascript'
+    singleLineComment: ['//-', '//']
 
   Java:
     nameMatchers:      ['.java']
