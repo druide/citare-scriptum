@@ -147,11 +147,15 @@ module.exports = Utils =
             if currSegment.code.length > 0
               segments.push currSegment
               currSegment = new @Segment
-            currSegment.comments.push line.replace(multiLineMatcher1,"").replace(multiLineMatcher2,"")
+            currSegment.comments.push line.replace(multiLineMatcher1, "").replace(multiLineMatcher2, "")
         else
           if match3?
+            if !incomment
+              if !options.commentsOnly
+                currSegment.code.push line
+            else
+              currSegment.comments.push ""
             incomment = false
-            currSegment.comments.push ""
           else
             if incomment
               if currSegment.code.length > 0
