@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/languages</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/languages"><meta name="citare-project-path" content="lib/languages.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/languages.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="supported-languages">Supported Languages</h1></div></div><div class="code"><div class="wrapper">module.exports = LANGUAGES =
+<!DOCTYPE html><html lang="en"><head><title>lib/languages</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/languages"><meta name="citare-project-path" content="lib/languages.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/languages.coffee">lib/languages.coffee</a></div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="supported-languages">Supported Languages</h1></div></div><div class="code"><div class="wrapper">module.exports = LANGUAGES =
   Markdown:
     nameMatchers: [<span class="string">'.md'</span>, <span class="string">'.txt'</span>, <span class="string">'.litcoffee'</span>]
     commentsOnly: <span class="literal">true</span>
@@ -22,100 +22,100 @@
     singleLineComment: [<span class="string">'//'</span>]
 
   Clojure:
-    nameMatchers:      [<span class="string">'.clj'</span>]
-    lexer:     <span class="string">'clojure'</span>
+    nameMatchers: [<span class="string">'.clj'</span>]
+    lexer: <span class="string">'clojure'</span>
     singleLineComment: [<span class="string">';;'</span>]
 
   CoffeeScript:
-    nameMatchers:      [<span class="string">'.coffee'</span>, <span class="string">'Cakefile'</span>]
-    lexer:     <span class="string">'coffeescript'</span>
+    nameMatchers: [<span class="string">'.coffee'</span>, <span class="string">'Cakefile'</span>]
+    lexer: <span class="string">'coffeescript'</span>
     singleLineComment: [<span class="string">'#'</span>]
-    multiLineComment:  [<span class="regexp">///^\s*<span class="comment">###\s*$///]</span>
+    multiLineComment: [<span class="regexp">///^\s*<span class="comment">##[#]+\s*$///]</span>
 
   Go:
-    nameMatchers:      ['.go']
-    lexer:     'go'
+    nameMatchers: ['.go']
+    lexer: 'go'
     singleLineComment: ['//']
 
   Haskell:
-    nameMatchers:      ['.hs']
-    lexer:     'haskell'
+    nameMatchers: ['.hs']
+    lexer: 'haskell'
     singleLineComment: ['--']
 
   Ini:
     nameMatchers: ['.ini']
     lexer: 'ini'
     singleLineComment: [';']</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>TODO: use Jade lexer</p></div></div><div class="code"><div class="wrapper">  Jade:
-    nameMatchers:      [<span class="string">'.jade'</span>]
-    lexer:     <span class="string">'javascript'</span>
+    nameMatchers: [<span class="string">'.jade'</span>]
+    lexer: <span class="string">'javascript'</span>
     singleLineComment: [<span class="string">'//-'</span>, <span class="string">'//'</span>]
 
   Java:
-    nameMatchers:      [<span class="string">'.java'</span>]
-    lexer:     <span class="string">'java'</span>
+    nameMatchers: [<span class="string">'.java'</span>]
+    lexer: <span class="string">'java'</span>
     singleLineComment: [<span class="string">'//'</span>]
 
   JavaScript:
-    nameMatchers:      [<span class="string">'.js'</span>]
-    lexer:     <span class="string">'javascript'</span>
+    nameMatchers: [<span class="string">'.js'</span>]
+    lexer: <span class="string">'javascript'</span>
     singleLineComment: [<span class="string">'//'</span>]
 
   JSON:
-    nameMatchers:      [<span class="string">'.json'</span>]
-    lexer:     <span class="string">'json'</span>
+    nameMatchers: [<span class="string">'.json'</span>]
+    lexer: <span class="string">'json'</span>
     singleLineComment: [<span class="string">'//'</span>]
 
   LaTeX:
-    nameMatchers:      [<span class="string">'.tex'</span>, <span class="string">'.latex'</span>, <span class="string">'.sty'</span>]
-    lexer:     <span class="string">'tex'</span>
+    nameMatchers: [<span class="string">'.tex'</span>, <span class="string">'.latex'</span>, <span class="string">'.sty'</span>]
+    lexer: <span class="string">'tex'</span>
     singleLineComment: [<span class="string">'%'</span>]
 
   Lua:
-    nameMatchers:      [<span class="string">'.lua'</span>]
-    lexer:     <span class="string">'lua'</span>
+    nameMatchers: [<span class="string">'.lua'</span>]
+    lexer: <span class="string">'lua'</span>
     singleLineComment: [<span class="string">'--'</span>]
-    multiLineComment:  [<span class="regexp">///^\s*\-\-+\[=*\[\s*///</span>, <span class="regexp">///\s*\]=*\]$///</span>]
+    multiLineComment: [<span class="regexp">///^\s*\-\-+\[=*\[///</span>, <span class="regexp">///\s*\]=*\]///</span>]
 
   Make:
-    nameMatchers:      [<span class="string">'Makefile'</span>]
-    lexer:     <span class="string">'make'</span>
+    nameMatchers: [<span class="string">'Makefile'</span>]
+    lexer: <span class="string">'make'</span>
     singleLineComment: [<span class="string">'#'</span>]
 
   <span class="string">'Objective-C'</span>:
-    nameMatchers:      [<span class="string">'.m'</span>, <span class="string">'.mm'</span>]
-    lexer:     <span class="string">'objectivec'</span>
+    nameMatchers: [<span class="string">'.m'</span>, <span class="string">'.mm'</span>]
+    lexer: <span class="string">'objectivec'</span>
     singleLineComment: [<span class="string">'//'</span>]
 
   Perl:
-    nameMatchers:      [<span class="string">'.pl'</span>, <span class="string">'.pm'</span>]
-    lexer:     <span class="string">'perl'</span>
+    nameMatchers: [<span class="string">'.pl'</span>, <span class="string">'.pm'</span>]
+    lexer: <span class="string">'perl'</span>
     singleLineComment: [<span class="string">'#'</span>]
 
   PHP:
-    nameMatchers:      [<span class="regexp">/\.php\d?$/</span>, <span class="string">'.fbp'</span>]
-    lexer:     <span class="string">'php'</span>
+    nameMatchers: [<span class="regexp">/\.php\d?$/</span>, <span class="string">'.fbp'</span>]
+    lexer: <span class="string">'php'</span>
     singleLineComment: [<span class="string">'//'</span>]
 
   Python:
-    nameMatchers:      [<span class="string">'.py'</span>]
-    lexer:     <span class="string">'python'</span>
+    nameMatchers: [<span class="string">'.py'</span>]
+    lexer: <span class="string">'python'</span>
     singleLineComment: [<span class="string">'#'</span>]
 
   Ruby:
-    nameMatchers:      [<span class="string">'.rb'</span>, <span class="string">'.ru'</span>, <span class="string">'.gemspec'</span>]
-    lexer:     <span class="string">'ruby'</span>
+    nameMatchers: [<span class="string">'.rb'</span>, <span class="string">'.ru'</span>, <span class="string">'.gemspec'</span>]
+    lexer: <span class="string">'ruby'</span>
     singleLineComment: [<span class="string">'#'</span>]
 
   SQL:
-    nameMatchers:      [<span class="string">'.sql'</span>]
-    lexer:     <span class="string">'sql'</span>
+    nameMatchers: [<span class="string">'.sql'</span>]
+    lexer: <span class="string">'sql'</span>
     singleLineComment: [<span class="string">'--'</span>]
 
   XML:
-    nameMatchers:      [<span class="string">'.xml'</span>,<span class="string">'.rdf'</span>]
+    nameMatchers: [<span class="string">'.xml'</span>,<span class="string">'.rdf'</span>]
     lexer: <span class="string">'xml'</span>
-    singleLineComment: [<span class="string">'&lt;!---'</span>]
-    multiLineComment:  [<span class="regexp">///^\s*\&lt;\!\-\-+\s*///</span>, <span class="regexp">///\s*\-+\&gt;$///</span>]
+    singleLineComment: [<span class="string">'&lt;!--'</span>]
+    multiLineComment: [<span class="regexp">///^\s*\&lt;\!\-\-+///</span>, <span class="regexp">///\s*\-+\&gt;///</span>]
 
   CMD:
     nameMatchers: [<span class="string">'.cmd'</span>, <span class="string">'.bat'</span>]

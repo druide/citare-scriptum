@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/default/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/default/style"><meta name="citare-project-path" content="lib/styles/default/style.styl"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/styles/default/style.styl</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/default/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/default/style"><meta name="citare-project-path" content="lib/styles/default/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default/style.styl">lib/styles/default/style.styl</a></div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
   -webkit-{prop} args
   -moz-{prop} args
   -o-{prop} args
@@ -37,7 +37,10 @@ background-linear-gradient()
   background -moz-linear-gradient(arguments)
   background -o-linear-gradient(arguments)
   background -ms-linear-gradient(arguments)
-  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="document-style">Document style</h1></div></div><div class="code"><div class="wrapper">html, body
+  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="document-style">Document style</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">html, body
   height 100%
 
 body
@@ -119,7 +122,10 @@ body
     border-top 0
     padding-top 0
     a
-      color #A0A0A0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="navigation">Navigation</h1></div></div><div class="code"><div class="wrapper">nav
+      color #A0A0A0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="navigation">Navigation</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">nav
   position fixed
   top 0
   right 0
@@ -175,7 +181,7 @@ body
         transition opacity 200ms
         filter unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=50)")
         opacity 0.5
-        background url("github-icon.png") top left no-repeat
+        background url("github-icon.png") center center no-repeat
         background-size 19.5px 24px
         &amp;:hover
           filter unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=90)")
@@ -339,7 +345,10 @@ body
     -webkit-appearance none
     outline 0
     &amp;:focus
-      border-color #339933</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="markdown">Markdown</h1></div></div><div class="code"><div class="wrapper">h1
+      border-color #339933</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="markdown">Markdown</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">h1
   font-size 28px
   border-bottom 1px solid #EEE
 
@@ -435,7 +444,10 @@ em, i
   page-break-inside avoid
   text-rendering optimizeLegibility
   float left
-  width 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="syntax-highlighting">Syntax Highlighting</h1></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
+  width 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="syntax-highlighting">Syntax Highlighting</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
   <span class="tag">tab</span>-<span class="tag">size</span> 2
 
   <span class="class">.comment</span>, <span class="class">.template_comment</span>, <span class="class">.diff</span> <span class="class">.header</span>, <span class="class">.doctype</span>, <span class="class">.pi</span>, <span class="class">.lisp</span> <span class="class">.string</span>, <span class="class">.javadoc</span>

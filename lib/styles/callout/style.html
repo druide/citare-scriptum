@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/callout/style"><meta name="citare-project-path" content="lib/styles/callout/style.styl"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/styles/callout/style.styl</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/callout/style"><meta name="citare-project-path" content="lib/styles/callout/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/callout/style.styl">lib/styles/callout/style.styl</a></div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
   -webkit-{prop} args
   -moz-{prop} args
   -o-{prop} args
@@ -37,7 +37,10 @@ background-linear-gradient()
   background -moz-linear-gradient(arguments)
   background -o-linear-gradient(arguments)
   background -ms-linear-gradient(arguments)
-  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="document-style">Document style</h1></div></div><div class="code"><div class="wrapper">html, body
+  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="document-style">Document style</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">html, body
   height 100%
 
 body
@@ -94,7 +97,10 @@ body
     float none
     text-align right
     a
-      color #A0A0A0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="navigation">Navigation</h1></div></div><div class="code"><div class="wrapper">nav
+      color #A0A0A0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="navigation">Navigation</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">nav
   position fixed
   top 0
   right 0
@@ -150,7 +156,7 @@ body
         transition opacity 200ms
         filter unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=50)")
         opacity 0.5
-        background url("github-icon.png") top left no-repeat
+        background url("github-icon.png") center center no-repeat
         background-size 19.5px 24px
         &amp;:hover
           filter unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=90)")
@@ -314,7 +320,10 @@ body
     -webkit-appearance none
     outline 0
     &amp;:focus
-      border-color #339933</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="markdown">Markdown</h1></div></div><div class="code"><div class="wrapper">h1
+      border-color #339933</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="markdown">Markdown</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">h1
   font-size 28px
   border-bottom 1px solid #EEE
 
@@ -385,7 +394,7 @@ em, i
       padding 2px 14px
       background #F5F5F5
     p
-      line-height 1.3em</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow</p></div></div><div class="code"><div class="wrapper">    &amp;:after
+      line-height 1.3em</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;:after
       position absolute
       top 0
       left 100%
@@ -416,13 +425,13 @@ em, i
       display inline-block
       margin-right 1em
 
-  .nocomment
+  &amp;.nocomment
     &amp;:after
       content ""
       text-shadow 0
     .comments:after
       content ""
-      display none</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout shadow</p></div></div><div class="code"><div class="wrapper">  &amp;<span class="pseudo">:after</span>
+      display none</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout shadow </p></div></div><div class="code"><div class="wrapper">  &amp;<span class="pseudo">:after</span>
     <span class="tag">position</span> <span class="tag">absolute</span>
     <span class="tag">top</span> 7<span class="tag">px</span>
     <span class="tag">left</span> 36%
@@ -442,7 +451,10 @@ em, i
   <span class="tag">page</span>-<span class="tag">break</span>-<span class="tag">inside</span> <span class="tag">avoid</span>
   <span class="tag">text</span>-<span class="tag">rendering</span> <span class="tag">optimizeLegibility</span>
   <span class="tag">float</span> <span class="tag">left</span>
-  <span class="tag">width</span> 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="syntax-highlighting">Syntax Highlighting</h1></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
+  <span class="tag">width</span> 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li><h1 id="syntax-highlighting">Syntax Highlighting</h1>
+</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
   <span class="tag">tab</span>-<span class="tag">size</span> 2
 
   <span class="class">.comment</span>, <span class="class">.template_comment</span>, <span class="class">.diff</span> <span class="class">.header</span>, <span class="class">.doctype</span>, <span class="class">.pi</span>, <span class="class">.lisp</span> <span class="class">.string</span>, <span class="class">.javadoc</span>

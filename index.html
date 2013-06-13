@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content=""><meta name="citare-document-path" content="index"><meta name="citare-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta" class="commentsonly"><div class="file-path">README.md</div></div><div id="document" class="commentsonly"><div class="segment commentsonly"><div class="comments commentsonly"><div class="wrapper"><h1 id="citare">Citare</h1>
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content=""><meta name="citare-document-path" content="index"><meta name="citare-project-path" content="README.md"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta" class="commentsonly"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/README.md">README.md</a></div></div><div id="document" class="commentsonly"><div class="segment commentsonly"><div class="comments commentsonly"><div class="wrapper"><h1 id="citare">Citare</h1>
 <p>Citare takes your <em>documented</em> code, and in an admission that people aren&#39;t machines,
 generates documentation that follows the spirit of literate programming.  Take a look at the
 <a href="http://druide.github.com/citare-scriptum/">self-generated documentation</a>, and see if it appeals to you!</p>
 <p>It is very heavily influenced by <a href="https://github.com/jashkenas">Jeremy Ashkenas</a>&#39;
 <a href="http://jashkenas.github.com/docco/">docco</a>, and is an attempt to further enhance the idea (thus,
-citare can&#39;t tout the same quick &#39;n dirty principles of docco).</p>
+citare can‘t tout the same quick ’n dirty principles of docco).</p>
 <h2 id="what-does-it-give-you">What does it give you?</h2>
 <p>Citare will:</p>
 <ul>
@@ -48,8 +48,10 @@ citare, if you are interested.</p>
 the <code>citare</code> command.  File names and globs are defined as an array with the key <code>glob</code>.  For
 example, citare&#39;s own configuration is:</p>
 <pre><code>{
-  &quot;glob&quot;: <span class="autolink">[&quot;lib/**/*.coffee&quot;, &quot;lib/**/*.js&quot;, &quot;README.md&quot;]</span>,
-  &quot;github&quot;: true
+  &quot;glob&quot;: <span class="autolink">[&quot;lib/**/*.coffee&quot;, &quot;lib/**/*.js&quot;, &quot;lib/**/*.jade&quot;, &quot;lib/**/*.styl&quot;, &quot;**/README.md&quot;]</span>,
+  &quot;except&quot;: <span class="autolink">[&quot;lib/**/jquery.min.js&quot;]</span>,
+  &quot;repository-url&quot;: &quot;https://github.com/druide/citare-scriptum&quot;,
+  &quot;gfm&quot;: false
 }</code></pre>
 <p>From now on, if you call <code>citare</code> without any arguments, it will use your pre-defined configuration.</p>
 <h2 id="difference-from-groc">Difference from groc</h2>
@@ -58,9 +60,10 @@ example, citare&#39;s own configuration is:</p>
 understands <code>.groc.json</code>) and have the following changes:</p>
 <ul>
 <li>comments are processed by <a href="https://github.com/chjj/marked">marked</a> github flavored markdown</li>
+<li>multiline comments are used for documentation too</li>
 <li>code is highlighted by <a href="https://github.com/isagalaev/highlight.js">highlight.js</a> javascript
 syntax highlighter</li>
-<li>default style is changed to look more like <a href="https://github.com/apres/lit.js">lit</a></li>
+<li>Default light style, Callout style</li>
 <li>table of contents includes all the files with all the titles from project</li>
 <li><code>{{TOC}}</code> tag to insert auto generated table of contents in your markdown</li>
 <li><code>[Any Title]</code> syntax for auto linking to any title in the project (for now citare does

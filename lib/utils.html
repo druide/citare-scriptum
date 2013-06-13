@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/utils"><meta name="citare-project-path" content="lib/utils.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/utils.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>Miscellaneous code fragments reside here.</p>
+<!DOCTYPE html><html lang="en"><head><title>lib/utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/utils"><meta name="citare-project-path" content="lib/utils.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/utils.coffee">lib/utils.coffee</a></div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>Miscellaneous code fragments reside here.</p>
 <p>TODO: These should be migrated into <code>lib/utils</code>.</p></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
 path         = require <span class="string">'path'</span>
 
@@ -55,8 +55,8 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
 
     singleLineMatcher = <span class="regexp">///^\s*(<span class="comment">#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///</span>
     singleEmptyLineMatcher = ///</span>^\s*(<span class="comment">#{language.singleLineComment.join('|')})(\s*)$///</span>
-    multiLineMatcher1 = <span class="regexp">///^\s*/\*+\s*///</span>
-    multiLineMatcher2 = <span class="regexp">///\s*\*+/\s*$///</span>
+    multiLineMatcher1 = <span class="regexp">///^\s*/\*+///</span>
+    multiLineMatcher2 = <span class="regexp">///\*+/\s*///</span>
     <span class="keyword">if</span> language.multiLineComment?
       multiLineMatcher1 = language.multiLineComment[<span class="number">0</span>]
       <span class="keyword">if</span> language.multiLineComment[<span class="number">1</span>]?
@@ -64,6 +64,24 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
       <span class="keyword">else</span>
         multiLineMatcher2 = <span class="literal">null</span>
     incomment = <span class="literal">false</span>
+
+    <span class="function"><span class="title">pushComment</span></span> = (line) =&gt;
+      <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
+        segments.push currSegment
+        currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
+      currSegment.comments.push line
+
+    <span class="function"><span class="title">pushCode</span></span> = (line) =&gt;
+      <span class="keyword">if</span> !options.commentsOnly
+        currSegment.code.push line
+      <span class="keyword">else</span>
+        currSegment.code.push <span class="string">''</span>
+
+    <span class="function"><span class="title">whiteSpace</span></span> = (n) -&gt;
+      s = <span class="string">""</span>
+      <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span> .. n]
+        s += <span class="string">" "</span>
+      s
 
     <span class="keyword">for</span> line <span class="keyword">in</span> lines</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Match that line to the language&#39;s single line comment syntax.</p>
 <p>However, we treat all comments beginning with } as inline code commentary.</p></div></div><div class="code"><div class="wrapper">      match = line.match singleLineMatcher
@@ -80,38 +98,36 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
 
       <span class="comment">#} For example, this comment should be treated as part of our code.</span>
       <span class="keyword">if</span> !incomment <span class="keyword">and</span> (match? <span class="keyword">and</span> match[<span class="number">2</span>]?[<span class="number">0</span>] != <span class="string">'}'</span> <span class="keyword">or</span> emptyMatch?)
-        <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
-          segments.push currSegment
-          currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
         <span class="keyword">if</span> match?
-          currSegment.comments.push match[<span class="number">2</span>]
+          pushComment match[<span class="number">2</span>]
         <span class="keyword">else</span>
-          currSegment.comments.push <span class="string">""</span>
+          pushComment <span class="string">""</span>
       <span class="keyword">else</span>
-        <span class="keyword">if</span> match2?
+        <span class="keyword">if</span> match2? <span class="keyword">and</span> line.replace(multiLineMatcher1, <span class="string">""</span>)[<span class="number">0</span>] != <span class="string">'}'</span>
           incomment = <span class="literal">true</span>
-          currSegment.comments.push <span class="string">""</span>
+          pushComment <span class="string">""</span>
           <span class="keyword">if</span> match3?
             incomment = <span class="literal">false</span>
-            <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
-              segments.push currSegment
-              currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
-            currSegment.comments.push line.replace(multiLineMatcher1,<span class="string">""</span>).replace(multiLineMatcher2,<span class="string">""</span>)
+            pos1 = line.indexOf match2[<span class="number">0</span>]
+            pos2 = line.indexOf match3[<span class="number">0</span>]
+            pushComment line.substring(pos1 + match2[<span class="number">0</span>].length, pos2)
+            pushCode line.substring(pos2 + match3[<span class="number">0</span>].length)
+          <span class="keyword">else</span>
+            pushComment line.replace(match2[<span class="number">0</span>], whiteSpace(match2[<span class="number">0</span>].length))
         <span class="keyword">else</span>
           <span class="keyword">if</span> match3?
+            <span class="keyword">if</span> !incomment
+              pushCode line
+            <span class="keyword">else</span>
+              pos = line.indexOf match3[<span class="number">0</span>]
+              pushComment line.substring(<span class="number">0</span>, pos)
+              pushCode line.substring(pos + match3[<span class="number">0</span>].length)
             incomment = <span class="literal">false</span>
-            currSegment.comments.push <span class="string">""</span>
           <span class="keyword">else</span>
             <span class="keyword">if</span> incomment
-              <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
-                segments.push currSegment
-                currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
-              currSegment.comments.push line
+              pushComment line
             <span class="keyword">else</span>
-              <span class="keyword">if</span> !options.commentsOnly
-                currSegment.code.push line
-              <span class="keyword">else</span>
-                currSegment.code.push <span class="string">''</span>
+              pushCode line
 
     segments.push currSegment
     <span class="keyword">if</span> options.commentsOnly

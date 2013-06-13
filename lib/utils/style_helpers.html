@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/utils/style_helpers</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/utils/style_helpers"><meta name="citare-project-path" content="lib/utils/style_helpers.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path">lib/utils/style_helpers.coffee</div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">path = require <span class="string">'path'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/utils/style_helpers</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/utils/style_helpers"><meta name="citare-project-path" content="lib/utils/style_helpers.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/utils/style_helpers.coffee">lib/utils/style_helpers.coffee</a></div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">path = require <span class="string">'path'</span>
 
 _ = require <span class="string">'underscore'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1 id="style-helpers">Style Helpers</h1>
-<p>A collection of helpful functions to support styles and their behavior.</p></div></div><div class="code"><div class="wrapper">module.exports = StyleHelpers =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {node: {...}, children: []} objects.</p>
+<p>A collection of helpful functions to support styles and their behavior.</p></div></div><div class="code"><div class="wrapper">module.exports = StyleHelpers =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {node: {…}, children: []} objects.</p>
 <p>We want a pretty complex hierarchy in our table of contents:
 buildTableOfContents: (files) -&gt;</p></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Given an array of markdowned segments, convert their list of headers into a hierarchical
 outline (table of contents!)</p></div></div><div class="code"><div class="wrapper">  outlineHeaders: (segments) -&gt;
@@ -15,7 +15,7 @@ outline (table of contents!)</p></div></div><div class="code"><div class="wrappe
         data:  header
         depth: header.level
 
-    <span class="property">@buildNodeTree</span> nodes</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {..., children: []} objects.</p>
+    <span class="property">@buildNodeTree</span> nodes</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {…, children: []} objects.</p>
 <p>We take a list of file info objects, and a map of outlines to fileInfo.targetPath.</p>
 <p>We want a pretty complex hierarchy in our table of contents:</p></div></div><div class="code"><div class="wrapper">  buildTableOfContents: (files, outlines) -&gt;
     files = files.sort (a, b) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
@@ -24,7 +24,7 @@ outline (table of contents!)</p></div></div><div class="code"><div class="wrappe
       <span class="keyword">return</span>  <span class="number">1</span> <span class="keyword">if</span> b.targetPath == <span class="string">'index'</span>
 
       <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> a.targetPath == b.targetPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>README.md comes first</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> a.targetPath.indexOf(<span class="string">"README.md"</span>) != -<span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li>files matching a directory name come directly before it.  E.g. &quot;foo&quot; &lt; &quot;foo/bar&quot; &lt; &quot;foz&quot;</li>
+<li>files matching a directory name come directly before it.  E.g. “foo” &lt; “foo/bar” &lt; “foz”</li>
 </ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> a.targetPath &lt; b.targetPath <span class="keyword">then</span> -<span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span>
 
     nodes    = []
@@ -55,7 +55,7 @@ TODO: We probably want some way to rename folders!</li>
         fileData.title       = fileData.firstHeader.data.title
 
         <span class="keyword">if</span> fileData.firstHeader.children?.length &gt; <span class="number">0</span>
-          outlines[file.targetPath] = fileData.firstHeader.children.concat outlines[file.targetPath]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Otherwise we just fall back to the file&#39;s target path...</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">else</span>
+          outlines[file.targetPath] = fileData.firstHeader.children.concat outlines[file.targetPath]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Otherwise we just fall back to the file&#39;s target path…</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">else</span>
         fileData.title = path.basename file.targetPath
 
       depth = file.targetPath.split( <span class="string">'/'</span> ).length</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>change previouse node style if it is file with same name with folder</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> nodes.length
