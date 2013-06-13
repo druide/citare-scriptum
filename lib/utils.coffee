@@ -103,8 +103,8 @@ module.exports = Utils =
 
     singleLineMatcher = ///^\s*(#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///
     singleEmptyLineMatcher = ///^\s*(#{language.singleLineComment.join('|')})(\s*)$///
-    multiLineMatcher1 = ///^\s*/\*+\s*///
-    multiLineMatcher2 = ///\s*\*+/\s*$///
+    multiLineMatcher1 = ///^\s*/\*+///
+    multiLineMatcher2 = ///\*+/\s*///
     if language.multiLineComment?
       multiLineMatcher1 = language.multiLineComment[0]
       if language.multiLineComment[1]?
@@ -112,6 +112,24 @@ module.exports = Utils =
       else
         multiLineMatcher2 = null
     incomment = false
+
+    pushComment = (line) =>
+      if currSegment.code.length > 0
+        segments.push currSegment
+        currSegment = new @Segment
+      currSegment.comments.push line
+
+    pushCode = (line) =>
+      if !options.commentsOnly
+        currSegment.code.push line
+      else
+        currSegment.code.push ''
+
+    whiteSpace = (n) ->
+      s = ""
+      for i in [1 .. n]
+        s += " "
+      s
 
     for line in lines
       # Match that line to the language's single line comment syntax.
@@ -131,42 +149,36 @@ module.exports = Utils =
 
       #} For example, this comment should be treated as part of our code.
       if !incomment and (match? and match[2]?[0] != '}' or emptyMatch?)
-        if currSegment.code.length > 0
-          segments.push currSegment
-          currSegment = new @Segment
         if match?
-          currSegment.comments.push match[2]
+          pushComment match[2]
         else
-          currSegment.comments.push ""
+          pushComment ""
       else
-        if match2?
+        if match2? and line.replace(multiLineMatcher1, "")[0] != '}'
           incomment = true
-          currSegment.comments.push ""
+          pushComment ""
           if match3?
             incomment = false
-            if currSegment.code.length > 0
-              segments.push currSegment
-              currSegment = new @Segment
-            currSegment.comments.push line.replace(multiLineMatcher1, "").replace(multiLineMatcher2, "")
+            pos1 = line.indexOf match2[0]
+            pos2 = line.indexOf match3[0]
+            pushComment line.substring(pos1 + match2[0].length, pos2)
+            pushCode line.substring(pos2 + match3[0].length)
+          else
+            pushComment line.replace(match2[0], whiteSpace(match2[0].length))
         else
           if match3?
             if !incomment
-              if !options.commentsOnly
-                currSegment.code.push line
+              pushCode line
             else
-              currSegment.comments.push ""
+              pos = line.indexOf match3[0]
+              pushComment line.substring(0, pos)
+              pushCode line.substring(pos + match3[0].length)
             incomment = false
           else
             if incomment
-              if currSegment.code.length > 0
-                segments.push currSegment
-                currSegment = new @Segment
-              currSegment.comments.push line
+              pushComment line
             else
-              if !options.commentsOnly
-                currSegment.code.push line
-              else
-                currSegment.code.push ''
+              pushCode line
 
     segments.push currSegment
     if options.commentsOnly

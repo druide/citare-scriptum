@@ -210,16 +210,21 @@ module.exports = CLI = (inputArgs, callback) ->
   marked.setOptions
     gfm: project.options.gfm,
     tables: true,
-    breaks: true,
+    breaks: project.options.gfm,
     pedantic: false,
-    sanitize: true,
+    sanitize: false,
     smartLists: true,
+    smartypants: true,
     langPrefix: '',
     highlight: (code, lang) =>
-      if !lang?
-        code
-      else if lang == 'js'
-        hljs.highlight("javascript", code).value
+      if lang == 'js'
+        lang = 'javascript'
+      if !lang? or !hljs.LANGUAGES[lang]?
+        # automatically highlight brief definitions
+        if code.match(///[^\(]+\(///)
+          hljs.highlight("brief", code).value
+        else
+          code
       else
         hljs.highlight(lang, code).value
 
@@ -245,6 +250,7 @@ module.exports = CLI = (inputArgs, callback) ->
 
   # Good to go!
   unless argv.github
+    project.githubURL = argv['repository-url'] if argv['repository-url']?
     project.generate options, (error) ->
       callback error
 

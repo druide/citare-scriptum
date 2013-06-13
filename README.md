@@ -76,8 +76,10 @@ the `citare` command.  File names and globs are defined as an array with the key
 example, citare's own configuration is:
 
     {
-      "glob": ["lib/**/*.coffee", "lib/**/*.js", "README.md"],
-      "github": true
+      "glob": ["lib/**/*.coffee", "lib/**/*.js", "lib/**/*.jade", "lib/**/*.styl", "**/README.md"],
+      "except": ["lib/**/jquery.min.js"],
+      "repository-url": "https://github.com/druide/citare-scriptum",
+      "gfm": false
     }
 
 From now on, if you call `citare` without any arguments, it will use your pre-defined configuration.
@@ -88,9 +90,10 @@ Citare is a fork of documentation project [groc](https://github.com/nevir/groc) 
 understands `.groc.json`) and have the following changes:
 
 - comments are processed by [marked](https://github.com/chjj/marked) github flavored markdown
+- multiline comments are used for documentation too
 - code is highlighted by [highlight.js](https://github.com/isagalaev/highlight.js) javascript
   syntax highlighter
-- default style is changed to look more like [lit](https://github.com/apres/lit.js)
+- Default light style, Callout style
 - table of contents includes all the files with all the titles from project
 - `{{TOC}}` tag to insert auto generated table of contents in your markdown
 - `[Any Title]` syntax for auto linking to any title in the project (for now citare does
