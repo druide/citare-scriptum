@@ -25,7 +25,7 @@ Citare will:
 * Read a configuration file so that you don't have to think when you want your documentation built;
   you just type `citare`.
 
-Contains [brief](lib/utils/brief.html) function specification highlight (works with github flavored markdown):
+Contains [brief](http://druide.github.com/citare-scriptum/lib/utils/brief.html) function specification highlight (works with github flavored markdown):
 
 ```
 functionName(Type argument1, Type1/Type2 argument2, Type optionalArgument1?): Type
@@ -63,7 +63,7 @@ Once you are pleased with the output, you can push your docs to your github page
 
 Citare will automagically create and push the `gh-pages` branch if it is missing.
 
-There are [additional options](lib/cli.html#cli-options) supported by
+There are [additional options](http://druide.github.com/citare-scriptum/lib/cli.html#cli-options) supported by
 citare, if you are interested.
 
 

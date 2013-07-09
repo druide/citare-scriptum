@@ -51,6 +51,8 @@ body
   background-color #f2f2ff
   min-width 460px
   -webkit-text-size-adjust 100%
+  color #333
+  font-size 15px
 
 #document
   min-height 100%
@@ -63,9 +65,9 @@ body
 
 #meta
   float left
-  padding 0 1.25em 0.5em 1.2em
+  padding 0 1em 0.8em 1.2em
   color brown
-  font-size 12px
+  font-size 13px
   font-family 'Helvetica Neue', Helvetica, sans-serif
   width 36%
 
@@ -119,6 +121,7 @@ nav
   transition height 0 150ms
   text-shadow #f0f0f0 1px 1px 0
   color #4a525a
+  font-size 16px
 
   ol, ul
     margin 0
@@ -302,6 +305,7 @@ nav
       & > .label
         & > .text
           font-size 0.88em
+          color #707070
 
   &.active
     transition height 0 0
@@ -331,37 +335,54 @@ nav
       border-color #339933
 
 
+a
+  word-wrap break-word
+  color #4183C4
+  text-decoration: none
+  &:hover
+    text-decoration underline
+
 /*
  * # Markdown
  */
 
 h1
-  font-size 28px
-  border-bottom 1px solid #EEE
+  font-size 2.5em
+  border-bottom 1px solid #DDD
 
 h2
-  font-size 18px
-  color #445
+  font-size 2em
   border-bottom 1px solid #EEE
 
 h3
-  font-size 16px
-  color #445
+  font-size 1.5em
 
 h4
-  font-size 15px
-  color #445
+  font-size 1.2em
 
-h5, h6
-  font-size 16px
-  font-style italic
-  color #445
+h5
+  font-size 1em
+
+h6
+  font-size 1em
+  color #777
 
 h1, h2, h3, h4, h5, h6
-  margin 1em 0 5px 0
+  margin 1em 0 15px 0
+  padding 0
+  font-weight bold
 
 em, i
-  color #707070
+  font-style italic
+
+p, blockquote, ul, ol, dl, table, pre
+  margin 15px 0
+
+ol, ul
+  & :first-child
+    margin-top 0
+  & :last-child
+    margin-bottom 0
 
 .segment
   .comments
@@ -369,44 +390,59 @@ em, i
     float left
     height 100%
     width 36%
-    font-size 14px
     padding 0 1em 0 1em
     z-index 998
     background-color white
     border-radius 6px
     box-shadow 1px 1px 15px #cbcbcb
-    margin: 5px 5px 5px 10px
+    margin: 0 5px 5px 10px
+    line-height 1.7
     li
       padding 0.1em 0
     .toc
       padding 1em
-      border 1px dotted gray
+      border 1px solid #DDD
+      border-radius 3px
       background #FAF6FF
-      a
-        line-height 1.5em
     & > *
       overflow hidden
+    & > .wrapper > :first-child
+      margin-top 12px
     code
-      background #f5f5f5
-      border 1px dotted #ccc
-      padding 0 2px 0 2px
-      font-family Menlo, Monaco, 'Courier New', monospace
-      line-height 1.6em
+      font-family Consolas, "Liberation Mono", Courier, monospace
+      font-size 12px
+      margin 0 2px
+      padding 0 5px
+      border 1px solid #DDD
+      border-radius 3px
+      background-color #F8F8F8
+      display inline-block
     pre
+      font-family Consolas, "Liberation Mono", Courier, monospace
+      font-size 12px
+      border 1px solid #DDD
+      overflow auto
+      padding 6px 10px
+      border-radius 3px
+      background-color #F8F8F8
+      line-height 19px
       code
-        display inline-block
-        max-width 99%
         overflow auto
-        line-height 1.4em
+        background transparent
+        margin 0
+        padding 0
+        border none
         &.brief, & span.brief
           white-space normal
+          display block
     blockquote
-      border-left 4px solid silver
-      margin 1em 0
-      padding 2px 14px
-      background #F5F5F5
-    p
-      line-height 1.3em
+      border-left 4px solid #dddddd
+      padding 0 15px
+      color #777777
+      & > :first-child
+        margin-top 0
+      & > :last-child
+        margin-bottom 0
 
     /* callout arrow */
     &:after
@@ -423,6 +459,7 @@ em, i
     width auto
     max-width 900px
     float none
+    padding 1em 2em 1em 2em
     margin 0.5em auto 0 auto
     &:after
       content ""
@@ -460,8 +497,12 @@ em, i
     text-shadow 0 0 15px #cbcbcb
     z-index: 997
 
-  a
-    word-wrap break-word
+  hr
+    background transparent url("dirty-shade.png") repeat-x 0 0
+    border 0 none
+    color #cccccc
+    height 4px
+    padding 0
 
 .segment.commentsonly:after
   content ""

@@ -27,43 +27,54 @@ module.exports = StyleHelpers =
 
     @buildNodeTree nodes
 
+  isIndexFile: (filename) ->
+    !!(filename.match(/index\.[^\/]*$/i) or filename.match(/readme\.[^\/]*$/i))
+
   # Generate a table of contents as a tree of {..., children: []} objects.
   #
   # We take a list of file info objects, and a map of outlines to fileInfo.targetPath.
   #
   # We want a pretty complex hierarchy in our table of contents:
   buildTableOfContents: (files, outlines) ->
-    files = files.sort (a, b) ->
+    files = files.sort (a, b) =>
       # * The index is always first in the table of contents.
       return -1 if a.targetPath == 'index'
       return  1 if b.targetPath == 'index'
 
       return 0 if a.targetPath == b.targetPath
-      # README.md comes first
-      return -1 if a.targetPath.indexOf("README.md") != -1
+      # index comes first
+      return 1 if @isIndexFile(a.projectPath) and
+        path.dirname(a.projectPath) == b.projectPath
+      return -1 if @isIndexFile(b.projectPath) and
+        path.dirname(b.projectPath) == a.projectPath
       # * files matching a directory name come directly before it.  E.g. "foo" < "foo/bar" < "foz"
       if a.targetPath < b.targetPath then -1 else 1
 
     nodes    = []
     prevPath = []
     for file in files
-      #targetChunks = file.targetPath.split path.join('/')
       targetChunks = file.targetPath.split '/'
       pathChunks   = targetChunks[0...-1]
 
-      # * If a file has the same name as a directory, it takes ownership of that directory's folder.
-      for chunk, i in pathChunks
-        if prevPath[i] != chunk
-          # * Otherwise we have a generic folder node that takes its place in the table of contents.
-          #   TODO: We probably want some way to rename folders!
-          nodes.push
-            type:  'folder'
-            data:
-              path:  targetChunks[0..i].join '/'
-              title: targetChunks[i]
-            depth: i + 1
-
-          prevPath = [] # Make sure that we don't match directories several levels in, after a fail.
+      # * If a file has the same name as a directory or is index,
+      # it takes ownership of that directory's folder.
+      if !@isIndexFile(file.projectPath)
+        for chunk, i in pathChunks
+          if prevPath[i] != chunk
+            # * Otherwise we have a generic folder node that takes its place in
+            # the table of contents.
+            # TODO: We probably want some way to rename folders!
+            nodes.push
+              type:  'folder'
+              data:
+                path:  targetChunks[0..i].join '/'
+                title: targetChunks[i]
+              depth: i + 1
+            # Make sure that we don't match directories several levels in,
+            # after a fail.
+            prevPath = []
+      else
+        targetChunks = targetChunks.splice(0, targetChunks.length - 1)
 
       prevPath = targetChunks
 
@@ -84,6 +95,8 @@ module.exports = StyleHelpers =
         fileData.title = path.basename file.targetPath
 
       depth = file.targetPath.split( '/' ).length
+      if @isIndexFile(file.projectPath) and depth > 1
+        depth = depth - 1
 
       # change previouse node style if it is file with same name with folder
       if nodes.length

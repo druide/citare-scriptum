@@ -236,15 +236,15 @@ buildTOCNode = (node, metaInfo) ->
       node$.append """<a class="label" href="#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}"><span class="text">#{node.data.title}</span></a>"""
       processAutolinks node.data.title, "#{metaInfo.relativeRoot}#{metaInfo.lastDocumentPath}.html##{node.data.slug}"
 
+  if node.outline?.length > 0
+    children$ = $('<ol class="children"/>')
+    children$.append buildTOCNode c, metaInfo for c in node.outline
+    node$.append children$
   if node.children?.length > 0
     children$ = $('<ol class="children"/>')
     children$.append buildTOCNode c, metaInfo for c in node.children
     node$.append children$
-  else
-    if node.outline?.length > 0
-      children$ = $('<ol class="children"/>')
-      children$.append buildTOCNode c, metaInfo for c in node.outline
-      node$.append children$
+
 
   label$ = node$.find('> .label')
   label$.click -> selectNode node$
@@ -326,3 +326,6 @@ $ ->
         search$.blur()
       else
         search$.val ''
+
+  # fix style of "span.brief" parent element "code"
+  $("span.brief").parent("code").css("display", "block")
