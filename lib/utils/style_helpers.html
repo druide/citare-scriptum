@@ -15,37 +15,46 @@ outline (table of contents!)</p></div></div><div class="code"><div class="wrappe
         data:  header
         depth: header.level
 
-    <span class="property">@buildNodeTree</span> nodes</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {…, children: []} objects.</p>
+    <span class="property">@buildNodeTree</span> nodes
+
+  isIndexFile: (filename) -&gt;
+    !!(filename.match(<span class="regexp">/index\.[^\/]*$/i) or filename.match(/readme\.[^\/]*$/i</span>))</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Generate a table of contents as a tree of {…, children: []} objects.</p>
 <p>We take a list of file info objects, and a map of outlines to fileInfo.targetPath.</p>
 <p>We want a pretty complex hierarchy in our table of contents:</p></div></div><div class="code"><div class="wrapper">  buildTableOfContents: (files, outlines) -&gt;
-    files = files.sort (a, b) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+    files = files.sort (a, b) =&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>The index is always first in the table of contents.</li>
 </ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> a.targetPath == <span class="string">'index'</span>
       <span class="keyword">return</span>  <span class="number">1</span> <span class="keyword">if</span> b.targetPath == <span class="string">'index'</span>
 
-      <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> a.targetPath == b.targetPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>README.md comes first</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> a.targetPath.indexOf(<span class="string">"README.md"</span>) != -<span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+      <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> a.targetPath == b.targetPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>index comes first</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> <span class="property">@isIndexFile</span>(a.projectPath) <span class="keyword">and</span>
+        path.dirname(a.projectPath) == b.projectPath
+      <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> <span class="property">@isIndexFile</span>(b.projectPath) <span class="keyword">and</span>
+        path.dirname(b.projectPath) == a.projectPath</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>files matching a directory name come directly before it.  E.g. “foo” &lt; “foo/bar” &lt; “foz”</li>
 </ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> a.targetPath &lt; b.targetPath <span class="keyword">then</span> -<span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span>
 
     nodes    = []
     prevPath = []
     <span class="keyword">for</span> file <span class="keyword">in</span> files
-      <span class="comment">#targetChunks = file.targetPath.split path.join('/')</span>
       targetChunks = file.targetPath.split <span class="string">'/'</span>
       pathChunks   = targetChunks[<span class="number">0.</span>..-<span class="number">1</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li>If a file has the same name as a directory, it takes ownership of that directory&#39;s folder.</li>
-</ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">for</span> chunk, i <span class="keyword">in</span> pathChunks
-        <span class="keyword">if</span> prevPath[i] != chunk</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li>Otherwise we have a generic folder node that takes its place in the table of contents.
+<li>If a file has the same name as a directory or is index,
+it takes ownership of that directory&#39;s folder.</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> !<span class="property">@isIndexFile</span>(file.projectPath)
+        <span class="keyword">for</span> chunk, i <span class="keyword">in</span> pathChunks
+          <span class="keyword">if</span> prevPath[i] != chunk</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>Otherwise we have a generic folder node that takes its place in
+the table of contents.
 TODO: We probably want some way to rename folders!</li>
-</ul></div></div><div class="code"><div class="wrapper">          nodes.push
-            type:  <span class="string">'folder'</span>
-            data:
-              path:  targetChunks[<span class="number">0.</span>.i].join <span class="string">'/'</span>
-              title: targetChunks[i]
-            depth: i + <span class="number">1</span>
-
-          prevPath = [] <span class="comment"># Make sure that we don't match directories several levels in, after a fail.</span>
+</ul></div></div><div class="code"><div class="wrapper">            nodes.push
+              type:  <span class="string">'folder'</span>
+              data:
+                path:  targetChunks[<span class="number">0.</span>.i].join <span class="string">'/'</span>
+                title: targetChunks[i]
+              depth: i + <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Make sure that we don&#39;t match directories several levels in,
+after a fail.</p></div></div><div class="code"><div class="wrapper">            prevPath = []
+      <span class="keyword">else</span>
+        targetChunks = targetChunks.splice(<span class="number">0</span>, targetChunks.length - <span class="number">1</span>)
 
       prevPath = targetChunks
 
@@ -58,7 +67,9 @@ TODO: We probably want some way to rename folders!</li>
           outlines[file.targetPath] = fileData.firstHeader.children.concat outlines[file.targetPath]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Otherwise we just fall back to the file&#39;s target path…</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">else</span>
         fileData.title = path.basename file.targetPath
 
-      depth = file.targetPath.split( <span class="string">'/'</span> ).length</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>change previouse node style if it is file with same name with folder</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> nodes.length
+      depth = file.targetPath.split( <span class="string">'/'</span> ).length
+      <span class="keyword">if</span> <span class="property">@isIndexFile</span>(file.projectPath) <span class="keyword">and</span> depth &gt; <span class="number">1</span>
+        depth = depth - <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>change previouse node style if it is file with same name with folder</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">if</span> nodes.length
         prevNode = nodes[nodes.length - <span class="number">1</span>]
         <span class="keyword">if</span> prevNode.type == <span class="string">'file'</span> <span class="keyword">and</span> prevNode.depth &lt; depth
           prevNode.isFileFolder = <span class="literal">true</span>

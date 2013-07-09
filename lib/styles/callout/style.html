@@ -47,6 +47,8 @@ body
   background-color #f2f2ff
   min-width 460px
   -webkit-text-size-adjust 100%
+  color #333
+  font-size 15px
 
 #document
   min-height 100%
@@ -59,9 +61,9 @@ body
 
 #meta
   float left
-  padding 0 1.25em 0.5em 1.2em
+  padding 0 1em 0.8em 1.2em
   color brown
-  font-size 12px
+  font-size 13px
   font-family 'Helvetica Neue', Helvetica, sans-serif
   width 36%
 
@@ -111,6 +113,7 @@ body
   transition height 0 150ms
   text-shadow #f0f0f0 1px 1px 0
   color #4a525a
+  font-size 16px
 
   ol, ul
     margin 0
@@ -294,6 +297,7 @@ body
       &amp; &gt; .label
         &amp; &gt; .text
           font-size 0.88em
+          color #707070
 
   &amp;.active
     transition height 0 0
@@ -320,81 +324,114 @@ body
     -webkit-appearance none
     outline 0
     &amp;:focus
-      border-color #339933</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+      border-color #339933
+
+
+a
+  word-wrap break-word
+  color #4183C4
+  text-decoration: none
+  &amp;:hover
+    text-decoration underline</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li><h1 id="markdown">Markdown</h1>
 </li>
-</ul></div></div><div class="code"><div class="wrapper">h1
-  font-size 28px
-  border-bottom 1px solid #EEE
+</ul></div></div><div class="code"><div class="wrapper"><span class="tag">h1</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 2<span class="class">.5em</span>
+  <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
 
-h2
-  font-size 18px
-  color #445
-  border-bottom 1px solid #EEE
+<span class="tag">h2</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 2<span class="tag">em</span>
+  <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#EEE</span>
 
-h3
-  font-size 16px
-  color #445
+<span class="tag">h3</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="class">.5em</span>
 
-h4
-  font-size 15px
-  color #445
+<span class="tag">h4</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="class">.2em</span>
 
-h5, h6
-  font-size 16px
-  font-style italic
-  color #445
+<span class="tag">h5</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="tag">em</span>
 
-h1, h2, h3, h4, h5, h6
-  margin 1em 0 5px 0
+<span class="tag">h6</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="tag">em</span>
+  <span class="tag">color</span> <span class="id">#777</span>
 
-em, i
-  color #707070
+<span class="tag">h1</span>, <span class="tag">h2</span>, <span class="tag">h3</span>, <span class="tag">h4</span>, <span class="tag">h5</span>, <span class="tag">h6</span>
+  <span class="tag">margin</span> 1<span class="tag">em</span> 0 15<span class="tag">px</span> 0
+  <span class="tag">padding</span> 0
+  <span class="tag">font</span>-<span class="tag">weight</span> <span class="tag">bold</span>
 
-.segment
-  .comments
-    position relative
-    float left
-    height 100%
-    width 36%
-    font-size 14px
-    padding 0 1em 0 1em
-    z-index 998
-    background-color white
-    border-radius 6px
-    box-shadow 1px 1px 15px #cbcbcb
-    margin: 5px 5px 5px 10px
-    li
-      padding 0.1em 0
-    .toc
-      padding 1em
-      border 1px dotted gray
-      background #FAF6FF
-      a
-        line-height 1.5em
+<span class="tag">em</span>, <span class="tag">i</span>
+  <span class="tag">font</span>-<span class="tag">style</span> <span class="tag">italic</span>
+
+<span class="tag">p</span>, <span class="tag">blockquote</span>, <span class="tag">ul</span>, <span class="tag">ol</span>, <span class="tag">dl</span>, <span class="tag">table</span>, <span class="tag">pre</span>
+  <span class="tag">margin</span> 15<span class="tag">px</span> 0
+
+<span class="tag">ol</span>, <span class="tag">ul</span>
+  &amp; <span class="pseudo">:first-child</span>
+    <span class="tag">margin</span>-<span class="tag">top</span> 0
+  &amp; <span class="pseudo">:last-child</span>
+    <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+
+<span class="class">.segment</span>
+  <span class="class">.comments</span>
+    <span class="tag">position</span> <span class="tag">relative</span>
+    <span class="tag">float</span> <span class="tag">left</span>
+    <span class="tag">height</span> 100%
+    <span class="tag">width</span> 36%
+    <span class="tag">padding</span> 0 1<span class="tag">em</span> 0 1<span class="tag">em</span>
+    <span class="tag">z</span>-<span class="tag">index</span> 998
+    <span class="tag">background</span>-<span class="tag">color</span> <span class="tag">white</span>
+    <span class="tag">border</span>-<span class="tag">radius</span> 6<span class="tag">px</span>
+    <span class="tag">box</span>-<span class="tag">shadow</span> 1<span class="tag">px</span> 1<span class="tag">px</span> 15<span class="tag">px</span> <span class="id">#cbcbcb</span>
+    <span class="tag">margin</span>: 0 5<span class="tag">px</span> 5<span class="tag">px</span> 10<span class="tag">px</span>
+    <span class="tag">line</span>-<span class="tag">height</span> 1<span class="class">.7</span>
+    <span class="tag">li</span>
+      <span class="tag">padding</span> 0<span class="class">.1em</span> 0
+    <span class="class">.toc</span>
+      <span class="tag">padding</span> 1<span class="tag">em</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span> <span class="id">#FAF6FF</span>
     &amp; &gt; *
-      overflow hidden
-    code
-      background #f5f5f5
-      border 1px dotted #ccc
-      padding 0 2px 0 2px
-      font-family Menlo, Monaco, 'Courier New', monospace
-      line-height 1.6em
-    pre
-      code
-        display inline-block
-        max-width 99%
-        overflow auto
-        line-height 1.4em
-        &amp;.brief, &amp; span.brief
-          white-space normal
-    blockquote
-      border-left 4px solid silver
-      margin 1em 0
-      padding 2px 14px
-      background #F5F5F5
-    p
-      line-height 1.3em</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;:after
+      <span class="tag">overflow</span> <span class="tag">hidden</span>
+    &amp; &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:first-child</span>
+      <span class="tag">margin</span>-<span class="tag">top</span> 12<span class="tag">px</span>
+    <span class="tag">code</span>
+      <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
+      <span class="tag">font</span>-<span class="tag">size</span> 12<span class="tag">px</span>
+      <span class="tag">margin</span> 0 2<span class="tag">px</span>
+      <span class="tag">padding</span> 0 5<span class="tag">px</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#F8F8F8</span>
+      <span class="tag">display</span> <span class="tag">inline</span>-<span class="tag">block</span>
+    <span class="tag">pre</span>
+      <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
+      <span class="tag">font</span>-<span class="tag">size</span> 12<span class="tag">px</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">overflow</span> <span class="tag">auto</span>
+      <span class="tag">padding</span> 6<span class="tag">px</span> 10<span class="tag">px</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#F8F8F8</span>
+      <span class="tag">line</span>-<span class="tag">height</span> 19<span class="tag">px</span>
+      <span class="tag">code</span>
+        <span class="tag">overflow</span> <span class="tag">auto</span>
+        <span class="tag">background</span> <span class="tag">transparent</span>
+        <span class="tag">margin</span> 0
+        <span class="tag">padding</span> 0
+        <span class="tag">border</span> <span class="tag">none</span>
+        &amp;<span class="class">.brief</span>, &amp; <span class="tag">span</span><span class="class">.brief</span>
+          <span class="tag">white</span>-<span class="tag">space</span> <span class="tag">normal</span>
+          <span class="tag">display</span> <span class="tag">block</span>
+    <span class="tag">blockquote</span>
+      <span class="tag">border</span>-<span class="tag">left</span> 4<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#dddddd</span>
+      <span class="tag">padding</span> 0 15<span class="tag">px</span>
+      <span class="tag">color</span> <span class="id">#777777</span>
+      &amp; &gt; <span class="pseudo">:first-child</span>
+        <span class="tag">margin</span>-<span class="tag">top</span> 0
+      &amp; &gt; <span class="pseudo">:last-child</span>
+        <span class="tag">margin</span>-<span class="tag">bottom</span> 0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;:after
       position absolute
       top 0
       left 100%
@@ -408,6 +445,7 @@ em, i
     width auto
     max-width 900px
     float none
+    padding 1em 2em 1em 2em
     margin 0.5em auto 0 auto
     &amp;:after
       content ""
@@ -442,8 +480,12 @@ em, i
     <span class="tag">text</span>-<span class="tag">shadow</span> 0 0 15<span class="tag">px</span> <span class="id">#cbcbcb</span>
     <span class="tag">z</span>-<span class="tag">index</span>: 997
 
-  <span class="tag">a</span>
-    <span class="tag">word</span>-<span class="tag">wrap</span> <span class="tag">break</span>-<span class="tag">word</span>
+  <span class="tag">hr</span>
+    <span class="tag">background</span> <span class="tag">transparent</span> <span class="tag">url</span>("<span class="tag">dirty</span>-<span class="tag">shade</span><span class="class">.png</span>") <span class="tag">repeat</span>-<span class="tag">x</span> 0 0
+    <span class="tag">border</span> 0 <span class="tag">none</span>
+    <span class="tag">color</span> <span class="id">#cccccc</span>
+    <span class="tag">height</span> 4<span class="tag">px</span>
+    <span class="tag">padding</span> 0
 
 <span class="class">.segment</span><span class="class">.commentsonly</span><span class="pseudo">:after</span>
   <span class="tag">content</span> ""
