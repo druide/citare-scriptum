@@ -64,18 +64,27 @@ body
   display inline-block
   padding-right 0.5em
   width 100%
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   margin-left -8px
 
   &.commentsonly
     margin-left 0
+
+  &.codedoc > .segment > .comments > .wrapper > :first-child
+    margin-top 7px
+
+  &.codedoc > .segment:hover
+    border-top 1px dotted silver
+    border-bottom 1px dotted silver
+    margin-top -1px
+    margin-bottom -1px
 
 #meta
   float left
   padding 0 1em 0.5em 1.2em
   color brown
   font-size 13px
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   width 36%
   border-bottom 1px dotted silver
   margin-left -8px
@@ -103,7 +112,7 @@ body
   margin -8px
 
 #footer
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   padding 2px 1.4em 0 1.3em
   font-size 11px
   font-style italic
@@ -153,7 +162,7 @@ nav
     padding 0
 
   .tools, .toc
-    font-family "Helvetica Neue",Helvetica,"Droid Sans",sans-serif
+    font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
     font-weight 300
     font-size 0.938em
     line-height 1.35
@@ -480,10 +489,10 @@ ol, ul
     float left
     height 100%
     width 46%
-    font-family Menlo, Monaco, 'Courier New', monospace
+    font-family Consolas, "Liberation Mono", Courier, monospace
     font-size 14px
     white-space pre
-    padding 14px 1em 0 1.2em
+    padding 12px 1em 12px 1.2em
     .wrapper
       display inline-block
       margin-right 1em

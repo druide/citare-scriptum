@@ -1,6 +1,6 @@
 {
   "name":        "citare-scriptum",
-  "version":     "0.5.2.1",
+  "version":     "0.5.2.2",
   "description": "Documentation generation, in the spirit of literate programming.",
   "keywords":   ["documentation", "docs", "generator"],
   "homepage":    "https://github.com/druide/citare-scriptum.git",

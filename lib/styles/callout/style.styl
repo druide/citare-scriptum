@@ -59,16 +59,19 @@ body
   display inline-block
   padding-right 0.5em
   width 100%
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   padding-bottom 0.4em
   background-color #f2f2ff
+
+  &.codedoc > .segment > .comments > .wrapper > :first-child
+    margin-top 12px
 
 #meta
   float left
   padding 0 1em 0.8em 1.2em
   color brown
   font-size 13px
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   width 36%
 
   &.commentsonly
@@ -80,7 +83,7 @@ body
     float none
 
 #footer
-  font-family 'Helvetica Neue', Helvetica, sans-serif
+  font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   padding 2px 1.4em 0 1.3em
   font-size 11px
   font-style italic
@@ -128,7 +131,7 @@ nav
     padding 0
 
   .tools, .toc
-    font-family "Helvetica Neue",Helvetica,"Droid Sans",sans-serif
+    font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
     font-weight 300
     font-size 0.938em
     line-height 1.35
@@ -406,8 +409,6 @@ ol, ul
       background #FAF6FF
     & > *
       overflow hidden
-    & > .wrapper > :first-child
-      margin-top 12px
     code
       font-family Consolas, "Liberation Mono", Courier, monospace
       font-size 12px
@@ -447,7 +448,7 @@ ol, ul
     /* callout arrow */
     &:after
       position absolute
-      top 0
+      top -3px
       left 100%
       margin-left -7px
       font-size 27px
@@ -465,19 +466,23 @@ ol, ul
       content ""
       display none
 
+  &.commentsonly:after
+    content ""
+    display none
+
   .code
     float left
     height 100%
     width 46%
-    font-family Menlo, Monaco, 'Courier New', monospace
+    font-family Consolas, "Liberation Mono", Courier, monospace
     font-size 14px
     white-space pre
-    padding 14px 1em 0 1.2em
+    padding 12px 1em 12px 1.2em
     .wrapper
       display inline-block
       margin-right 1em
 
-  &.nocomment
+  &.nocomment, &.nocode
     &:after
       content ""
       text-shadow 0
@@ -504,9 +509,6 @@ ol, ul
     height 4px
     padding 0
 
-.segment.commentsonly:after
-  content ""
-  display none
 
 .segment, #segment-footer
   position relative

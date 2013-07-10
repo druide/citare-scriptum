@@ -24,10 +24,11 @@ html(lang="en")
       - else
         .file-path= projectPath
 
-    #document(class=commentsOnly ? "commentsonly" : "")
+    #document(class=commentsOnly ? "commentsonly" : "codedoc")
       - for (var i in segments)
         - if (missingDoc || segments[i].markdownedComments != '')
-          .segment(class=commentsOnly ? "commentsonly" : "")
+          - var addCodeClass = segments[i].highlightedCode == '' ? "nocode" : ""
+          .segment(class=commentsOnly ? "commentsonly " + addCodeClass : addCodeClass)
             - if (segments[i].markdownedComments != '')
               .comments(class=commentsOnly ? "commentsonly" : "")
                 .wrapper!= segments[i].markdownedComments
