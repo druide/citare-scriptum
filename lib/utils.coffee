@@ -264,7 +264,7 @@ module.exports = Utils =
           headers.push header
           tocHeaders.push header
 
-          "<h#{header.level} id=\"#{header.slug}\">#{header.title}</h#{header.level}>"
+          """<h#{header.level}><a name="#{header.slug}" class="anchor" href="##{header.slug}"><span></span></a>#{header.title}</h#{header.level}>"""
 
         # temporary replace auto-links inside code blocks
         markdown = @gsub markdown, /(\<pre\>.*)(\[[^\]]+\])(.*\<\/pre\>)/g, (match) =>

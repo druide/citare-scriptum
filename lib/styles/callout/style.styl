@@ -63,8 +63,20 @@ body
   padding-bottom 0.4em
   background-color #f2f2ff
 
-  &.codedoc > .segment > .comments > .wrapper > :first-child
-    margin-top 12px
+  &.codedoc > .segment
+    & > .comments > .wrapper > :first-child
+      margin-top 12px
+    & > .comments > .wrapper > :last-child
+      margin-bottom 12px
+    & > .comments
+      padding 0 1em 0 0
+    & > .comments > .wrapper
+      padding 0 0 0 20px
+    &:after
+      margin-left 22px
+    & a.anchor, & a.anchor > span
+      padding-left 27px
+      margin-left -27px
 
 #meta
   float left
@@ -374,6 +386,27 @@ h1, h2, h3, h4, h5, h6
   margin 1em 0 15px 0
   padding 0
   font-weight bold
+  position relative
+
+  &:hover > a.anchor > span
+    display block
+
+a.anchor
+  top 0
+  left 0
+  bottom 0
+  position absolute
+  padding-left 30px
+  margin-left -30px
+  & > span
+    padding-left 30px
+    margin-left -30px
+    position absolute
+    top 0
+    bottom 0
+    right 0
+    background url("link-icon.png") no-repeat 10px center
+    display none
 
 em, i
   font-style italic
@@ -400,6 +433,10 @@ ol, ul
     box-shadow 1px 1px 15px #cbcbcb
     margin: 0 5px 5px 10px
     line-height 1.7
+
+    .wrapper
+      padding 0 20px
+      word-wrap break-word
     li
       padding 0.1em 0
     .toc
@@ -460,7 +497,7 @@ ol, ul
     width auto
     max-width 900px
     float none
-    padding 1em 2em 1em 2em
+    padding 1em 1.2em
     margin 0.5em auto 0 auto
     &:after
       content ""

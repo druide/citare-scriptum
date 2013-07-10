@@ -112,7 +112,7 @@ module.exports = CLI = (inputArgs, callback) ->
       type:     'boolean'
 
     'comments-only':
-      describe: "Generate documentation only from comment, source code will not be included."
+      describe: "Generate documentation from comments only, source code will not be included."
       default:  false
       type:     'boolean'
 
