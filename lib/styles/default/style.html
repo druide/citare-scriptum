@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/default/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/default/style"><meta name="citare-project-path" content="lib/styles/default/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default/style.styl">lib/styles/default/style.styl</a></div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/default/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/default/style"><meta name="citare-project-path" content="lib/styles/default/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default/style.styl">lib/styles/default/style.styl</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
   -webkit-{prop} args
   -moz-{prop} args
   -o-{prop} args
@@ -37,97 +37,112 @@ background-linear-gradient()
   background -moz-linear-gradient(arguments)
   background -o-linear-gradient(arguments)
   background -ms-linear-gradient(arguments)
-  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li><h1 id="document-style">Document style</h1>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">html, body
-  height 100%
+  background linear-gradient(arguments)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="document-style" class="anchor" href="#document-style"><span></span></a>Document style</h1></div></div><div class="code"><div class="wrapper"><span class="tag">html</span>, <span class="tag">body</span>
+  <span class="tag">height</span> 100%
 
-body
-  background-color #f2f2ff
-  min-width 460px
-  -webkit-text-size-adjust 100%
-  color #333
-  font-size 15px
-  position relative
-  height auto
-  margin 0
-  padding 8px
-  min-height 100%
+<span class="tag">body</span>
+  <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#f2f2ff</span>
+  <span class="tag">min</span>-<span class="tag">width</span> 460<span class="tag">px</span>
+  -<span class="tag">webkit</span>-<span class="tag">text</span>-<span class="tag">size</span>-<span class="tag">adjust</span> 100%
+  <span class="tag">color</span> <span class="id">#333</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 15<span class="tag">px</span>
+  <span class="tag">position</span> <span class="tag">relative</span>
+  <span class="tag">height</span> <span class="tag">auto</span>
+  <span class="tag">margin</span> 0
+  <span class="tag">padding</span> 8<span class="tag">px</span>
+  <span class="tag">min</span>-<span class="tag">height</span> 100%
 
-#document
-  min-height 100%
-  display inline-block
-  padding-right 0.5em
-  width 100%
-  font-family 'Helvetica Neue', Helvetica, sans-serif
-  margin-left -8px
+<span class="id">#document</span>
+  <span class="tag">min</span>-<span class="tag">height</span> 100%
+  <span class="tag">display</span> <span class="tag">inline</span>-<span class="tag">block</span>
+  <span class="tag">padding</span>-<span class="tag">right</span> 0<span class="class">.5em</span>
+  <span class="tag">width</span> 100%
+  <span class="tag">font</span>-<span class="tag">family</span> "<span class="tag">Helvetica</span> <span class="tag">Neue</span>", <span class="tag">Helvetica</span>, "<span class="tag">Droid</span> <span class="tag">Sans</span>", <span class="tag">sans</span>-<span class="tag">serif</span>
+  <span class="tag">margin</span>-<span class="tag">left</span> -8<span class="tag">px</span>
 
-  &amp;.commentsonly
-    margin-left 0
+  &amp;<span class="class">.commentsonly</span>
+    <span class="tag">margin</span>-<span class="tag">left</span> 0
 
-#meta
-  float left
-  padding 0 1em 0.5em 1.2em
-  color brown
-  font-size 13px
-  font-family 'Helvetica Neue', Helvetica, sans-serif
-  width 36%
-  border-bottom 1px dotted silver
-  margin-left -8px
+  &amp;<span class="class">.codedoc</span> &gt; <span class="class">.segment</span>
+    &amp; &gt; <span class="class">.comments</span>
+      <span class="tag">padding</span> 0 1<span class="tag">em</span> 0 0<span class="class">.3em</span>
+    &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span>
+      <span class="tag">padding</span> 0 4<span class="tag">px</span> 0 22<span class="tag">px</span>
+    &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:first-child</span>
+      <span class="tag">margin</span>-<span class="tag">top</span> 7<span class="tag">px</span>
+    &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:last-child</span>
+      <span class="tag">margin</span>-<span class="tag">bottom</span> 12<span class="tag">px</span>
 
-  &amp;.commentsonly
-    border-bottom 0
-    padding 0.25em 1em 0.5em 1em
-    max-width 900px
-    margin 0 auto
-    width 97%
-    float none
+    &amp;<span class="pseudo">:hover</span>
+      <span class="tag">border</span>-<span class="tag">top</span> 1<span class="tag">px</span> <span class="tag">dotted</span> <span class="tag">silver</span>
+      <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">dotted</span> <span class="tag">silver</span>
+      <span class="tag">margin</span>-<span class="tag">top</span> -1<span class="tag">px</span>
+      <span class="tag">margin</span>-<span class="tag">bottom</span> -1<span class="tag">px</span>
 
-#bg
-  position absolute
-  width 36%
-  min-width 180px
-  background-color white
-  box-shadow 1px 1px 15px #cbcbcb
-  padding 0 1em 0 1em
-  top 0
-  left 0
-  bottom 0
-  overflow hidden
-  z-index -1
-  margin -8px
+<span class="id">#meta</span>
+  <span class="tag">float</span> <span class="tag">left</span>
+  <span class="tag">padding</span> 0 0<span class="tag">em</span> <span class="class">.5em</span> 1<span class="class">.4em</span>
+  <span class="tag">color</span> <span class="tag">brown</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 13<span class="tag">px</span>
+  <span class="tag">font</span>-<span class="tag">family</span> "<span class="tag">Helvetica</span> <span class="tag">Neue</span>", <span class="tag">Helvetica</span>, "<span class="tag">Droid</span> <span class="tag">Sans</span>", <span class="tag">sans</span>-<span class="tag">serif</span>
+  <span class="tag">width</span> 36%
+  <span class="tag">word</span>-<span class="tag">wrap</span> <span class="tag">break</span>-<span class="tag">word</span>
+  <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">dotted</span> <span class="tag">silver</span>
+  <span class="tag">margin</span>-<span class="tag">left</span> -8<span class="tag">px</span>
+  <span class="class">.file-path</span>
+    <span class="tag">padding</span> 0 1<span class="class">.4em</span> 0 0<span class="class">.8em</span>
 
-#footer
-  font-family 'Helvetica Neue', Helvetica, sans-serif
-  padding 2px 1.4em 0 1.3em
-  font-size 11px
-  font-style italic
-  color silver
-  text-align right
-  float left
-  width 36%
-  border-top 1px dotted
+  &amp;<span class="class">.commentsonly</span>
+    <span class="tag">border</span>-<span class="tag">bottom</span> 0
+    <span class="tag">padding</span> <span class="class">.25em</span> 1<span class="tag">em</span> <span class="class">.5em</span> 2<span class="class">.5em</span>
+    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">margin</span> 0 <span class="tag">auto</span>
+    <span class="tag">width</span> 97%
+    <span class="tag">float</span> <span class="tag">none</span>
 
-  a
-    color silver
-    text-decoration none
-    &amp;:hover
-      text-decoration underline
+<span class="id">#bg</span>
+  <span class="tag">position</span> <span class="tag">absolute</span>
+  <span class="tag">width</span> 36%
+  <span class="tag">min</span>-<span class="tag">width</span> 180<span class="tag">px</span>
+  <span class="tag">background</span>-<span class="tag">color</span> <span class="tag">white</span>
+  <span class="tag">box</span>-<span class="tag">shadow</span> 1<span class="tag">px</span> 1<span class="tag">px</span> 15<span class="tag">px</span> <span class="id">#cbcbcb</span>
+  <span class="tag">padding</span> 0 1<span class="tag">em</span> 0 0<span class="class">.3em</span>
+  <span class="tag">top</span> 0
+  <span class="tag">left</span> 0
+  <span class="tag">bottom</span> 0
+  <span class="tag">overflow</span> <span class="tag">hidden</span>
+  <span class="tag">z</span>-<span class="tag">index</span> -1
+  <span class="tag">margin</span> -8<span class="tag">px</span>
 
-  &amp;.commentsonly
-    max-width 900px
-    margin 0 auto
-    color #A0A0A0
-    width auto
-    float none
-    border-top 0
-    padding-top 0
-    a
-      color #A0A0A0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li><h1 id="navigation">Navigation</h1>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">nav
+<span class="id">#footer</span>
+  <span class="tag">font</span>-<span class="tag">family</span> "<span class="tag">Helvetica</span> <span class="tag">Neue</span>", <span class="tag">Helvetica</span>, "<span class="tag">Droid</span> <span class="tag">Sans</span>", <span class="tag">sans</span>-<span class="tag">serif</span>
+  <span class="tag">padding</span> 2<span class="tag">px</span> 0<span class="class">.4em</span> 0 1<span class="class">.3em</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 11<span class="tag">px</span>
+  <span class="tag">font</span>-<span class="tag">style</span> <span class="tag">italic</span>
+  <span class="tag">color</span> <span class="tag">silver</span>
+  <span class="tag">text</span>-<span class="tag">align</span> <span class="tag">right</span>
+  <span class="tag">float</span> <span class="tag">left</span>
+  <span class="tag">width</span> 36%
+  <span class="tag">border</span>-<span class="tag">top</span> 1<span class="tag">px</span> <span class="tag">dotted</span>
+  &amp; &gt; <span class="tag">a</span>
+    <span class="tag">padding</span>-<span class="tag">right</span> 1<span class="tag">em</span>
+
+  <span class="tag">a</span>
+    <span class="tag">color</span> <span class="tag">silver</span>
+    <span class="tag">text</span>-<span class="tag">decoration</span> <span class="tag">none</span>
+    &amp;<span class="pseudo">:hover</span>
+      <span class="tag">text</span>-<span class="tag">decoration</span> <span class="tag">underline</span>
+
+  &amp;<span class="class">.commentsonly</span>
+    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">margin</span> 0 <span class="tag">auto</span>
+    <span class="tag">color</span> <span class="id">#A0A0A0</span>
+    <span class="tag">width</span> <span class="tag">auto</span>
+    <span class="tag">float</span> <span class="tag">none</span>
+    <span class="tag">border</span>-<span class="tag">top</span> 0
+    <span class="tag">padding</span>-<span class="tag">top</span> 0
+    <span class="tag">a</span>
+      <span class="tag">color</span> <span class="id">#A0A0A0</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="navigation" class="anchor" href="#navigation"><span></span></a>Navigation</h1></div></div><div class="code"><div class="wrapper">nav
   position fixed
   top 0
   right 0
@@ -145,7 +160,7 @@ body
     padding 0
 
   .tools, .toc
-    font-family "Helvetica Neue",Helvetica,"Droid Sans",sans-serif
+    font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
     font-weight 300
     font-size 0.938em
     line-height 1.35
@@ -357,142 +372,166 @@ a
   color #4183C4
   text-decoration: none
   &amp;:hover
-    text-decoration underline</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li><h1 id="markdown">Markdown</h1>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">h1
-  font-size 2.5em
-  border-bottom 1px solid #DDD
+    text-decoration underline</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="markdown" class="anchor" href="#markdown"><span></span></a>Markdown</h1></div></div><div class="code"><div class="wrapper"><span class="tag">h1</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 2<span class="class">.5em</span>
+  <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
 
-h2
-  font-size 2em
-  border-bottom 1px solid #EEE
+<span class="tag">h2</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 2<span class="tag">em</span>
+  <span class="tag">border</span>-<span class="tag">bottom</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#EEE</span>
 
-h3
-  font-size 1.5em
+<span class="tag">h3</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="class">.5em</span>
 
-h4
-  font-size 1.2em
+<span class="tag">h4</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="class">.2em</span>
 
-h5
-  font-size 1em
+<span class="tag">h5</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="tag">em</span>
 
-h6
-  font-size 1em
-  color #777
+<span class="tag">h6</span>
+  <span class="tag">font</span>-<span class="tag">size</span> 1<span class="tag">em</span>
+  <span class="tag">color</span> <span class="id">#777</span>
 
-h1, h2, h3, h4, h5, h6
-  margin 1em 0 15px 0
-  padding 0
-  font-weight bold
+<span class="tag">h1</span>, <span class="tag">h2</span>, <span class="tag">h3</span>, <span class="tag">h4</span>, <span class="tag">h5</span>, <span class="tag">h6</span>
+  <span class="tag">margin</span> 1<span class="tag">em</span> 0 15<span class="tag">px</span> 0
+  <span class="tag">padding</span> 0
+  <span class="tag">font</span>-<span class="tag">weight</span> <span class="tag">bold</span>
+  <span class="tag">position</span> <span class="tag">relative</span>
 
-em, i
-  font-style italic
+  &amp;<span class="pseudo">:hover</span> &gt; <span class="tag">a</span><span class="class">.anchor</span> &gt; <span class="tag">span</span>
+    <span class="tag">display</span> <span class="tag">block</span>
 
-p, blockquote, ul, ol, dl, table, pre
-  margin 15px 0
+<span class="tag">a</span><span class="class">.anchor</span>
+  <span class="tag">top</span> 0
+  <span class="tag">left</span> 0
+  <span class="tag">bottom</span> 0
+  <span class="tag">position</span> <span class="tag">absolute</span>
+  <span class="tag">padding</span>-<span class="tag">left</span> 30<span class="tag">px</span>
+  <span class="tag">margin</span>-<span class="tag">left</span> -30<span class="tag">px</span>
+  <span class="tag">outline</span> <span class="tag">none</span>
+  &amp; &gt; <span class="tag">span</span>
+    <span class="tag">padding</span>-<span class="tag">left</span> 30<span class="tag">px</span>
+    <span class="tag">margin</span>-<span class="tag">left</span> -30<span class="tag">px</span>
+    <span class="tag">position</span> <span class="tag">absolute</span>
+    <span class="tag">top</span> 0
+    <span class="tag">bottom</span> 0
+    <span class="tag">right</span> 0
+    <span class="tag">background</span> <span class="tag">url</span>("<span class="tag">link</span>-<span class="tag">icon</span><span class="class">.png</span>") <span class="tag">no</span>-<span class="tag">repeat</span> 10<span class="tag">px</span> <span class="tag">center</span>
+    <span class="tag">display</span> <span class="tag">none</span>
 
-ol, ul
-  &amp; :first-child
-    margin-top 0
-  &amp; :last-child
-    margin-bottom 0
+<span class="tag">em</span>, <span class="tag">i</span>
+  <span class="tag">font</span>-<span class="tag">style</span> <span class="tag">italic</span>
 
-.segment
-  .comments
-    position relative
-    float left
-    height 100%
-    width 36%
-    padding 0 1em 0 1em
-    z-index 998
-    line-height 1.7
-    li
-      padding 0.1em 0
-    .toc
-      padding 1em
-      border 1px solid #DDD
-      border-radius 3px
-      background #FAF6FF
+<span class="tag">p</span>, <span class="tag">blockquote</span>, <span class="tag">ul</span>, <span class="tag">ol</span>, <span class="tag">dl</span>, <span class="tag">table</span>, <span class="tag">pre</span>
+  <span class="tag">margin</span> 15<span class="tag">px</span> 0
+
+<span class="tag">ol</span>, <span class="tag">ul</span>
+  &amp; <span class="pseudo">:first-child</span>
+    <span class="tag">margin</span>-<span class="tag">top</span> 0
+  &amp; <span class="pseudo">:last-child</span>
+    <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+
+<span class="class">.segment</span>
+  <span class="class">.comments</span>
+    <span class="tag">position</span> <span class="tag">relative</span>
+    <span class="tag">float</span> <span class="tag">left</span>
+    <span class="tag">height</span> 100%
+    <span class="tag">width</span> 36%
+    <span class="tag">padding</span> 0 1<span class="tag">em</span> 0 1<span class="tag">em</span>
+    <span class="tag">z</span>-<span class="tag">index</span> 998
+    <span class="tag">line</span>-<span class="tag">height</span> 1<span class="class">.7</span>
+
+    <span class="class">.wrapper</span>
+      <span class="tag">padding</span> 0 20<span class="tag">px</span>
+      <span class="tag">word</span>-<span class="tag">wrap</span> <span class="tag">break</span>-<span class="tag">word</span>
+    <span class="tag">li</span>
+      <span class="tag">padding</span> 0<span class="class">.1em</span> 0
+    <span class="class">.toc</span>
+      <span class="tag">padding</span> 1<span class="tag">em</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span> <span class="id">#FAF6FF</span>
     &amp; &gt; *
-      overflow hidden
-    code
-      font-family Consolas, "Liberation Mono", Courier, monospace
-      font-size 12px
-      margin 0 2px
-      padding 0 5px
-      border 1px solid #DDD
-      border-radius 3px
-      background-color #F8F8F8
-      display inline-block
-    pre
-      font-family Consolas, "Liberation Mono", Courier, monospace
-      font-size 12px
-      border 1px solid #DDD
-      overflow auto
-      padding 6px 10px
-      border-radius 3px
-      background-color #F8F8F8
-      line-height 19px
-      code
-        overflow auto
-        background transparent
-        margin 0
-        padding 0
-        border none
-        &amp;.brief, &amp; span.brief
-          white-space normal
-          display block
-    blockquote
-      border-left 4px solid #dddddd
-      padding 0 15px
-      color #777777
-      &amp; &gt; :first-child
-        margin-top 0
-      &amp; &gt; :last-child
-        margin-bottom 0
+      <span class="tag">overflow</span> <span class="tag">hidden</span>
+    <span class="tag">code</span>
+      <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
+      <span class="tag">font</span>-<span class="tag">size</span> 12<span class="tag">px</span>
+      <span class="tag">margin</span> 0 2<span class="tag">px</span>
+      <span class="tag">padding</span> 0 5<span class="tag">px</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#F8F8F8</span>
+      <span class="tag">display</span> <span class="tag">inline</span>-<span class="tag">block</span>
+    <span class="tag">pre</span>
+      <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
+      <span class="tag">font</span>-<span class="tag">size</span> 12<span class="tag">px</span>
+      <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
+      <span class="tag">overflow</span> <span class="tag">auto</span>
+      <span class="tag">padding</span> 6<span class="tag">px</span> 10<span class="tag">px</span>
+      <span class="tag">border</span>-<span class="tag">radius</span> 3<span class="tag">px</span>
+      <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#F8F8F8</span>
+      <span class="tag">line</span>-<span class="tag">height</span> 19<span class="tag">px</span>
+      <span class="tag">code</span>
+        <span class="tag">overflow</span> <span class="tag">auto</span>
+        <span class="tag">background</span> <span class="tag">transparent</span>
+        <span class="tag">margin</span> 0
+        <span class="tag">padding</span> 0
+        <span class="tag">border</span> <span class="tag">none</span>
+        &amp;<span class="class">.brief</span>, &amp; <span class="tag">span</span><span class="class">.brief</span>
+          <span class="tag">white</span>-<span class="tag">space</span> <span class="tag">normal</span>
+          <span class="tag">display</span> <span class="tag">block</span>
+    <span class="tag">blockquote</span>
+      <span class="tag">border</span>-<span class="tag">left</span> 4<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#dddddd</span>
+      <span class="tag">padding</span> 0 15<span class="tag">px</span>
+      <span class="tag">color</span> <span class="id">#777777</span>
+      &amp; &gt; <span class="pseudo">:first-child</span>
+        <span class="tag">margin</span>-<span class="tag">top</span> 0
+      &amp; &gt; <span class="pseudo">:last-child</span>
+        <span class="tag">margin</span>-<span class="tag">bottom</span> 0
 
-  &amp;.nocomment
-    .comments
-      margin 1px 0
-  .commentsonly
-    width auto
-    max-width 900px
-    float none
-    padding 0 2em 1em 2em
-    background-color white
-    border-radius 6px
-    box-shadow 1px 1px 15px #cbcbcb
-    margin 0.5em auto 4px auto
+  &amp;<span class="class">.nocomment</span>
+    <span class="class">.comments</span>
+      <span class="tag">margin</span> 1<span class="tag">px</span> 0
 
-  .code
-    float left
-    height 100%
-    width 46%
-    font-family Menlo, Monaco, 'Courier New', monospace
-    font-size 14px
-    white-space pre
-    padding 14px 1em 0 1.2em
-    .wrapper
-      display inline-block
-      margin-right 1em
+  <span class="class">.commentsonly</span>
+    <span class="tag">width</span> <span class="tag">auto</span>
+    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">float</span> <span class="tag">none</span>
+    <span class="tag">padding</span> 1<span class="tag">em</span> 1<span class="tag">em</span> 1<span class="tag">em</span> 1<span class="tag">em</span>
+    <span class="tag">background</span>-<span class="tag">color</span> <span class="tag">white</span>
+    <span class="tag">border</span>-<span class="tag">radius</span> 6<span class="tag">px</span>
+    <span class="tag">box</span>-<span class="tag">shadow</span> 1<span class="tag">px</span> 1<span class="tag">px</span> 15<span class="tag">px</span> <span class="id">#cbcbcb</span>
+    <span class="tag">margin</span> 0<span class="class">.5em</span> <span class="tag">auto</span> 4<span class="tag">px</span> <span class="tag">auto</span>
+    &amp; &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:first-child</span>
+      <span class="tag">margin</span>-<span class="tag">top</span> 12<span class="tag">px</span>
 
-  hr
-    background transparent url("dirty-shade.png") repeat-x 0 0
-    border 0 none
-    color #cccccc
-    height 4px
-    padding 0
+  <span class="class">.code</span>
+    <span class="tag">float</span> <span class="tag">left</span>
+    <span class="tag">height</span> 100%
+    <span class="tag">width</span> 46%
+    <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
+    <span class="tag">font</span>-<span class="tag">size</span> 14<span class="tag">px</span>
+    <span class="tag">white</span>-<span class="tag">space</span> <span class="tag">pre</span>
+    <span class="tag">padding</span> 12<span class="tag">px</span> 1<span class="tag">em</span> 12<span class="tag">px</span> 1<span class="class">.2em</span>
+    <span class="class">.wrapper</span>
+      <span class="tag">display</span> <span class="tag">inline</span>-<span class="tag">block</span>
+      <span class="tag">margin</span>-<span class="tag">right</span> 1<span class="tag">em</span>
 
-.segment, #segment-footer
-  position relative
-  page-break-inside avoid
-  text-rendering optimizeLegibility
-  float left
-  width 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
-<li><h1 id="syntax-highlighting">Syntax Highlighting</h1>
-</li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
+  <span class="tag">hr</span>
+    <span class="tag">background</span> <span class="tag">transparent</span> <span class="tag">url</span>("<span class="tag">dirty</span>-<span class="tag">shade</span><span class="class">.png</span>") <span class="tag">repeat</span>-<span class="tag">x</span> 0 0
+    <span class="tag">border</span> 0 <span class="tag">none</span>
+    <span class="tag">color</span> <span class="id">#cccccc</span>
+    <span class="tag">height</span> 4<span class="tag">px</span>
+    <span class="tag">padding</span> 0
+
+
+<span class="class">.segment</span>, <span class="id">#segment-footer</span>
+  <span class="tag">position</span> <span class="tag">relative</span>
+  <span class="tag">page</span>-<span class="tag">break</span>-<span class="tag">inside</span> <span class="tag">avoid</span>
+  <span class="tag">text</span>-<span class="tag">rendering</span> <span class="tag">optimizeLegibility</span>
+  <span class="tag">float</span> <span class="tag">left</span>
+  <span class="tag">width</span> 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="syntax-highlighting" class="anchor" href="#syntax-highlighting"><span></span></a>Syntax Highlighting</h1></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
   <span class="tag">tab</span>-<span class="tag">size</span> 2
 
   <span class="class">.comment</span>, <span class="class">.template_comment</span>, <span class="class">.diff</span> <span class="class">.header</span>, <span class="class">.doctype</span>, <span class="class">.pi</span>, <span class="class">.lisp</span> <span class="class">.string</span>, <span class="class">.javadoc</span>
