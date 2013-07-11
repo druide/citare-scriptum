@@ -93,6 +93,7 @@ body
   font-size 13px
   font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   width 36%
+  word-wrap break-word
   border-bottom 1px dotted silver
   margin-left -8px
   .file-path
@@ -428,6 +429,7 @@ a.anchor
   position absolute
   padding-left 30px
   margin-left -30px
+  outline none
   & > span
     padding-left 30px
     margin-left -30px
@@ -511,15 +513,18 @@ ol, ul
   &.nocomment
     .comments
       margin 1px 0
+
   .commentsonly
     width auto
     max-width 900px
     float none
-    padding 0 1em 1em 1em
+    padding 1em 1em 1em 1em
     background-color white
     border-radius 6px
     box-shadow 1px 1px 15px #cbcbcb
     margin 0.5em auto 4px auto
+    & > .wrapper > :first-child
+      margin-top 12px
 
   .code
     float left

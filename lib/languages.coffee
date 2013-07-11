@@ -35,7 +35,7 @@ module.exports = LANGUAGES =
     nameMatchers: ['.coffee', 'Cakefile']
     lexer: 'coffeescript'
     singleLineComment: ['#']
-    multiLineComment: [///^\s*##[#]+\s*$///]
+    multiLineComment: [///^\s*###\s*$///]
 
   Go:
     nameMatchers: ['.go']

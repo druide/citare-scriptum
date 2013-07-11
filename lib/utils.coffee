@@ -161,10 +161,10 @@ module.exports = Utils =
             incomment = false
             pos1 = line.indexOf match2[0]
             pos2 = line.indexOf match3[0]
-            pushComment line.substring(pos1 + match2[0].length, pos2)
+            pushComment line.substring(pos1 + match2[0].length + 1, pos2)
             pushCode line.substring(pos2 + match3[0].length)
           else
-            pushComment line.replace(match2[0], whiteSpace(match2[0].length))
+            pushComment line.replace(match2[0], whiteSpace(match2[0].length - 1))
         else
           if match3?
             if !incomment
@@ -172,12 +172,15 @@ module.exports = Utils =
             else
               pos = line.indexOf match3[0]
               pushComment line.substring(0, pos)
-              pushCode line.substring(pos + match3[0].length)
+              pushCode line.substring(pos + match3[0].length + 1)
             incomment = false
           else
             if incomment
               pushComment line
             else
+              # custom delimiter in coffescript source
+              if line.match(/^[#]{4,}/)
+                pushComment ""
               pushCode line
 
     segments.push currSegment
@@ -214,9 +217,16 @@ module.exports = Utils =
     if segment.comments.length > 1
       isAsterixComment = true
       for line, i in segment.comments
-        if line != "" and line[0] != "*"
+        if i == 0 and line.length != 0
           isAsterixComment = false
           break
+        else if i == 1 and !(line.length == 0 or line[0] == " ")
+          isAsterixComment = false
+          break
+        else
+          if line.trim().length != 0 and line[0] != "*"
+            isAsterixComment = false
+            break
       if isAsterixComment
         for line, i in segment.comments
           segment.comments[i] = line.substring(1)

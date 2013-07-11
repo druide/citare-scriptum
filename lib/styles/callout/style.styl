@@ -71,12 +71,12 @@ body
     & > .comments
       padding 0 1em 0 0
     & > .comments > .wrapper
-      padding 0 0 0 20px
+      padding 0 0 0 22px
     &:after
       margin-left 22px
     & a.anchor, & a.anchor > span
-      padding-left 27px
-      margin-left -27px
+      padding-left 28px
+      margin-left -28px
 
 #meta
   float left
@@ -85,6 +85,7 @@ body
   font-size 13px
   font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   width 36%
+  word-wrap break-word
 
   &.commentsonly
     border-bottom 0
@@ -398,6 +399,7 @@ a.anchor
   position absolute
   padding-left 30px
   margin-left -30px
+  outline none
   & > span
     padding-left 30px
     margin-left -30px
@@ -502,6 +504,8 @@ ol, ul
     &:after
       content ""
       display none
+    & > .wrapper > :first-child
+      margin-top 12px
 
   &.commentsonly:after
     content ""
