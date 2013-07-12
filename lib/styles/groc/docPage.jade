@@ -1,0 +1,51 @@
+//- Groc page template
+
+!!! 5
+html(lang="en")
+  head
+    title= targetPath
+  meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0")
+  meta(name="citare-relative-root", content=relativeRoot)
+  meta(name="citare-document-path", content=targetPath)
+  meta(name="citare-project-path", content=projectPath)
+  - if (project.githubURL)
+    meta(name="citare-github-url", content=project.githubURL)
+  link(rel="stylesheet", type="text/css", media="all", href=relativeRoot + "assets/style.css")
+  script(type="text/javascript", src=relativeRoot + "assets/behavior.js")
+
+  body
+    - if (!commentsOnly)
+      #bg
+    #meta(class=commentsOnly ? "commentsonly" : "")
+      - if (project.githubURL)
+        .file-path
+          a(href=project.githubURL + '/blob/master/' + projectPath)= projectPath
+      - else
+        .file-path= projectPath
+
+    #document(class=commentsOnly ? "commentsonly" : "codedoc")
+      - for (var i in segments)
+        - if (missingDoc || segments[i].markdownedComments != '')
+          - var addCodeClass = segments[i].highlightedCode == '' ? "nocode" : ""
+          .segment(class=commentsOnly ? "commentsonly " + addCodeClass : addCodeClass)
+            - if (segments[i].markdownedComments != '')
+              .comments(class=commentsOnly ? "commentsonly" : "")
+                .wrapper!= segments[i].markdownedComments
+            - else
+              .comments
+                .wrapper!= "<p>... is missing some documentation.</p>"
+
+            - if (segments[i].highlightedCode != '')
+              .code
+                .wrapper!= segments[i].highlightedCode
+
+        - else
+          .segment.nocomment
+            .comments
+            - if (segments[i].highlightedCode != '')
+              .code
+                .wrapper!= segments[i].highlightedCode
+
+      #segment-footer
+        #footer(class=commentsOnly ? "commentsonly" : "")!= footerText

@@ -48,10 +48,10 @@ html, body
   height 100%
 
 body
-  background-color #f2f2ff
+  background-color #4a525a
   min-width 460px
   -webkit-text-size-adjust 100%
-  color #333
+  color #cbd1d8
   font-size 15px
   position relative
   height auto
@@ -81,15 +81,15 @@ body
       margin-bottom 12px
 
     &:hover
-      border-top 1px dotted silver
-      border-bottom 1px dotted silver
+      border-top 1px dotted gray
+      border-bottom 1px dotted gray
       margin-top -1px
       margin-bottom -1px
 
 #meta
   float left
   padding 0 0em .5em 1.4em
-  color brown
+  color #9faab7
   font-size 13px
   font-family "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   width 36%
@@ -111,8 +111,8 @@ body
   position absolute
   width 36%
   min-width 180px
-  background-color white
-  box-shadow 1px 1px 15px #cbcbcb
+  background-color #f5fbff
+  box-shadow 1px 1px 15px #272c30
   padding 0 1em 0 0.3em
   top 0
   left 0
@@ -238,7 +238,7 @@ nav
     width 100%
     overflow-x hidden
     overflow-y auto
-    transition left 150ms
+    transition right 150ms
     right auto
     left 100%
     box-shadow rgba(0,0,0,0.3) 0 0 0.5em 0.1em
@@ -331,27 +331,27 @@ nav
         background #f5fbff
 
     .file
+      font-weight bold
       & > .label
         em
           color #101214
 
     .folder
+      font-weight bold
       & > .label
         & > .text
           background url("folder-icon.png") top left no-repeat
           padding-left 20px
 
     .file-folder
+      font-weight bold
       & > .label
         & > .text
           background url("file-folder-icon.png") top left no-repeat
           padding-left 20px
 
     .heading
-      & > .label
-        & > .text
-          font-size 0.88em
-          color #707070
+      font-weight normal
 
   &.active
     transition height 0 0
@@ -383,7 +383,7 @@ nav
 
 a
   word-wrap break-word
-  color #4183C4
+  color #a8614e
   text-decoration: none
   &:hover
     text-decoration underline
@@ -461,6 +461,7 @@ ol, ul
     padding 0 1em 0 1em
     z-index 998
     line-height 1.7
+    color #4a525a
 
     .wrapper
       padding 0 20px
@@ -481,8 +482,10 @@ ol, ul
       padding 0 5px
       border 1px solid #DDD
       border-radius 3px
-      background-color #F8F8F8
+      background-color #4a525a
       display inline-block
+      text-shadow #272c30 1px 1px 0
+      color #cbd1d8
     pre
       font-family Consolas, "Liberation Mono", Courier, monospace
       font-size 12px
@@ -490,8 +493,9 @@ ol, ul
       overflow auto
       padding 6px 10px
       border-radius 3px
-      background-color #F8F8F8
+      background-color #4a525a
       line-height 19px
+      box-shadow #f2ece3 0 0 0.4em 0.2em
       code
         overflow auto
         background transparent
@@ -519,9 +523,9 @@ ol, ul
     max-width 900px
     float none
     padding 1em 1em 1em 1em
-    background-color white
+    background-color #f5fbff
     border-radius 6px
-    box-shadow 1px 1px 15px #cbcbcb
+    box-shadow 1px 1px 15px #272c30
     margin 0.5em auto 4px auto
     & > .wrapper > :first-child
       margin-top 12px
@@ -534,6 +538,7 @@ ol, ul
     font-size 14px
     white-space pre
     padding 12px 1em 12px 1.2em
+    text-shadow #272c30 1px 1px 0
     .wrapper
       display inline-block
       margin-right 1em
@@ -562,27 +567,27 @@ ol, ul
   tab-size 2
 
   .comment, .template_comment, .diff .header, .doctype, .pi, .lisp .string, .javadoc
-    color #93a1a1
+    color #b1bac4
     font-style italic
 
   .keyword, .winutils, .method, .addition, .css .tag, .request, .status, .nginx .title
-    color #859900
+    color #e0c090
 
   .number, .command, .string, .tag .value, .phpdoc, .tex .formula, .hexcolor
-    color #2aa198
+    color #e9baba
 
  .regexp
-    color #C343EB
+    color #cba8d6
 
   .title, .localvars, .chunk, .decorator, .built_in, .identifier, .vhdl .literal, .literal, .id
-    color #268bd2
+    color #b9d0af
 
   .attribute, .variable, .lisp .body, .smalltalk .number, .constant, .class .title, .parent, .haskell .type
-    color #b58900
+    color #89A07F
 
   .preprocessor, .preprocessor .keyword, .shebang, .symbol, .symbol .string, .diff .change,
   .special, .attr_selector, .important, .subst, .cdata, .clojure .title
-    color #cb4b16
+    color #b98a8a
 
   .deletion
     color #dc322f
