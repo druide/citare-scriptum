@@ -99,10 +99,11 @@ ol :last-child,ul :last-child{margin-bottom:0}
 .code,code{-webkit-tab-size:2;-moz-tab-size:2;-o-tab-size:2;-ms-tab-size:2;tab-size:2;}
 .code .comment,code .comment,.code .template_comment,code .template_comment,.code .diff .header,code .diff .header,.code .doctype,code .doctype,.code .pi,code .pi,.code .lisp .string,code .lisp .string,.code .javadoc,code .javadoc{color:#93a1a1;font-style:italic}
 .code .keyword,code .keyword,.code .winutils,code .winutils,.code .method,code .method,.code .addition,code .addition,.code .css .tag,code .css .tag,.code .request,code .request,.code .status,code .status,.code .nginx .title,code .nginx .title{color:#859900}
-.code .number,code .number,.code .command,code .command,.code .string,code .string,.code .tag .value,code .tag .value,.code .phpdoc,code .phpdoc,.code .tex .formula,code .tex .formula,.code .regexp,code .regexp,.code .hexcolor,code .hexcolor{color:#2aa198}
-.code .title,code .title,.code .localvars,code .localvars,.code .chunk,code .chunk,.code .decorator,code .decorator,.code .built_in,code .built_in,.code .identifier,code .identifier,.code .vhdl .literal,code .vhdl .literal,.code .literal,code .literal,.code .id,code .id{color:#268bd2}
-.code .attribute,code .attribute,.code .variable,code .variable,.code .lisp .body,code .lisp .body,.code .smalltalk .number,code .smalltalk .number,.code .constant,code .constant,.code .class .title,code .class .title,.code .parent,code .parent,.code .haskell .type,code .haskell .type{color:#b58900}
-.code .preprocessor,code .preprocessor,.code .preprocessor .keyword,code .preprocessor .keyword,.code .shebang,code .shebang,.code .symbol,code .symbol,.code .symbol .string,code .symbol .string,.code .diff .change,code .diff .change,.code .special,code .special,.code .attr_selector,code .attr_selector,.code .important,code .important,.code .subst,code .subst,.code .cdata,code .cdata,.code .clojure .title,code .clojure .title{color:#cb4b16}
-.code .deletion,code .deletion{color:#dc322f}
-.code .tex .formula,code .tex .formula{background:#eee8d5}
-.code .optional,code .optional{color:#808080}
+.code .number,code .number,.code .command,code .command,.code .string,code .string,.code .tag .value,code .tag .value,.code .phpdoc,code .phpdoc,.code .tex .formula,code .tex .formula,.code .hexcolor,code .hexcolor{color:#2aa198}
+.regexp{color:#c343eb}
+.title,.localvars,.chunk,.decorator,.built_in,.identifier,.vhdl .literal,.literal,.id{color:#268bd2}
+.attribute,.variable,.lisp .body,.smalltalk .number,.constant,.class .title,.parent,.haskell .type{color:#b58900}
+.preprocessor,.preprocessor .keyword,.shebang,.symbol,.symbol .string,.diff .change,.special,.attr_selector,.important,.subst,.cdata,.clojure .title{color:#cb4b16}
+.deletion{color:#dc322f}
+.tex .formula{background:#eee8d5}
+.optional{color:#808080}

@@ -165,7 +165,19 @@ currentQuery = <span class="string">''</span>
   <span class="keyword">if</span> node.isFileFolder
     node$ = $(<span class="string">"""&lt;li class="<span class="subst">#{node.type}</span> file-folder"/&gt;"""</span>)
   <span class="keyword">else</span>
-    node$ = $(<span class="string">"""&lt;li class="<span class="subst">#{node.type}</span>"/&gt;"""</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and setup auto-links</p></div></div><div class="code"><div class="wrapper">  autolinks = $(<span class="string">".autolink"</span>)
+    node$ = $(<span class="string">"""&lt;li class="<span class="subst">#{node.type}</span>"/&gt;"""</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Given a title, convert it into a URL-friendly slug.</p></div></div><div class="code"><div class="wrapper">  <span class="function"><span class="title">slugifyTitle</span></span> = (string) -&gt;
+    string.split(<span class="regexp">/[\s\-\_]+/).map( (s) -&gt; s.replace(/[^\w]/g</span>, <span class="string">''</span>).toLowerCase() ).join <span class="string">'-'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and setup auto-links</p></div></div><div class="code"><div class="wrapper">  autolinks = $(<span class="string">".autolink"</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>first find headers on current page</p></div></div><div class="code"><div class="wrapper">  anchors = $(<span class="string">".anchor"</span>)
+  <span class="keyword">for</span> autolink <span class="keyword">in</span> autolinks
+    text = $(autolink).text()
+    <span class="keyword">if</span> text.length &lt; <span class="number">3</span> <span class="keyword">or</span> text[<span class="number">0</span>] != <span class="string">'['</span> <span class="keyword">or</span> text[text.length - <span class="number">1</span>] != <span class="string">']'</span>
+      <span class="keyword">continue</span>
+    title = text.substring(<span class="number">1</span>, text.length - <span class="number">1</span>)
+    name = slugifyTitle title
+    <span class="keyword">for</span> anchor <span class="keyword">in</span> anchors
+      <span class="keyword">if</span> $(anchor).attr(<span class="string">"name"</span>) == name
+        $(autolink).empty().append($(<span class="string">"&lt;a&gt;"</span>, {href: <span class="string">"#<span class="subst">#{name}</span>"</span>, text: title}))
+        <span class="keyword">break</span>
+
   <span class="function"><span class="title">processAutolinks</span></span> = (title, href) -&gt;
     autolinks.each -&gt;
       <span class="keyword">if</span> $(<span class="keyword">this</span>).text() == <span class="string">"["</span> + title + <span class="string">"]"</span>
