@@ -161,7 +161,7 @@ module.exports = Utils =
             incomment = false
             pos1 = line.indexOf match2[0]
             pos2 = line.indexOf match3[0]
-            pushComment line.substring(pos1 + match2[0].length + 1, pos2)
+            pushComment line.substring(pos1 + match2[0].length, pos2)
             pushCode line.substring(pos2 + match3[0].length)
           else
             pushComment line.replace(match2[0], whiteSpace(match2[0].length - 1))
