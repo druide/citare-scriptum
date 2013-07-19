@@ -278,7 +278,7 @@ module.exports = Utils =
 
         # temporary replace auto-links inside code blocks
         markdown = @gsub markdown, ///<code.*?>[\w\W]+?</code>///g, (match) ->
-          match[0].replace("{{TOC}}", "{{TOC__}}").replace("[", "{{_{{").replace("]", "}}_}}")
+          match[0].replace(///{{TOC}}///g, "{{TOC__}}").replace(///\[///g, "{{_{{").replace(///\]///g, "}}_}}")
 
         # find and process auto-link nodes
         markdown = @gsub markdown, /\[[^\]]+\]/g, (match) ->
@@ -322,7 +322,7 @@ module.exports = Utils =
       # revert temporary replaced code text
       for segment, segmentIndex in segments
         segment.markdownedComments = @gsub segment.markdownedComments, ///<code.*?>[\w\W]+?</code>///g, (match) ->
-          match[0].replace("{{TOC__}}", "{{TOC}}").replace('{{_{{', "[").replace('}}_}}', "]")
+          match[0].replace(///{{TOC__}}///g, "{{TOC}}").replace(///{{_{{///g, "[").replace(///}}_}}///g, "]")
 
     catch error
       return callback error
