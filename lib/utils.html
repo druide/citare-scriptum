@@ -110,7 +110,7 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
             incomment = <span class="literal">false</span>
             pos1 = line.indexOf match2[<span class="number">0</span>]
             pos2 = line.indexOf match3[<span class="number">0</span>]
-            pushComment line.substring(pos1 + match2[<span class="number">0</span>].length + <span class="number">1</span>, pos2)
+            pushComment line.substring(pos1 + match2[<span class="number">0</span>].length, pos2)
             pushCode line.substring(pos2 + match3[<span class="number">0</span>].length)
           <span class="keyword">else</span>
             pushComment line.replace(match2[<span class="number">0</span>], whiteSpace(match2[<span class="number">0</span>].length - <span class="number">1</span>))
