@@ -78,8 +78,7 @@ example, citare's own configuration is:
     {
       "glob": ["lib/**/*.coffee", "lib/**/*.js", "lib/**/*.jade", "lib/**/*.styl", "**/README.md"],
       "except": ["lib/**/jquery.min.js"],
-      "repository-url": "https://github.com/druide/citare-scriptum",
-      "gfm": false
+      "repository-url": "https://github.com/druide/citare-scriptum"
     }
 
 From now on, if you call `citare` without any arguments, it will use your pre-defined configuration.

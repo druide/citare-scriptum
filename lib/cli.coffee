@@ -121,6 +121,12 @@ module.exports = CLI = (inputArgs, callback) ->
       default:  true
       type:     'boolean'
 
+    breaks:
+      describe: "GFM style newlines"
+      alias:    'br'
+      default:  false
+      type:     'boolean'
+
     silent:
       describe: "Output errors only."
 
@@ -204,13 +210,14 @@ module.exports = CLI = (inputArgs, callback) ->
   project.options.requireWhitespaceAfterToken = !!argv['whitespace-after-token']
   project.options.commentsOnly = !!argv['comments-only']
   project.options.gfm = !!argv['gfm']
+  project.options.breaks = !!argv['breaks']
   project.options.footer = argv['footer'] || ''
 
   # configure marked
   marked.setOptions
     gfm: project.options.gfm,
     tables: true,
-    breaks: project.options.gfm,
+    breaks: project.options.breaks,
     pedantic: false,
     sanitize: false,
     smartLists: true,

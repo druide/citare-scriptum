@@ -1,3 +1,5 @@
+contentWidth = 760px
+
 vendor(prop, args)
   -webkit-{prop} args
   -moz-{prop} args
@@ -90,7 +92,7 @@ body
   &.commentsonly
     border-bottom 0
     padding 0.25em 1em 0.5em 1em
-    max-width 900px
+    max-width contentWidth
     margin 0 auto
     width 97%
     float none
@@ -112,7 +114,7 @@ body
       text-decoration underline
 
   &.commentsonly
-    max-width 900px
+    max-width contentWidth
     margin 2px auto
     color #A0A0A0
     width auto
@@ -417,10 +419,7 @@ p, blockquote, ul, ol, dl, table, pre
   margin 15px 0
 
 ol, ul
-  & :first-child
-    margin-top 0
-  & :last-child
-    margin-bottom 0
+  padding-left 30px
 
 .segment
   .comments
@@ -439,8 +438,6 @@ ol, ul
     .wrapper
       padding 0 20px
       word-wrap break-word
-    li
-      padding 0.1em 0
     .toc
       padding 1em
       border 1px solid #DDD
@@ -448,7 +445,7 @@ ol, ul
       background #FAF6FF
     & > *
       overflow hidden
-    code
+    code, tt
       font-family Consolas, "Liberation Mono", Courier, monospace
       font-size 12px
       margin 0 2px
@@ -483,6 +480,54 @@ ol, ul
         margin-top 0
       & > :last-child
         margin-bottom 0
+    table
+      overflow auto
+      border-collapse collapse
+      border-spacing 0
+      padding 0
+      tr
+        border-top 1px solid #cccccc
+        background-color white
+        margin 0
+        padding 0
+        &:nth-child(2n)
+          background-color #f8f8f8
+        th
+          font-weight bold
+          border 1px solid #cccccc
+          text-align center
+          margin 0
+          padding 6px 13px
+        td
+          border 1px solid #cccccc
+          text-align left
+          margin 0
+          padding 6px 13px
+        & th :first-child, & td :first-child
+          margin-top 0
+        & th :last-child, & td :last-child
+          margin-bottom 0
+    dl
+      padding 0
+      dt
+        font-size 14px
+        font-weight bold
+        font-style italic
+        padding 0
+        margin 15px 0 5px
+        &:first-child
+          padding 0
+        & > :first-child
+          margin-top 0
+        & > :last-child
+          margin-bottom 0
+      dd
+        margin-left 0
+        padding 0 15px
+        & > :first-child
+          margin-top 0
+        & > :last-child
+          margin-bottom 0
 
     /* callout arrow */
     &:after
@@ -497,7 +542,7 @@ ol, ul
 
   .commentsonly
     width auto
-    max-width 900px
+    max-width contentWidth
     float none
     padding 1em 1.2em
     margin 0.5em auto 0 auto

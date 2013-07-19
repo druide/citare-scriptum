@@ -1,6 +1,5 @@
 {
   "glob": ["lib/**/*.coffee", "lib/**/*.js", "lib/**/*.jade", "lib/**/*.styl", "**/README.md"],
   "except": ["lib/**/jquery.min.js"],
-  "repository-url": "https://github.com/druide/citare-scriptum",
-  "gfm": false
+  "repository-url": "https://github.com/druide/citare-scriptum"
 }
