@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/callout/style"><meta name="citare-project-path" content="lib/styles/callout/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/callout/style.styl">lib/styles/callout/style.styl</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">vendor(prop, args)
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/callout/style"><meta name="citare-project-path" content="lib/styles/callout/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/callout/style.styl">lib/styles/callout/style.styl</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">contentWidth = 760px
+
+vendor(prop, args)
   -webkit-{prop} args
   -moz-{prop} args
   -o-{prop} args
@@ -83,7 +85,7 @@ background-linear-gradient()
   &amp;<span class="class">.commentsonly</span>
     <span class="tag">border</span>-<span class="tag">bottom</span> 0
     <span class="tag">padding</span> 0<span class="class">.25em</span> 1<span class="tag">em</span> 0<span class="class">.5em</span> 1<span class="tag">em</span>
-    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">max</span>-<span class="tag">width</span> <span class="tag">contentWidth</span>
     <span class="tag">margin</span> 0 <span class="tag">auto</span>
     <span class="tag">width</span> 97%
     <span class="tag">float</span> <span class="tag">none</span>
@@ -105,7 +107,7 @@ background-linear-gradient()
       <span class="tag">text</span>-<span class="tag">decoration</span> <span class="tag">underline</span>
 
   &amp;<span class="class">.commentsonly</span>
-    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">max</span>-<span class="tag">width</span> <span class="tag">contentWidth</span>
     <span class="tag">margin</span> 2<span class="tag">px</span> <span class="tag">auto</span>
     <span class="tag">color</span> <span class="id">#A0A0A0</span>
     <span class="tag">width</span> <span class="tag">auto</span>
@@ -397,10 +399,7 @@ a
   <span class="tag">margin</span> 15<span class="tag">px</span> 0
 
 <span class="tag">ol</span>, <span class="tag">ul</span>
-  &amp; <span class="pseudo">:first-child</span>
-    <span class="tag">margin</span>-<span class="tag">top</span> 0
-  &amp; <span class="pseudo">:last-child</span>
-    <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+  <span class="tag">padding</span>-<span class="tag">left</span> 30<span class="tag">px</span>
 
 <span class="class">.segment</span>
   <span class="class">.comments</span>
@@ -419,8 +418,6 @@ a
     <span class="class">.wrapper</span>
       <span class="tag">padding</span> 0 20<span class="tag">px</span>
       <span class="tag">word</span>-<span class="tag">wrap</span> <span class="tag">break</span>-<span class="tag">word</span>
-    <span class="tag">li</span>
-      <span class="tag">padding</span> 0<span class="class">.1em</span> 0
     <span class="class">.toc</span>
       <span class="tag">padding</span> 1<span class="tag">em</span>
       <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#DDD</span>
@@ -428,7 +425,7 @@ a
       <span class="tag">background</span> <span class="id">#FAF6FF</span>
     &amp; &gt; *
       <span class="tag">overflow</span> <span class="tag">hidden</span>
-    <span class="tag">code</span>
+    <span class="tag">code</span>, <span class="tag">tt</span>
       <span class="tag">font</span>-<span class="tag">family</span> <span class="tag">Consolas</span>, "<span class="tag">Liberation</span> <span class="tag">Mono</span>", <span class="tag">Courier</span>, <span class="tag">monospace</span>
       <span class="tag">font</span>-<span class="tag">size</span> 12<span class="tag">px</span>
       <span class="tag">margin</span> 0 2<span class="tag">px</span>
@@ -462,7 +459,55 @@ a
       &amp; &gt; <span class="pseudo">:first-child</span>
         <span class="tag">margin</span>-<span class="tag">top</span> 0
       &amp; &gt; <span class="pseudo">:last-child</span>
-        <span class="tag">margin</span>-<span class="tag">bottom</span> 0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;<span class="pseudo">:after</span>
+        <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+    <span class="tag">table</span>
+      <span class="tag">overflow</span> <span class="tag">auto</span>
+      <span class="tag">border</span>-<span class="tag">collapse</span> <span class="tag">collapse</span>
+      <span class="tag">border</span>-<span class="tag">spacing</span> 0
+      <span class="tag">padding</span> 0
+      <span class="tag">tr</span>
+        <span class="tag">border</span>-<span class="tag">top</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#cccccc</span>
+        <span class="tag">background</span>-<span class="tag">color</span> <span class="tag">white</span>
+        <span class="tag">margin</span> 0
+        <span class="tag">padding</span> 0
+        &amp;<span class="pseudo">:nth-child(2n)</span>
+          <span class="tag">background</span>-<span class="tag">color</span> <span class="id">#f8f8f8</span>
+        <span class="tag">th</span>
+          <span class="tag">font</span>-<span class="tag">weight</span> <span class="tag">bold</span>
+          <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#cccccc</span>
+          <span class="tag">text</span>-<span class="tag">align</span> <span class="tag">center</span>
+          <span class="tag">margin</span> 0
+          <span class="tag">padding</span> 6<span class="tag">px</span> 13<span class="tag">px</span>
+        <span class="tag">td</span>
+          <span class="tag">border</span> 1<span class="tag">px</span> <span class="tag">solid</span> <span class="id">#cccccc</span>
+          <span class="tag">text</span>-<span class="tag">align</span> <span class="tag">left</span>
+          <span class="tag">margin</span> 0
+          <span class="tag">padding</span> 6<span class="tag">px</span> 13<span class="tag">px</span>
+        &amp; <span class="tag">th</span> <span class="pseudo">:first-child</span>, &amp; <span class="tag">td</span> <span class="pseudo">:first-child</span>
+          <span class="tag">margin</span>-<span class="tag">top</span> 0
+        &amp; <span class="tag">th</span> <span class="pseudo">:last-child</span>, &amp; <span class="tag">td</span> <span class="pseudo">:last-child</span>
+          <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+    <span class="tag">dl</span>
+      <span class="tag">padding</span> 0
+      <span class="tag">dt</span>
+        <span class="tag">font</span>-<span class="tag">size</span> 14<span class="tag">px</span>
+        <span class="tag">font</span>-<span class="tag">weight</span> <span class="tag">bold</span>
+        <span class="tag">font</span>-<span class="tag">style</span> <span class="tag">italic</span>
+        <span class="tag">padding</span> 0
+        <span class="tag">margin</span> 15<span class="tag">px</span> 0 5<span class="tag">px</span>
+        &amp;<span class="pseudo">:first-child</span>
+          <span class="tag">padding</span> 0
+        &amp; &gt; <span class="pseudo">:first-child</span>
+          <span class="tag">margin</span>-<span class="tag">top</span> 0
+        &amp; &gt; <span class="pseudo">:last-child</span>
+          <span class="tag">margin</span>-<span class="tag">bottom</span> 0
+      <span class="tag">dd</span>
+        <span class="tag">margin</span>-<span class="tag">left</span> 0
+        <span class="tag">padding</span> 0 15<span class="tag">px</span>
+        &amp; &gt; <span class="pseudo">:first-child</span>
+          <span class="tag">margin</span>-<span class="tag">top</span> 0
+        &amp; &gt; <span class="pseudo">:last-child</span>
+          <span class="tag">margin</span>-<span class="tag">bottom</span> 0</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;<span class="pseudo">:after</span>
       <span class="tag">position</span> <span class="tag">absolute</span>
       <span class="tag">top</span> -3<span class="tag">px</span>
       <span class="tag">left</span> 100%
@@ -474,7 +519,7 @@ a
 
   <span class="class">.commentsonly</span>
     <span class="tag">width</span> <span class="tag">auto</span>
-    <span class="tag">max</span>-<span class="tag">width</span> 900<span class="tag">px</span>
+    <span class="tag">max</span>-<span class="tag">width</span> <span class="tag">contentWidth</span>
     <span class="tag">float</span> <span class="tag">none</span>
     <span class="tag">padding</span> 1<span class="tag">em</span> 1<span class="class">.2em</span>
     <span class="tag">margin</span> 0<span class="class">.5em</span> <span class="tag">auto</span> 0 <span class="tag">auto</span>

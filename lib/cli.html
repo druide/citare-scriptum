@@ -100,6 +100,12 @@ impression with nicely formatted and readable output.</p></div></div><div class=
       <span class="reserved">default</span>:  <span class="literal">true</span>
       type:     <span class="string">'boolean'</span>
 
+    breaks:
+      describe: <span class="string">"GFM style newlines"</span>
+      alias:    <span class="string">'br'</span>
+      <span class="reserved">default</span>:  <span class="literal">false</span>
+      type:     <span class="string">'boolean'</span>
+
     silent:
       describe: <span class="string">"Output errors only."</span>
 
@@ -152,10 +158,11 @@ charge of kicking that off.</p></div></div><div class="code"><div class="wrapper
   project.log.minLevel = Logger::LEVELS.TRACE <span class="keyword">if</span> argv[<span class="string">'very-verbose'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set up project-specific options as we get them.</p></div></div><div class="code"><div class="wrapper">  project.options.requireWhitespaceAfterToken = !!argv[<span class="string">'whitespace-after-token'</span>]
   project.options.commentsOnly = !!argv[<span class="string">'comments-only'</span>]
   project.options.gfm = !!argv[<span class="string">'gfm'</span>]
+  project.options.breaks = !!argv[<span class="string">'breaks'</span>]
   project.options.footer = argv[<span class="string">'footer'</span>] || <span class="string">''</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
     gfm: project.options.gfm,
     tables: <span class="literal">true</span>,
-    breaks: project.options.gfm,
+    breaks: project.options.breaks,
     pedantic: <span class="literal">false</span>,
     sanitize: <span class="literal">false</span>,
     smartLists: <span class="literal">true</span>,
