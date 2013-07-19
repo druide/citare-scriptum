@@ -215,8 +215,25 @@ buildTOCNode = (node, metaInfo) ->
   else
     node$ = $("""<li class="#{node.type}"/>""")
 
+  # Given a title, convert it into a URL-friendly slug.
+  slugifyTitle = (string) ->
+    string.split(/[\s\-\_]+/).map( (s) -> s.replace(/[^\w]/g, '').toLowerCase() ).join '-'
+
   # find and setup auto-links
   autolinks = $(".autolink")
+  # first find headers on current page
+  anchors = $(".anchor")
+  for autolink in autolinks
+    text = $(autolink).text()
+    if text.length < 3 or text[0] != '[' or text[text.length - 1] != ']'
+      continue
+    title = text.substring(1, text.length - 1)
+    name = slugifyTitle title
+    for anchor in anchors
+      if $(anchor).attr("name") == name
+        $(autolink).empty().append($("<a>", {href: "##{name}", text: title}))
+        break
+
   processAutolinks = (title, href) ->
     autolinks.each ->
       if $(this).text() == "[" + title + "]"

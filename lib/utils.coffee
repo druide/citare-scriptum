@@ -277,17 +277,11 @@ module.exports = Utils =
           """<h#{header.level}><a name="#{header.slug}" class="anchor" href="##{header.slug}"><span></span></a>#{header.title}</h#{header.level}>"""
 
         # temporary replace auto-links inside code blocks
-        markdown = @gsub markdown, /(\<pre\>.*)(\[[^\]]+\])(.*\<\/pre\>)/g, (match) =>
-          match[1] + match[2].replace("[", "{{_{{").replace("]", "}}_}}") + match[3]
-        markdown = @gsub markdown, /(\<code\>.*)(\[[^\]]+\])(.*\<\/code\>)/g, (match) =>
-          match[1] + match[2].replace("[", "{{_{{").replace("]", "}}_}}") + match[3]
-        markdown = @gsub markdown, /(\<pre\>.*)({{TOC}})(.*\<\/pre\>)/g, (match) =>
-          match[1] + "{{TOC__}}" + match[3]
-        markdown = @gsub markdown, /(\<code\>.*)({{TOC}})(.*\<\/code\>)/g, (match) =>
-          match[1] + "{{TOC__}}" + match[3]
+        markdown = @gsub markdown, ///<code.*?>[\w\W]+?</code>///g, (match) ->
+          match[0].replace("{{TOC}}", "{{TOC__}}").replace("[", "{{_{{").replace("]", "}}_}}")
 
         # find and process auto-link nodes
-        markdown = @gsub markdown, /\[[^\]]+\]/g, (match) =>
+        markdown = @gsub markdown, /\[[^\]]+\]/g, (match) ->
           text = match[0]
           "<span class=\"autolink\">#{text}</span>"
 
@@ -297,30 +291,38 @@ module.exports = Utils =
         segment.headers = headers
 
       # make TOC
+      skipFirstHeader = false
+      headerProcessed = false
       for segment, segmentIndex in segments
+        if not headerProcessed
+          tocPos = segment.markdownedComments.indexOf("{{TOC}}")
+          headerPos = segment.markdownedComments.indexOf('class="anchor"')
+          if tocPos != -1 or headerPos != -1
+            headerProcessed = true
+            if tocPos == -1
+              skipFirstHeader = true
+            else if headerPos == -1
+              skipFirstHeader = false
+            else
+              skipFirstHeader = tocPos > headerPos
         # search for {{TOC}} tag
-        segment.markdownedComments = @gsub segment.markdownedComments, /{{TOC}}/g, (match) =>
+        segment.markdownedComments = @gsub segment.markdownedComments, ///{{TOC}}///g, (match) =>
           text = ""
           if tocHeaders.length
             text = "<div class=\"toc\">"
             for header, i in tocHeaders
               # always skip first header, usually it is top level header, and TOC is placed after it
-              if i == 0
+              if i == 0 and skipFirstHeader
                 continue
               text += @repeat(header.level) + "<a href=\"##{header.slug}\">#{header.title}</a><br/>"
             text = text + "</div>"
+          headerProcessed = true
           text
 
       # revert temporary replaced code text
       for segment, segmentIndex in segments
-        segment.markdownedComments = @gsub segment.markdownedComments, /(\<pre\>.*)({{_{{.*}}_}})(.*\<\/pre\>)/g, (match) =>
-          match[1] + match[2].replace('{{_{{', "[").replace('}}_}}', "]") + match[3]
-        segment.markdownedComments = @gsub segment.markdownedComments, /(\<code\>.*)({{_{{.*}}_}})(.*\<\/code\>)/g, (match) =>
-          match[1] + match[2].replace('{{_{{', "[").replace('}}_}}', "]") + match[3]
-        segment.markdownedComments = @gsub segment.markdownedComments, /(\<pre\>.*)({{TOC__}})(.*\<\/pre\>)/g, (match) =>
-          match[1] + "{{TOC}}" + match[3]
-        segment.markdownedComments = @gsub segment.markdownedComments, /(\<code\>.*)({{TOC__}})(.*\<\/code\>)/g, (match) =>
-          match[1] + "{{TOC}}" + match[3]
+        segment.markdownedComments = @gsub segment.markdownedComments, ///<code.*?>[\w\W]+?</code>///g, (match) ->
+          match[0].replace("{{TOC__}}", "{{TOC}}").replace('{{_{{', "[").replace('}}_}}', "]")
 
     catch error
       return callback error
