@@ -106,6 +106,11 @@ impression with nicely formatted and readable output.</p></div></div><div class=
       <span class="reserved">default</span>:  <span class="literal">false</span>
       type:     <span class="string">'boolean'</span>
 
+    mangle:
+      describe: <span class="string">"Mangle e-mail URLs"</span>
+      <span class="reserved">default</span>:  <span class="literal">true</span>
+      type:     <span class="string">'boolean'</span>
+
     silent:
       describe: <span class="string">"Output errors only."</span>
 
@@ -159,7 +164,8 @@ charge of kicking that off.</p></div></div><div class="code"><div class="wrapper
   project.options.commentsOnly = !!argv[<span class="string">'comments-only'</span>]
   project.options.gfm = !!argv[<span class="string">'gfm'</span>]
   project.options.breaks = !!argv[<span class="string">'breaks'</span>]
-  project.options.footer = argv[<span class="string">'footer'</span>] || <span class="string">''</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
+  project.options.footer = argv[<span class="string">'footer'</span>] || <span class="string">''</span>
+  project.options.mangle = !!argv[<span class="string">'mangle'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
     gfm: project.options.gfm,
     tables: <span class="literal">true</span>,
     breaks: project.options.breaks,
@@ -176,7 +182,9 @@ charge of kicking that off.</p></div></div><div class="code"><div class="wrapper
         <span class="keyword">else</span>
           code
       <span class="keyword">else</span>
-        hljs.highlight(lang, code).value</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We expand the <code>--glob</code> expressions into a poor-man&#39;s set, so that we can easily remove
+        hljs.highlight(lang, code).value</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>hack to disable mangling of e-mail URLs</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">if</span> !project.options.mangle
+    marked.InlineLexer.prototype.<span class="function"><span class="title">mangle</span></span> = (text) -&gt;
+      text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We expand the <code>--glob</code> expressions into a poor-man&#39;s set, so that we can easily remove
 exclusions defined by <code>--except</code> before we add the result to the project&#39;s file list.</p></div></div><div class="code"><div class="wrapper">  files = {}
   <span class="keyword">for</span> globExpression <span class="keyword">in</span> argv.glob
     files[file] = <span class="literal">true</span> <span class="keyword">for</span> file <span class="keyword">in</span> glob.sync globExpression
