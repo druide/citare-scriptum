@@ -127,6 +127,11 @@ module.exports = CLI = (inputArgs, callback) ->
       default:  false
       type:     'boolean'
 
+    mangle:
+      describe: "Mangle e-mail URLs"
+      default:  true
+      type:     'boolean'
+
     silent:
       describe: "Output errors only."
 
@@ -212,6 +217,7 @@ module.exports = CLI = (inputArgs, callback) ->
   project.options.gfm = !!argv['gfm']
   project.options.breaks = !!argv['breaks']
   project.options.footer = argv['footer'] || ''
+  project.options.mangle = !!argv['mangle']
 
   # configure marked
   marked.setOptions
@@ -234,6 +240,11 @@ module.exports = CLI = (inputArgs, callback) ->
           code
       else
         hljs.highlight(lang, code).value
+
+  # hack to disable mangling of e-mail URLs
+  if !project.options.mangle
+    marked.InlineLexer.prototype.mangle = (text) ->
+      text
 
   # We expand the `--glob` expressions into a poor-man's set, so that we can easily remove
   # exclusions defined by `--except` before we add the result to the project's file list.
