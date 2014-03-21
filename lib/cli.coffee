@@ -232,7 +232,7 @@ module.exports = CLI = (inputArgs, callback) ->
     highlight: (code, lang) =>
       if lang == 'js'
         lang = 'javascript'
-      if !lang? or !hljs.LANGUAGES[lang]?
+      if !lang? or !hljs.getLanguage(lang)?
         # automatically highlight brief definitions
         if code.match(///[^\(]+\(///)
           '<span class="brief">' + hljs.highlight("brief", code).value + "</span>"

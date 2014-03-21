@@ -9,7 +9,8 @@ CompatibilityHelpers = require './utils/compatibility_helpers'
 Logger               = require './utils/logger'
 Utils                = require './utils'
 hljs = require('highlight.js')
-hljs.LANGUAGES['brief'] = require('./utils/brief')(hljs);
+hljs.registerLanguage('brief', require('./utils/brief'))
+hljs.configure({classPrefix: ''})
 
 # A core concept of `citare` is that your code is grouped into a project, and that there is a certain
 # amount of context that it lends to your documentation.
