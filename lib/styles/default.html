@@ -1,20 +1,20 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/default</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/default"><meta name="citare-project-path" content="lib/styles/default.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default.coffee">lib/styles/default.coffee</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
-path = require <span class="string">'path'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/default</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/default"><meta name="citare-project-path" content="lib/styles/default.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default.coffee">lib/styles/default.coffee</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = <span class="built_in">require</span> <span class="string">'fs'</span>
+path = <span class="built_in">require</span> <span class="string">'path'</span>
 
-_            = require <span class="string">'underscore'</span>
-coffeeScript = require <span class="string">'coffee-script'</span>
-fsTools      = require <span class="string">'fs-tools'</span>
-jade         = require <span class="string">'jade'</span>
-uglifyJs     = require <span class="string">'uglify-js'</span>
-stylus       = require <span class="string">'stylus'</span>
+_            = <span class="built_in">require</span> <span class="string">'underscore'</span>
+coffeeScript = <span class="built_in">require</span> <span class="string">'coffee-script'</span>
+fsTools      = <span class="built_in">require</span> <span class="string">'fs-tools'</span>
+jade         = <span class="built_in">require</span> <span class="string">'jade'</span>
+uglifyJs     = <span class="built_in">require</span> <span class="string">'uglify-js'</span>
+stylus       = <span class="built_in">require</span> <span class="string">'stylus'</span>
 
-Base = require <span class="string">'./base'</span>
+Base = <span class="built_in">require</span> <span class="string">'./base'</span>
 
 
-module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Default</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
-  STATIC_ASSETS: []
+<span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Default</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
+  <span class="attribute">STATIC_ASSETS</span>: []
 
-  constructor: (args...) -&gt;
+  <span class="attribute">constructor</span>: <span class="function"><span class="params">(args...)</span> -&gt;</span>
     <span class="keyword">super</span>(args...)
 
     <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'default'</span>
@@ -23,18 +23,18 @@ module.exports = <span class="class"><span class="keyword">class</span> <span cl
     templateData  = fs.readFileSync path.join(<span class="property">@sourceAssets</span>, <span class="string">'docPage.jade'</span>), <span class="string">'utf-8'</span>
     <span class="property">@templateFunc</span> = jade.compile templateData
 
-  renderCompleted: (callback) -&gt;
+  <span class="attribute">renderCompleted</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'styles.Default#renderCompleted(...)'</span>
 
-    <span class="keyword">super</span> (error) =&gt;
+    <span class="keyword">super</span> <span class="function"><span class="params">(error)</span> =&gt;</span>
       <span class="keyword">return</span> error <span class="keyword">if</span> error
-      <span class="property">@copyAssets</span> =&gt;
-        <span class="property">@compileScript</span> =&gt;
+      <span class="property">@copyAssets</span><span class="function"> =&gt;</span>
+        <span class="property">@compileScript</span><span class="function"> =&gt;</span>
           <span class="property">@compileCss</span> callback
 
-  copyAssets: (callback) -&gt;
+  <span class="attribute">copyAssets</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'styles.Default#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
-over it (permissions), as well as wanting to avoid contention.</p></div></div><div class="code"><div class="wrapper">    fsTools.mkdir <span class="property">@targetAssets</span>, <span class="string">'0755'</span>, (error) =&gt;
+over it (permissions), as well as wanting to avoid contention.</p></div></div><div class="code"><div class="wrapper">    fsTools.mkdir <span class="property">@targetAssets</span>, <span class="string">'0755'</span>, <span class="function"><span class="params">(error)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Unable to create directory %s: %s'</span>, <span class="property">@targetAssets</span>, error.message
         <span class="keyword">return</span> callback error
@@ -42,9 +42,9 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
 
       numCopied = <span class="number">0</span>
       <span class="keyword">for</span> asset <span class="keyword">in</span> <span class="property">@STATIC_ASSETS</span>
-        <span class="keyword">do</span> (asset) =&gt;
+        <span class="keyword">do</span> <span class="function"><span class="params">(asset)</span> =&gt;</span>
           assetTarget = path.join <span class="property">@targetAssets</span>, asset
-          fsTools.copy path.join(<span class="property">@sourceAssets</span>, asset), assetTarget, (error) =&gt;
+          fsTools.copy path.join<span class="function"><span class="params">(<span class="property">@sourceAssets</span>, asset)</span>, <span class="title">assetTarget</span>, <span class="params">(error)</span> =&gt;</span>
             <span class="keyword">if</span> error
               <span class="property">@log</span>.error <span class="string">'Unable to copy %s: %s'</span>, assetTarget, error.message
               <span class="keyword">return</span> callback error
@@ -53,11 +53,11 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
             numCopied += <span class="number">1</span>
       callback()
 
-  compileScript: (callback) -&gt;
+  <span class="attribute">compileScript</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'styles.Default#compileScript(...)'</span>
 
     scriptPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'behavior.coffee'</span>
-    fs.readFile scriptPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
+    fs.readFile scriptPath, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Failed to read %s: %s'</span>, scriptPath, error.message
         <span class="keyword">return</span> callback error
@@ -78,11 +78,11 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
 
       <span class="property">@compressScript</span> scriptSource, callback
 
-  compressScript: (scriptSource, callback) -&gt;
+  <span class="attribute">compressScript</span>: <span class="function"><span class="params">(scriptSource, callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'styles.Default#compressScript(..., ...)'</span>
 
     <span class="keyword">try</span>
-      compiledSource = uglifyJs.minify(scriptSource, {fromString: <span class="literal">true</span>, mangle: <span class="literal">true</span>, unsafe: <span class="literal">true</span>}).code
+      compiledSource = uglifyJs.minify(scriptSource, {<span class="attribute">fromString</span>: <span class="literal">true</span>, <span class="attribute">mangle</span>: <span class="literal">true</span>, <span class="attribute">unsafe</span>: <span class="literal">true</span>}).code
 
     <span class="keyword">catch</span> error
       <span class="property">@log</span>.error <span class="string">'Failed to compress assets/behavior.js: %s'</span>, error.message
@@ -90,17 +90,17 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
 
     <span class="property">@concatenateScripts</span> compiledSource, callback
 
-  concatenateScripts: (scriptSource, callback) -&gt;
+  <span class="attribute">concatenateScripts</span>: <span class="function"><span class="params">(scriptSource, callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'styles.Default#concatenateScripts(..., ...)'</span>
 
     jqueryPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'jquery.min.js'</span>
-    fs.readFile jqueryPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
+    fs.readFile jqueryPath, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Failed to read %s: %s'</span>, jqueryPath, error.message
         <span class="keyword">return</span> callback error
 
       outputPath = path.join <span class="property">@targetAssets</span>, <span class="string">'behavior.js'</span>
-      fs.writeFile outputPath, data + scriptSource, (error) =&gt;
+      fs.writeFile outputPath, data + scriptSource, <span class="function"><span class="params">(error)</span> =&gt;</span>
         <span class="keyword">if</span> error
           <span class="property">@log</span>.error <span class="string">'Failed to write %s: %s'</span>, outputPath, error.message
           <span class="keyword">return</span> callback error
@@ -108,19 +108,19 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
 
         callback()
 
-  compileCss: (callback) -&gt;
+  <span class="attribute">compileCss</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
     stylusPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'style.styl'</span>
-    fs.readFile stylusPath, <span class="string">'utf-8'</span>, (error, data) =&gt;
+    fs.readFile stylusPath, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Failed to read %s: %s'</span>, stylusPath, error.message
         <span class="keyword">return</span> callback error
       stylus(data).set(<span class="string">"filename"</span>, stylusPath).set(<span class="string">"compress"</span>, <span class="literal">true</span>)
-        .define(<span class="string">"url"</span>, stylus.url()).render (error, css) =&gt;
+        .define<span class="function"><span class="params">(<span class="string">"url"</span>, stylus.url())</span>.<span class="title">render</span> <span class="params">(error, css)</span> =&gt;</span>
           <span class="keyword">if</span> error
             <span class="property">@log</span>.error <span class="string">'Failed to compile CSS %s: %s'</span>, stylusPath, error.message
             <span class="keyword">return</span> callback error
           outputPath = path.join <span class="property">@targetAssets</span>, <span class="string">'style.css'</span>
-          fs.writeFile outputPath, css, (error) =&gt;
+          fs.writeFile outputPath, css, <span class="function"><span class="params">(error)</span> =&gt;</span>
             <span class="keyword">if</span> error
               <span class="property">@log</span>.error <span class="string">'Failed to write %s: %s'</span>, outputPath, error.message
               <span class="keyword">return</span> callback error

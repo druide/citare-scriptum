@@ -1,33 +1,33 @@
 <!DOCTYPE html><html lang="en"><head><title>lib/utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/utils"><meta name="citare-project-path" content="lib/utils.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/utils.coffee">lib/utils.coffee</a></div></div><div id="document" class="codedoc"><div class="segment"><div class="comments"><div class="wrapper"><p>Miscellaneous code fragments reside here.</p>
-<p>TODO: These should be migrated into <code>lib/utils</code>.</p></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
-path         = require <span class="string">'path'</span>
+<p>TODO: These should be migrated into <code>lib/utils</code>.</p></div></div><div class="code"><div class="wrapper">childProcess = <span class="built_in">require</span> <span class="string">'child_process'</span>
+path         = <span class="built_in">require</span> <span class="string">'path'</span>
 
-_        = require <span class="string">'underscore'</span>
-marked   = require <span class="string">'marked'</span>
+_        = <span class="built_in">require</span> <span class="string">'underscore'</span>
+marked   = <span class="built_in">require</span> <span class="string">'marked'</span>
 
-CompatibilityHelpers = require <span class="string">'./utils/compatibility_helpers'</span>
-LANGUAGES            = require <span class="string">'./languages'</span>
-Logger               = require <span class="string">'./utils/logger'</span>
-hljs = require(<span class="string">'highlight.js'</span>)
+CompatibilityHelpers = <span class="built_in">require</span> <span class="string">'./utils/compatibility_helpers'</span>
+LANGUAGES            = <span class="built_in">require</span> <span class="string">'./languages'</span>
+Logger               = <span class="built_in">require</span> <span class="string">'./utils/logger'</span>
+hljs = <span class="built_in">require</span>(<span class="string">'highlight.js'</span>)
 
-module.exports = Utils =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Escape regular expression characters in a string</p>
-<p>Code from <a href="http://zetafleet.com/">http://zetafleet.com/</a> via <a href="http://simonwillison.net/2006/Jan/20/escape/">http://simonwillison.net/2006/Jan/20/escape/</a></p></div></div><div class="code"><div class="wrapper">  regexpEscape: (string) -&gt;
+<span class="built_in">module</span>.<span class="built_in">exports</span> = Utils =</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Escape regular expression characters in a string</p>
+<p>Code from <a href="http://zetafleet.com/">http://zetafleet.com/</a> via <a href="http://simonwillison.net/2006/Jan/20/escape/">http://simonwillison.net/2006/Jan/20/escape/</a></p></div></div><div class="code"><div class="wrapper">  <span class="attribute">regexpEscape</span>: <span class="function"><span class="params">(string)</span> -&gt;</span>
     string.replace(<span class="regexp">/[-[\]{}()*+?.,\\^$|#\s]/g</span>, <span class="string">'\\$&amp;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Detect and return the language that a given file is written in.</p>
-<p>The language is also annotated with a name property, matching the laguages key in LANGUAGES.</p></div></div><div class="code"><div class="wrapper">  getLanguage: (filePath) -&gt;
+<p>The language is also annotated with a name property, matching the laguages key in LANGUAGES.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">getLanguage</span>: <span class="function"><span class="params">(filePath)</span> -&gt;</span>
     <span class="keyword">unless</span> <span class="property">@_languageDetectionCache</span>?
       <span class="property">@_languageDetectionCache</span> = []
 
       <span class="keyword">for</span> name, language <span class="keyword">of</span> LANGUAGES
         language.name = name
 
-        <span class="keyword">for</span> matcher <span class="keyword">in</span> language.nameMatchers</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>If the matcher is a string, we assume that it&#39;s a file extension.  Stick it in a regex:</p></div></div><div class="code"><div class="wrapper">          matcher = <span class="regexp">///<span class="comment">#{@regexpEscape matcher}$/// if _.isString matcher</span>
+        <span class="keyword">for</span> matcher <span class="keyword">in</span> language.nameMatchers</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>If the matcher is a string, we assume that it&#39;s a file extension.  Stick it in a regex:</p></div></div><div class="code"><div class="wrapper">          matcher = <span class="regexp">///<span class="subst">#{<span class="property">@regexpEscape</span> matcher}</span>$///</span> <span class="keyword">if</span> _.isString matcher
 
-          @_languageDetectionCache.push [matcher, language]
+          <span class="property">@_languageDetectionCache</span>.push [matcher, language]
 
     baseName = path.basename filePath
 
-    for pair in @_languageDetectionCache
-      return pair[1] if baseName.match pair[0]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Map a list of file paths to relative target paths by stripping prefixes off of them.</p></div></div><div class="code"><div class="wrapper">  mapFiles: (resolveRoot, files, stripPrefixes) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Ensure that we&#39;re dealing with absolute paths across the board</p></div></div><div class="code"><div class="wrapper">    files = files.map (f) -&gt; path.resolve resolveRoot, f</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>And that the strip prefixes all end with a /, to avoid a target path being absolute.</p></div></div><div class="code"><div class="wrapper">    stripPrefixes = stripPrefixes.map (p) -&gt; path.join( <span class="string">"<span class="subst">#{path.resolve resolveRoot, p}</span><span class="subst">#{CompatibilityHelpers.pathSep}</span>"</span> )</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Prefixes are stripped in order of most specific to least (# of directories deep)</p></div></div><div class="code"><div class="wrapper">    prefixes = stripPrefixes.sort (a,b) =&gt; <span class="property">@pathDepth</span>(b) - <span class="property">@pathDepth</span>(a)
+    <span class="keyword">for</span> pair <span class="keyword">in</span> <span class="property">@_languageDetectionCache</span>
+      <span class="keyword">return</span> pair[<span class="number">1</span>] <span class="keyword">if</span> baseName.match pair[<span class="number">0</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Map a list of file paths to relative target paths by stripping prefixes off of them.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">mapFiles</span>: <span class="function"><span class="params">(resolveRoot, files, stripPrefixes)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Ensure that we&#39;re dealing with absolute paths across the board</p></div></div><div class="code"><div class="wrapper">    files = files.map <span class="function"><span class="params">(f)</span> -&gt;</span> path.resolve resolveRoot, f</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>And that the strip prefixes all end with a /, to avoid a target path being absolute.</p></div></div><div class="code"><div class="wrapper">    stripPrefixes = stripPrefixes.map <span class="function"><span class="params">(p)</span> -&gt;</span> path.join( <span class="string">"<span class="subst">#{path.resolve resolveRoot, p}</span><span class="subst">#{CompatibilityHelpers.pathSep}</span>"</span> )</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Prefixes are stripped in order of most specific to least (# of directories deep)</p></div></div><div class="code"><div class="wrapper">    prefixes = stripPrefixes.sort <span class="function"><span class="params">(a,b)</span> =&gt;</span> <span class="property">@pathDepth</span>(b) - <span class="property">@pathDepth</span>(a)
 
     result = {}
 
@@ -39,22 +39,22 @@ module.exports = Utils =</div></div></div><div class="segment"><div class="comme
 to substitute in their own.  Plus, if they care about the extension, they can get it from
 the keys of the map.</p></div></div><div class="code"><div class="wrapper">      result[absPath] = <span class="keyword">if</span> <span class="keyword">not</span> path.extname(file) <span class="keyword">then</span> file <span class="keyword">else</span> file[<span class="number">0.</span>..-path.extname(file).length]
 
-    result</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Attempt to guess strip prefixes for a given set of arguments.</p></div></div><div class="code"><div class="wrapper">  guessStripPrefixes: (args) -&gt;
+    result</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Attempt to guess strip prefixes for a given set of arguments.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">guessStripPrefixes</span>: <span class="function"><span class="params">(args)</span> -&gt;</span>
     result = []
     <span class="keyword">for</span> arg <span class="keyword">in</span> args</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Most globs look something like dir/<em>*/</em>.ext, so strip up to the leading *</p></div></div><div class="code"><div class="wrapper">      arg = arg.replace <span class="regexp">/\*.*$/</span>, <span class="string">''</span>
 
       result.push arg <span class="keyword">if</span> arg.slice(-<span class="number">1</span>) == CompatibilityHelpers.pathSep</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>For now, we try to avoid ambiguous situations by guessing the FIRST directory given.  The
 assumption is that you don&#39;t want merged paths, but probably did specify the most important
-source directory first.</p></div></div><div class="code"><div class="wrapper">    result = _(result).uniq()[..<span class="number">.1</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>How many directories deep is a given path?</p></div></div><div class="code"><div class="wrapper">  pathDepth: (path) -&gt;
-    path.split(<span class="regexp">/[\/\\]/</span>).length</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Split source code into segments (comment + code pairs)</p></div></div><div class="code"><div class="wrapper">  splitSource: (data, language, options={}) -&gt;
+source directory first.</p></div></div><div class="code"><div class="wrapper">    result = _(result).uniq()[..<span class="number">.1</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>How many directories deep is a given path?</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">pathDepth</span>: <span class="function"><span class="params">(path)</span> -&gt;</span>
+    path.split(<span class="regexp">/[\/\\]/</span>).length</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Split source code into segments (comment + code pairs)</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">splitSource</span>: <span class="function"><span class="params">(data, language, options={})</span> -&gt;</span>
     lines = data.split <span class="regexp">/\r?\n/</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Always strip shebangs - but don&#39;t shift it off the array to avoid the perf hit of walking the
 array to update indices.</p></div></div><div class="code"><div class="wrapper">    lines[<span class="number">0</span>] = <span class="string">''</span> <span class="keyword">if</span> lines[<span class="number">0</span>][<span class="number">0.</span><span class="number">.1</span>] == <span class="string">'#!'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Special case: If the language is comments-only, we can skip syntax highlight</p></div></div><div class="code"><div class="wrapper">    <span class="keyword">return</span> [<span class="keyword">new</span> <span class="property">@Segment</span> [], lines] <span class="keyword">if</span> language.commentsOnly
 
     segments = []
     currSegment = <span class="keyword">new</span> <span class="property">@Segment</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Enforced whitespace after the comment token</p></div></div><div class="code"><div class="wrapper">    whitespaceMatch = <span class="keyword">if</span> options.requireWhitespaceAfterToken <span class="keyword">then</span> <span class="string">'\\s'</span> <span class="keyword">else</span> <span class="string">'\\s?'</span>
 
-    singleLineMatcher = <span class="regexp">///^\s*(<span class="comment">#{language.singleLineComment.join('|')})#{whitespaceMatch}(.*)$///</span>
-    singleEmptyLineMatcher = ///</span>^\s*(<span class="comment">#{language.singleLineComment.join('|')})(\s*)$///</span>
+    singleLineMatcher = <span class="regexp">///^\s*(<span class="subst">#{language.singleLineComment.join(<span class="string">'|'</span>)}</span>)<span class="subst">#{whitespaceMatch}</span>(.*)$///</span>
+    singleEmptyLineMatcher = <span class="regexp">///^\s*(<span class="subst">#{language.singleLineComment.join(<span class="string">'|'</span>)}</span>)(\s*)$///</span>
     multiLineMatcher1 = <span class="regexp">///^\s*/\*+///</span>
     multiLineMatcher2 = <span class="regexp">///\*+/\s*///</span>
     <span class="keyword">if</span> language.multiLineComment?
@@ -65,19 +65,19 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
         multiLineMatcher2 = <span class="literal">null</span>
     incomment = <span class="literal">false</span>
 
-    <span class="function"><span class="title">pushComment</span></span> = (line) =&gt;
+    <span class="function"><span class="title">pushComment</span> = <span class="params">(line)</span> =&gt;</span>
       <span class="keyword">if</span> currSegment.code.length &gt; <span class="number">0</span>
         segments.push currSegment
         currSegment = <span class="keyword">new</span> <span class="property">@Segment</span>
       currSegment.comments.push line
 
-    <span class="function"><span class="title">pushCode</span></span> = (line) =&gt;
+    <span class="function"><span class="title">pushCode</span> = <span class="params">(line)</span> =&gt;</span>
       <span class="keyword">if</span> !options.commentsOnly
         currSegment.code.push line
       <span class="keyword">else</span>
         currSegment.code.push <span class="string">''</span>
 
-    <span class="function"><span class="title">whiteSpace</span></span> = (n) -&gt;
+    <span class="function"><span class="title">whiteSpace</span> = <span class="params">(n)</span> -&gt;</span>
       s = <span class="string">""</span>
       <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span> .. n]
         s += <span class="string">" "</span>
@@ -137,13 +137,13 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
         <span class="property">@trimLeftSpace</span> segment
         currSegment.comments.push(segment.comments.join(<span class="string">'\n'</span>))
       segments = [currSegment]
-    segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Just a convenient prototype for building segments</p></div></div><div class="code"><div class="wrapper">  Segment: <span class="class"><span class="keyword">class</span> <span class="title">Segment</span></span>
-    constructor: (code=[], comments=[]) -&gt;
+    segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Just a convenient prototype for building segments</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">Segment</span>: <span class="class"><span class="keyword">class</span> <span class="title">Segment</span></span>
+    <span class="attribute">constructor</span>: <span class="function"><span class="params">(code=[], comments=[])</span> -&gt;</span>
       <span class="property">@code</span>     = code
       <span class="property">@comments</span> = comments
 
-  unescape: (value) -&gt;
-    value.replace(<span class="regexp">/&amp;amp;/gm, '&amp;').replace(/&amp;lt;/gm, '&lt;').replace(/&amp;gt;/gm</span>, <span class="string">'&gt;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">  trimLeftSpace: (segment) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">    spaces = <span class="number">1000</span>
+  <span class="attribute">unescape</span>: <span class="function"><span class="params">(value)</span> -&gt;</span>
+    value.replace(<span class="regexp">/&amp;amp;/gm</span>, <span class="string">'&amp;'</span>).replace(<span class="regexp">/&amp;lt;/gm</span>, <span class="string">'&lt;'</span>).replace(<span class="regexp">/&amp;gt;/gm</span>, <span class="string">'&gt;'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">trimLeftSpace</span>: <span class="function"><span class="params">(segment)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sort out the smallest amount of space prefixing each line.</p></div></div><div class="code"><div class="wrapper">    spaces = <span class="number">1000</span>
     <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
       <span class="keyword">if</span> line.trim().length &gt; <span class="number">0</span>
         curspaces = <span class="regexp">/^(\s*)(.*)/</span>.exec(line)[<span class="number">1</span>].length
@@ -165,18 +165,19 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
       <span class="keyword">if</span> isAsterixComment
         <span class="keyword">for</span> line, i <span class="keyword">in</span> segment.comments
           segment.comments[i] = line.substring(<span class="number">1</span>)
-    segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their code through <a href="https://github.com/isagalaev/highlight.js">highlight.js</a>.</p></div></div><div class="code"><div class="wrapper">  highlightCode: (segments, language, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Don&#39;t bother spawning highlight.js if we have nothing to highlight</p></div></div><div class="code"><div class="wrapper">    numCodeLines = segments.reduce ( (c,s) -&gt; c + s.code.length ), <span class="number">0</span>
-    <span class="keyword">if</span> numCodeLines == <span class="number">0</span>
-      <span class="keyword">for</span> segment <span class="keyword">in</span> segments
-        segment.highlightedCode = <span class="string">''</span>
-      <span class="keyword">return</span> callback()
+    segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their code through <a href="https://github.com/isagalaev/highlight.js">highlight.js</a>.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">highlightCode</span>: <span class="function"><span class="params">(segments, language, callback)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Don&#39;t bother spawning highlight.js if we have nothing to highlight</p></div></div><div class="code"><div class="wrapper">    numCodeLines = segments.reduce <span class="function"><span class="params">( (c,s) -&gt; c + s.code.length )</span>, 0
+    <span class="title">if</span> <span class="title">numCodeLines</span> == 0
+      <span class="title">for</span> <span class="title">segment</span> <span class="title">in</span> <span class="title">segments</span>
+        <span class="title">segment</span>.<span class="title">highlightedCode</span> = ''
+      <span class="title">return</span> <span class="title">callback</span><span class="params">()</span>
 
-    <span class="keyword">for</span> segment, i <span class="keyword">in</span> segments
-      segmentCode = segment.code.join <span class="string">'\n'</span>
-      segment.highlightedCode = hljs.highlight(language.lexer, segmentCode).value
+    <span class="title">for</span> <span class="title">segment</span>, <span class="title">i</span> <span class="title">in</span> <span class="title">segments</span>
+      <span class="title">segmentCode</span> = <span class="title">segment</span>.<span class="title">code</span>.<span class="title">join</span> '\<span class="title">n</span>'
+      <span class="title">segment</span>.<span class="title">highlightedCode</span> = <span class="title">hljs</span>.<span class="title">highlight</span><span class="params">(language.lexer, segmentCode)</span>.<span class="title">value</span>
 
-    <span class="keyword">return</span> callback()</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their comments through
-<a href="https://github.com/chjj/marked">marked</a>.</p></div></div><div class="code"><div class="wrapper">  markdownComments: (segments, project, callback) -&gt;
+    <span class="title">return</span> <span class="title">callback</span><span class="params">()</span>
+</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Annotate an array of segments by running their comments through
+<a href="https://github.com/chjj/marked">marked</a>.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">markdownComments</span>: <span class="function"><span class="params">(segments, project, callback)</span> -&gt;</span>
     <span class="keyword">try</span>
       tocHeaders = []
 
@@ -184,10 +185,10 @@ array to update indices.</p></div></div><div class="code"><div class="wrapper"> 
 
         <span class="property">@trimLeftSpace</span> segment</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>put this back together.</p></div></div><div class="code"><div class="wrapper">        markdown = marked segment.comments.join <span class="string">'\n'</span>
         headers  = []</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>showdown generates header ids by lowercasing &amp; dropping non-word characters.  We&#39;d like
-something a bit more readable.</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/&lt;h(\d)&gt;([^&lt;]+)&lt;\/h\d&gt;/g</span>, (match) =&gt;
+something a bit more readable.</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/&lt;h(\d)&gt;([^&lt;]+)&lt;\/h\d&gt;/g</span>, <span class="function"><span class="params">(match)</span> =&gt;</span>
           header =
-            level: parseInt match[<span class="number">1</span>]
-            title: match[<span class="number">2</span>].replace <span class="regexp">///<span class="comment">#\{///g, '\\0x23{' # escape coffescript "#{}" interpolation</span>
+            <span class="attribute">level</span>: parseInt match[<span class="number">1</span>]
+            <span class="attribute">title</span>: match[<span class="number">2</span>].replace <span class="regexp">///<span class="comment">#\{///g, '\\0x23{' # escape coffescript "#{}" interpolation</span>
             slug:  @slugifyTitle match[2]
 
           header.isFileHeader = true if header.level == 1 &amp;&amp; segmentIndex == 0 &amp;&amp; match.index == 0
@@ -195,8 +196,9 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
           headers.push header
           tocHeaders.push header
 
-          """&lt;h<span class="comment">#{header.level}&gt;&lt;a name="#{header.slug}" class="anchor" href="##{header.slug}"&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;#{header.title}&lt;/h#{header.level}&gt;"""</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>temporary replace auto-links inside code blocks</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">///&lt;code.*?&gt;[\w\W]+?&lt;/code&gt;///</span>g, (match) -&gt;
-          match[<span class="number">0</span>].replace(<span class="regexp">///{{TOC}}///</span>g, <span class="string">"{{TOC__}}"</span>).replace(<span class="regexp">///\[///</span>g, <span class="string">"{{_{{"</span>).replace(<span class="regexp">///\]///</span>g, <span class="string">"}}_}}"</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and process auto-link nodes</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/\[[^\]]+\]/g</span>, (match) -&gt;
+          """&lt;h<span class="subst">#{header.level}</span>&gt;&lt;a name="<span class="subst">#{header.slug}</span>" class="anchor" href="<span class="comment">##{header.slug}"&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;#{header.title}&lt;/h#{header.level}&gt;"""</span>
+</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>temporary replace auto-links inside code blocks</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">///&lt;code.*?&gt;[\w\W]+?&lt;/code&gt;///</span>g, <span class="function"><span class="params">(match)</span> -&gt;</span>
+          match[<span class="number">0</span>].replace(<span class="regexp">///{{TOC}}///</span>g, <span class="string">"{{TOC__}}"</span>).replace(<span class="regexp">///\[///</span>g, <span class="string">"{{_{{"</span>).replace(<span class="regexp">///\]///</span>g, <span class="string">"}}_}}"</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>find and process auto-link nodes</p></div></div><div class="code"><div class="wrapper">        markdown = <span class="property">@gsub</span> markdown, <span class="regexp">/\[[^\]]+\]/g</span>, <span class="function"><span class="params">(match)</span> -&gt;</span>
           text = match[<span class="number">0</span>]
           <span class="string">"&lt;span class=\"autolink\"&gt;<span class="subst">#{text}</span>&lt;/span&gt;"</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We attach the rendered markdown to the comment</p></div></div><div class="code"><div class="wrapper">        segment.markdownedComments = markdown</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>As well as the extracted headers to aid in outline building.</p></div></div><div class="code"><div class="wrapper">        segment.headers = headers</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>make TOC</p></div></div><div class="code"><div class="wrapper">      skipFirstHeader = <span class="literal">false</span>
       headerProcessed = <span class="literal">false</span>
@@ -211,7 +213,7 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
             <span class="keyword">else</span> <span class="keyword">if</span> headerPos == -<span class="number">1</span>
               skipFirstHeader = <span class="literal">false</span>
             <span class="keyword">else</span>
-              skipFirstHeader = tocPos &gt; headerPos</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>search for  tag</p></div></div><div class="code"><div class="wrapper">        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">///{{TOC}}///</span>g, (match) =&gt;
+              skipFirstHeader = tocPos &gt; headerPos</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>search for  tag</p></div></div><div class="code"><div class="wrapper">        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">///{{TOC}}///</span>g, <span class="function"><span class="params">(match)</span> =&gt;</span>
           text = <span class="string">""</span>
           <span class="keyword">if</span> tocHeaders.length
             text = <span class="string">"&lt;div class=\"toc\"&gt;"</span>
@@ -221,22 +223,23 @@ something a bit more readable.</p></div></div><div class="code"><div class="wrap
             text = text + <span class="string">"&lt;/div&gt;"</span>
           headerProcessed = <span class="literal">true</span>
           text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>revert temporary replaced code text</p></div></div><div class="code"><div class="wrapper">      <span class="keyword">for</span> segment, segmentIndex <span class="keyword">in</span> segments
-        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">///&lt;code.*?&gt;[\w\W]+?&lt;/code&gt;///</span>g, (match) -&gt;
+        segment.markdownedComments = <span class="property">@gsub</span> segment.markdownedComments, <span class="regexp">///&lt;code.*?&gt;[\w\W]+?&lt;/code&gt;///</span>g, <span class="function"><span class="params">(match)</span> -&gt;</span>
           match[<span class="number">0</span>].replace(<span class="regexp">///{{TOC__}}///</span>g, <span class="string">"{{TOC}}"</span>).replace(<span class="regexp">///{{_{{///</span>g, <span class="string">"["</span>).replace(<span class="regexp">///}}_}}///</span>g, <span class="string">"]"</span>)
 
     <span class="keyword">catch</span> error
       <span class="keyword">return</span> callback error
 
-    callback()</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>add <em>count</em> whitespaces</p></div></div><div class="code"><div class="wrapper">  repeat: (count) -&gt;
+    callback()</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>add <em>count</em> whitespaces</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">repeat</span>: <span class="function"><span class="params">(count)</span> -&gt;</span>
     text = <span class="string">""</span>
     <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1.</span>.count-<span class="number">1</span>]
       text += <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>
-    text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Sometimes you just don&#39;t want any of them hanging around.</p></div></div><div class="code"><div class="wrapper">  trimBlankLines: (string) -&gt;
+    text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Sometimes you just don&#39;t want any of them hanging around.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">trimBlankLines</span>: <span class="function"><span class="params">(string)</span> -&gt;</span>
     <span class="keyword">if</span> <span class="keyword">not</span> string
       <span class="keyword">return</span> <span class="string">""</span>
-    string.replace(<span class="regexp">/^[\r\n]+/, '').replace(/[\r\n]+$/</span>, <span class="string">''</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Given a title, convert it into a URL-friendly slug.</p></div></div><div class="code"><div class="wrapper">  slugifyTitle: (string) -&gt;
-    string.split(<span class="regexp">/[\s\-\_]+/).map( (s) -&gt; s.replace(/[^\w]/g</span>, <span class="string">''</span>).toLowerCase() ).join <span class="string">'-'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>replacer is a function that is given the match object, and returns the string to replace with.</p></div></div><div class="code"><div class="wrapper">  gsub: (string, matcher, replacer) -&gt;
-    <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">'You must pass a global RegExp to gsub!'</span> <span class="keyword">unless</span> matcher.global?
+    string.replace(<span class="regexp">/^[\r\n]+/</span>, <span class="string">''</span>).replace(<span class="regexp">/[\r\n]+$/</span>, <span class="string">''</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Given a title, convert it into a URL-friendly slug.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">slugifyTitle</span>: <span class="function"><span class="params">(string)</span> -&gt;</span>
+    string.split<span class="function"><span class="params">(<span class="regexp">/[\s\-\_]+/</span>)</span>.<span class="title">map</span><span class="params">( (s) -&gt; s.replace(<span class="regexp">/[^\w]/g</span>, <span class="string">''</span>).toLowerCase() )</span>.<span class="title">join</span> '-'
+</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>replacer is a function that is given the match object, and returns the string to replace with.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">gsub</span>: <span class="function"><span class="params">(string, matcher, replacer)</span> -&gt;</span>
+    <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">'You must pass a global RegExp to gsub!'</span> <span class="keyword">unless</span> matcher.<span class="built_in">global</span>?
 
     result = <span class="string">''</span>
     matcher.lastIndex = <span class="number">0</span>

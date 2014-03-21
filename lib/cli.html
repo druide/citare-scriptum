@@ -1,23 +1,23 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/cli</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/cli"><meta name="citare-project-path" content="lib/cli.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/cli.coffee">lib/cli.coffee</a></div></div><div id="document" class="codedoc"><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="command-line-interface" class="anchor" href="#command-line-interface"><span></span></a>Command Line Interface</h1></div></div><div class="code"><div class="wrapper">childProcess = require <span class="string">'child_process'</span>
-fs           = require <span class="string">'fs'</span>
-path         = require <span class="string">'path'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/cli</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/cli"><meta name="citare-project-path" content="lib/cli.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/cli.coffee">lib/cli.coffee</a></div></div><div id="document" class="codedoc"><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="command-line-interface" class="anchor" href="#command-line-interface"><span></span></a>Command Line Interface</h1></div></div><div class="code"><div class="wrapper">childProcess = <span class="built_in">require</span> <span class="string">'child_process'</span>
+fs           = <span class="built_in">require</span> <span class="string">'fs'</span>
+path         = <span class="built_in">require</span> <span class="string">'path'</span>
 
-glob     = require <span class="string">'glob'</span>
-optimist = require <span class="string">'optimist'</span>
+glob     = <span class="built_in">require</span> <span class="string">'glob'</span>
+optimist = <span class="built_in">require</span> <span class="string">'optimist'</span>
 
-CLIHelpers   = require <span class="string">'./utils/cli_helpers'</span>
-Logger       = require <span class="string">'./utils/logger'</span>
-PACKAGE_INFO = require <span class="string">'./package_info'</span>
-Project      = require <span class="string">'./project'</span>
-styles       = require <span class="string">'./styles'</span>
-Utils        = require <span class="string">'./utils'</span>
-marked       = require <span class="string">'marked'</span>
-hljs         = require(<span class="string">'highlight.js'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Readable command line output is just as important as readable documentation!  It is the first
+CLIHelpers   = <span class="built_in">require</span> <span class="string">'./utils/cli_helpers'</span>
+Logger       = <span class="built_in">require</span> <span class="string">'./utils/logger'</span>
+PACKAGE_INFO = <span class="built_in">require</span> <span class="string">'./package_info'</span>
+Project      = <span class="built_in">require</span> <span class="string">'./project'</span>
+styles       = <span class="built_in">require</span> <span class="string">'./styles'</span>
+Utils        = <span class="built_in">require</span> <span class="string">'./utils'</span>
+marked       = <span class="built_in">require</span> <span class="string">'marked'</span>
+hljs         = <span class="built_in">require</span>(<span class="string">'highlight.js'</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Readable command line output is just as important as readable documentation!  It is the first
 interaction that a developer will have with a tool like this, so we want to leave a good
-impression with nicely formatted and readable command line output.</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="function"><span class="title">CLI</span></span> = (inputArgs, callback) -&gt;</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In keeping with our console beautification project, make sure that our output isn‘t getting
+impression with nicely formatted and readable command line output.</p></div></div><div class="code"><div class="wrapper"><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="function"><span class="title">CLI</span> = <span class="params">(inputArgs, callback)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In keeping with our console beautification project, make sure that our output isn‘t getting
 too comfortable with the user’s next shell line.</p></div></div><div class="code"><div class="wrapper">  actualCallback = callback
-  <span class="function"><span class="title">callback</span></span> = (args...) -&gt;
-    console.log <span class="string">''</span>
+  <span class="function"><span class="title">callback</span> = <span class="params">(args...)</span> -&gt;</span>
+    <span class="built_in">console</span>.log <span class="string">''</span>
 
     actualCallback args...</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We use <a href="https://github.com/substack/node-optimist">Optimist</a> to parse our command line arguments
 in a sane manner, and manage the myriad of options.</p></div></div><div class="code"><div class="wrapper">  opts = optimist inputArgs</div></div></div><div class="segment nocode"><div class="comments"><div class="wrapper"><h2><a name="cli-overview" class="anchor" href="#cli-overview"><span></span></a>CLI Overview</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Readable command line output is just as important as readable documentation! It is the first
@@ -35,97 +35,97 @@ impression with nicely formatted and readable output.</p></div></div><div class=
       { "glob": ["lib", "vendor"], out: "documentation", strip: [] }
     """</span>)</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2><a name="cli-options" class="anchor" href="#cli-options"><span></span></a>CLI Options</h2></div></div><div class="code"><div class="wrapper">  optionsConfig =
 
-    help:
-      describe: <span class="string">"You're looking at it."</span>
-      alias:   [<span class="string">'h'</span>, <span class="string">'?'</span>]
-      type:     <span class="string">'boolean'</span>
+    <span class="attribute">help</span>:
+      <span class="attribute">describe</span>: <span class="string">"You're looking at it."</span>
+      <span class="attribute">alias</span>:   [<span class="string">'h'</span>, <span class="string">'?'</span>]
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
-    glob:
-      describe: <span class="string">"A file path or globbing expression that matches files to generate documentation for."</span>
-      <span class="reserved">default</span>:  (opts) -&gt; opts.argv._
-      type:     <span class="string">'list'</span>
+    <span class="attribute">glob</span>:
+      <span class="attribute">describe</span>: <span class="string">"A file path or globbing expression that matches files to generate documentation for."</span>
+      <span class="attribute">default</span>:  <span class="function"><span class="params">(opts)</span> -&gt;</span> opts.argv._
+      <span class="attribute">type</span>:     <span class="string">'list'</span>
 
-    except:
-      describe: <span class="string">"Glob expression of files to exclude.  Can be specified multiple times."</span>
-      alias:    <span class="string">'e'</span>
-      type:     <span class="string">'list'</span>
+    <span class="attribute">except</span>:
+      <span class="attribute">describe</span>: <span class="string">"Glob expression of files to exclude.  Can be specified multiple times."</span>
+      <span class="attribute">alias</span>:    <span class="string">'e'</span>
+      <span class="attribute">type</span>:     <span class="string">'list'</span>
 
-    github:
-      describe: <span class="string">"Generate your docs in the gh-pages branch of your git repository.  --out is ignored."</span>
-      alias:    <span class="string">'gh'</span>
-      type:     <span class="string">'boolean'</span>
+    <span class="attribute">github</span>:
+      <span class="attribute">describe</span>: <span class="string">"Generate your docs in the gh-pages branch of your git repository.  --out is ignored."</span>
+      <span class="attribute">alias</span>:    <span class="string">'gh'</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
     <span class="string">'repository-url'</span>:
-      describe: <span class="string">"Supply your GitHub repository URL (if citare fails to guess it)."</span>
-      type:     <span class="string">'string'</span>
+      <span class="attribute">describe</span>: <span class="string">"Supply your GitHub repository URL (if citare fails to guess it)."</span>
+      <span class="attribute">type</span>:     <span class="string">'string'</span>
 
-    out:
-      describe: <span class="string">"The directory to place generated documentation, relative to the project root."</span>
-      alias:    <span class="string">'o'</span>
-      <span class="reserved">default</span>:  <span class="string">'./doc'</span>
-      type:     <span class="string">'path'</span>
+    <span class="attribute">out</span>:
+      <span class="attribute">describe</span>: <span class="string">"The directory to place generated documentation, relative to the project root."</span>
+      <span class="attribute">alias</span>:    <span class="string">'o'</span>
+      <span class="attribute">default</span>:  <span class="string">'./doc'</span>
+      <span class="attribute">type</span>:     <span class="string">'path'</span>
 
-    index:
-      describe: <span class="string">"The file to use as the index of the generated documentation."</span>
-      alias:    <span class="string">'i'</span>
-      <span class="reserved">default</span>:  <span class="string">'README.md'</span>
+    <span class="attribute">index</span>:
+      <span class="attribute">describe</span>: <span class="string">"The file to use as the index of the generated documentation."</span>
+      <span class="attribute">alias</span>:    <span class="string">'i'</span>
+      <span class="attribute">default</span>:  <span class="string">'README.md'</span>
 
-    root:
-      describe: <span class="string">"The root directory of the project."</span>
-      alias:    <span class="string">'r'</span>
-      <span class="reserved">default</span>:  <span class="string">'.'</span>
-      type:     <span class="string">'path'</span>
+    <span class="attribute">root</span>:
+      <span class="attribute">describe</span>: <span class="string">"The root directory of the project."</span>
+      <span class="attribute">alias</span>:    <span class="string">'r'</span>
+      <span class="attribute">default</span>:  <span class="string">'.'</span>
+      <span class="attribute">type</span>:     <span class="string">'path'</span>
 
-    style:
-      describe: <span class="string">"The style to use when generating documentation."</span>
-      alias:    <span class="string">'s'</span>
-      <span class="reserved">default</span>:  <span class="string">'Default'</span>
+    <span class="attribute">style</span>:
+      <span class="attribute">describe</span>: <span class="string">"The style to use when generating documentation."</span>
+      <span class="attribute">alias</span>:    <span class="string">'s'</span>
+      <span class="attribute">default</span>:  <span class="string">'Default'</span>
 
-    strip:
-      describe: <span class="string">"A path prefix to strip when generating documentation paths (or --no-strip)."</span>
-      alias:    <span class="string">'t'</span>
+    <span class="attribute">strip</span>:
+      <span class="attribute">describe</span>: <span class="string">"A path prefix to strip when generating documentation paths (or --no-strip)."</span>
+      <span class="attribute">alias</span>:    <span class="string">'t'</span>
 
     <span class="string">'whitespace-after-token'</span>:
-      describe: <span class="string">"Require whitespace after a comment token for a line to be considered a comment."</span>
-      <span class="reserved">default</span>:  <span class="literal">true</span>
-      type:     <span class="string">'boolean'</span>
+      <span class="attribute">describe</span>: <span class="string">"Require whitespace after a comment token for a line to be considered a comment."</span>
+      <span class="attribute">default</span>:  <span class="literal">true</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
     <span class="string">'comments-only'</span>:
-      describe: <span class="string">"Generate documentation from comments only, source code will not be included."</span>
-      <span class="reserved">default</span>:  <span class="literal">false</span>
-      type:     <span class="string">'boolean'</span>
+      <span class="attribute">describe</span>: <span class="string">"Generate documentation from comments only, source code will not be included."</span>
+      <span class="attribute">default</span>:  <span class="literal">false</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
     <span class="string">'gfm'</span>:
-      describe: <span class="string">"Github flavored markdown."</span>
-      <span class="reserved">default</span>:  <span class="literal">true</span>
-      type:     <span class="string">'boolean'</span>
+      <span class="attribute">describe</span>: <span class="string">"Github flavored markdown."</span>
+      <span class="attribute">default</span>:  <span class="literal">true</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
-    breaks:
-      describe: <span class="string">"GFM style newlines"</span>
-      alias:    <span class="string">'br'</span>
-      <span class="reserved">default</span>:  <span class="literal">false</span>
-      type:     <span class="string">'boolean'</span>
+    <span class="attribute">breaks</span>:
+      <span class="attribute">describe</span>: <span class="string">"GFM style newlines"</span>
+      <span class="attribute">alias</span>:    <span class="string">'br'</span>
+      <span class="attribute">default</span>:  <span class="literal">false</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
-    mangle:
-      describe: <span class="string">"Mangle e-mail URLs"</span>
-      <span class="reserved">default</span>:  <span class="literal">true</span>
-      type:     <span class="string">'boolean'</span>
+    <span class="attribute">mangle</span>:
+      <span class="attribute">describe</span>: <span class="string">"Mangle e-mail URLs"</span>
+      <span class="attribute">default</span>:  <span class="literal">true</span>
+      <span class="attribute">type</span>:     <span class="string">'boolean'</span>
 
-    silent:
-      describe: <span class="string">"Output errors only."</span>
+    <span class="attribute">silent</span>:
+      <span class="attribute">describe</span>: <span class="string">"Output errors only."</span>
 
-    version:
-      describe: <span class="string">"Shows you the current version of citare (<span class="subst">#{PACKAGE_INFO.version}</span>)"</span>
-      alias:    <span class="string">'v'</span>
+    <span class="attribute">version</span>:
+      <span class="attribute">describe</span>: <span class="string">"Shows you the current version of citare (<span class="subst">#{PACKAGE_INFO.version}</span>)"</span>
+      <span class="attribute">alias</span>:    <span class="string">'v'</span>
 
-    verbose:
-      describe: <span class="string">"Output the inner workings of citare to help diagnose issues."</span>
+    <span class="attribute">verbose</span>:
+      <span class="attribute">describe</span>: <span class="string">"Output the inner workings of citare to help diagnose issues."</span>
 
     <span class="string">'very-verbose'</span>:
-      describe: <span class="string">"Hey, you asked for it."</span>
+      <span class="attribute">describe</span>: <span class="string">"Hey, you asked for it."</span>
 
     <span class="string">'footer'</span>:
-      describe: <span class="string">"Footer text"</span></div></div></div><div class="segment nocode"><div class="comments"><div class="wrapper"><h2><a name="argument-processing" class="anchor" href="#argument-processing"><span></span></a>Argument processing</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We treat the values within the current project&#39;s <code>.citare.json</code> as defaults, so that you can
+      <span class="attribute">describe</span>: <span class="string">"Footer text"</span></div></div></div><div class="segment nocode"><div class="comments"><div class="wrapper"><h2><a name="argument-processing" class="anchor" href="#argument-processing"><span></span></a>Argument processing</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We treat the values within the current project&#39;s <code>.citare.json</code> as defaults, so that you can
 easily override the persisted configuration when testing and tweaking.</p>
 <p>For example, if you have configured your <code>.citare.json</code> to include <code>&quot;github&quot;: true</code>, it is
 extremely helpful to use <code>citare --no-github</code> until you are satisfied with the generated output.</p></div></div><div class="code"><div class="wrapper">  projectConfigPath = path.resolve <span class="string">'.citare.json'</span>
@@ -133,8 +133,8 @@ extremely helpful to use <code>citare --no-github</code> until you are satisfied
     projectConfig = JSON.parse fs.readFileSync projectConfigPath
   <span class="keyword">catch</span> err
     <span class="keyword">unless</span> err.code == <span class="string">'ENOENT'</span> || err.code == <span class="string">'EBADF'</span>
-      console.log opts.help()
-      console.log
+      <span class="built_in">console</span>.log opts.help()
+      <span class="built_in">console</span>.log
       Logger.error <span class="string">"Failed to load .citare.json: %s"</span>, err.message
 
       <span class="keyword">return</span> callback err</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In compatability with groc, if <code>.groc.json</code> is present, configuration will be taken from there
@@ -143,8 +143,8 @@ and processed same way as <code>.citare.json</code>.</p></div></div><div class="
       projectConfig = JSON.parse fs.readFileSync path.resolve <span class="string">'.groc.json'</span>
     <span class="keyword">catch</span> err
       <span class="keyword">unless</span> err.code == <span class="string">'ENOENT'</span> || err.code == <span class="string">'EBADF'</span>
-        console.log opts.help()
-        console.log
+        <span class="built_in">console</span>.log opts.help()
+        <span class="built_in">console</span>.log
         Logger.error <span class="string">"Failed to load .groc.json: %s"</span>, err.message
 
         <span class="keyword">return</span> callback err</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We rely on <a href="utils/cli_helpers.html#configureoptimist">CLIHelpers.configureOptimist</a> to provide
@@ -153,37 +153,37 @@ the extra options behavior that we require.</p></div></div><div class="code"><di
   opts.<span class="reserved">default</span> <span class="string">'strip'</span>, Utils.guessStripPrefixes opts.argv.glob <span class="keyword">unless</span> projectConfig?.strip? <span class="keyword">and</span> opts.argv.glob?
 
   argv = CLIHelpers.extractArgv opts, optionsConfig</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>If we&#39;re in tracing mode, the parsed options are extremely helpful.</p></div></div><div class="code"><div class="wrapper">  Logger.trace <span class="string">'argv: %j'</span>, argv <span class="keyword">if</span> argv[<span class="string">'very-verbose'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Version checks short circuit before our pretty printing begins, since it is
-one of those things that you might want to reference from other scripts.</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">return</span> console.log PACKAGE_INFO.version <span class="keyword">if</span> argv.version</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In keeping with our stance on readable output, we don&#39;t want it bumping up
+one of those things that you might want to reference from other scripts.</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">return</span> <span class="built_in">console</span>.log PACKAGE_INFO.version <span class="keyword">if</span> argv.version</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In keeping with our stance on readable output, we don&#39;t want it bumping up
 against the shell execution lines and blurring together; use that whitespace
-with great gusto!</p></div></div><div class="code"><div class="wrapper">  console.log <span class="string">''</span>
+with great gusto!</p></div></div><div class="code"><div class="wrapper">  <span class="built_in">console</span>.log <span class="string">''</span>
 
-  <span class="keyword">return</span> console.log opts.help() <span class="keyword">if</span> argv.help</div></div></div><div class="segment nocode"><div class="comments"><div class="wrapper"><h2><a name="project-generation" class="anchor" href="#project-generation"><span></span></a>Project Generation</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A <a href="project.html">Project</a> is just a handy way to configure the generation process, and is in
-charge of kicking that off.</p></div></div><div class="code"><div class="wrapper">  project = <span class="keyword">new</span> Project argv.root, argv.out</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><code>--silent</code>, <code>--verbose</code> and <code>--very-verbose</code> just impact the logging level of the project.</p></div></div><div class="code"><div class="wrapper">  project.log.minLevel = Logger::LEVELS.ERROR <span class="keyword">if</span> argv.silent
-  project.log.minLevel = Logger::LEVELS.DEBUG <span class="keyword">if</span> argv.verbose
-  project.log.minLevel = Logger::LEVELS.TRACE <span class="keyword">if</span> argv[<span class="string">'very-verbose'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set up project-specific options as we get them.</p></div></div><div class="code"><div class="wrapper">  project.options.requireWhitespaceAfterToken = !!argv[<span class="string">'whitespace-after-token'</span>]
+  <span class="keyword">return</span> <span class="built_in">console</span>.log opts.help() <span class="keyword">if</span> argv.help</div></div></div><div class="segment nocode"><div class="comments"><div class="wrapper"><h2><a name="project-generation" class="anchor" href="#project-generation"><span></span></a>Project Generation</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A <a href="project.html">Project</a> is just a handy way to configure the generation process, and is in
+charge of kicking that off.</p></div></div><div class="code"><div class="wrapper">  project = <span class="keyword">new</span> Project argv.root, argv.out</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><code>--silent</code>, <code>--verbose</code> and <code>--very-verbose</code> just impact the logging level of the project.</p></div></div><div class="code"><div class="wrapper">  project.log.minLevel = <span class="attribute">Logger</span>::LEVELS.ERROR <span class="keyword">if</span> argv.silent
+  project.log.minLevel = <span class="attribute">Logger</span>::LEVELS.DEBUG <span class="keyword">if</span> argv.verbose
+  project.log.minLevel = <span class="attribute">Logger</span>::LEVELS.TRACE <span class="keyword">if</span> argv[<span class="string">'very-verbose'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set up project-specific options as we get them.</p></div></div><div class="code"><div class="wrapper">  project.options.requireWhitespaceAfterToken = !!argv[<span class="string">'whitespace-after-token'</span>]
   project.options.commentsOnly = !!argv[<span class="string">'comments-only'</span>]
   project.options.gfm = !!argv[<span class="string">'gfm'</span>]
   project.options.breaks = !!argv[<span class="string">'breaks'</span>]
   project.options.footer = argv[<span class="string">'footer'</span>] || <span class="string">''</span>
   project.options.mangle = !!argv[<span class="string">'mangle'</span>]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>configure marked</p></div></div><div class="code"><div class="wrapper">  marked.setOptions
-    gfm: project.options.gfm,
-    tables: <span class="literal">true</span>,
-    breaks: project.options.breaks,
-    pedantic: <span class="literal">false</span>,
-    sanitize: <span class="literal">false</span>,
-    smartLists: <span class="literal">true</span>,
-    smartypants: <span class="literal">true</span>,
-    langPrefix: <span class="string">''</span>,
-    highlight: (code, lang) =&gt;
+    <span class="attribute">gfm</span>: project.options.gfm,
+    <span class="attribute">tables</span>: <span class="literal">true</span>,
+    <span class="attribute">breaks</span>: project.options.breaks,
+    <span class="attribute">pedantic</span>: <span class="literal">false</span>,
+    <span class="attribute">sanitize</span>: <span class="literal">false</span>,
+    <span class="attribute">smartLists</span>: <span class="literal">true</span>,
+    <span class="attribute">smartypants</span>: <span class="literal">true</span>,
+    <span class="attribute">langPrefix</span>: <span class="string">''</span>,
+    <span class="attribute">highlight</span>: <span class="function"><span class="params">(code, lang)</span> =&gt;</span>
       <span class="keyword">if</span> lang == <span class="string">'js'</span>
         lang = <span class="string">'javascript'</span>
-      <span class="keyword">if</span> !lang? <span class="keyword">or</span> !hljs.LANGUAGES[lang]?</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>automatically highlight brief definitions</p></div></div><div class="code"><div class="wrapper">        <span class="keyword">if</span> code.match(<span class="regexp">///[^\(]+\(///</span>)
+      <span class="keyword">if</span> !lang? <span class="keyword">or</span> !hljs.getLanguage(lang)?</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>automatically highlight brief definitions</p></div></div><div class="code"><div class="wrapper">        <span class="keyword">if</span> code.match(<span class="regexp">///[^\(]+\(///</span>)
           <span class="string">'&lt;span class="brief"&gt;'</span> + hljs.highlight(<span class="string">"brief"</span>, code).value + <span class="string">"&lt;/span&gt;"</span>
         <span class="keyword">else</span>
           code
       <span class="keyword">else</span>
         hljs.highlight(lang, code).value</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>hack to disable mangling of e-mail URLs</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">if</span> !project.options.mangle
-    marked.InlineLexer.prototype.<span class="function"><span class="title">mangle</span></span> = (text) -&gt;
+    marked.InlineLexer.prototype.<span class="function"><span class="title">mangle</span> = <span class="params">(text)</span> -&gt;</span>
       text</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We expand the <code>--glob</code> expressions into a poor-man&#39;s set, so that we can easily remove
 exclusions defined by <code>--except</code> before we add the result to the project&#39;s file list.</p></div></div><div class="code"><div class="wrapper">  files = {}
   <span class="keyword">for</span> globExpression <span class="keyword">in</span> argv.glob
@@ -195,12 +195,12 @@ generate its documentation.</p></div></div><div class="code"><div class="wrapper
   project.files = (f <span class="keyword">for</span> f <span class="keyword">of</span> files)
   project.stripPrefixes = argv.strip</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><code>Project#generate</code> can take some options, such as which style to use.  Since we‘re generating
 differently depending on whether or not github is enabled, let’s set those up now:</p></div></div><div class="code"><div class="wrapper">  options =
-    style: styles[argv.style]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Good to go!</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">unless</span> argv.github
+    <span class="attribute">style</span>: styles[argv.style]</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Good to go!</p></div></div><div class="code"><div class="wrapper">  <span class="keyword">unless</span> argv.github
     project.githubURL = argv[<span class="string">'repository-url'</span>] <span class="keyword">if</span> argv[<span class="string">'repository-url'</span>]?
-    project.generate options, (error) -&gt;
+    project.generate options, <span class="function"><span class="params">(error)</span> -&gt;</span>
       callback error</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2><a name="github" class="anchor" href="#github"><span></span></a>GitHub</h2></div></div><div class="code"><div class="wrapper">  <span class="keyword">else</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We want to be able to annotate generated documentation with the project‘s GitHub URL.  This is
-handy for things like generating links directly to each file’s source.</p></div></div><div class="code"><div class="wrapper">    CLIHelpers.guessPrimaryGitHubURL argv[<span class="string">'repository-url'</span>], (error, url, remote) -&gt;
-      console.log <span class="string">"publish_to_github"</span>, error, url, remote
+handy for things like generating links directly to each file’s source.</p></div></div><div class="code"><div class="wrapper">    CLIHelpers.guessPrimaryGitHubURL argv[<span class="string">'repository-url'</span>], <span class="function"><span class="params">(error, url, remote)</span> -&gt;</span>
+      <span class="built_in">console</span>.log <span class="string">"publish_to_github"</span>, error, url, remote
 
       <span class="keyword">if</span> error
         project.log.error error.message
@@ -210,7 +210,7 @@ handy for things like generating links directly to each file’s source.</p></di
 generated output.  It also keeps us out of the business of finding an OS-sanctioned
 temporary path.</p></div></div><div class="code"><div class="wrapper">      project.outPath = path.resolve path.join <span class="string">'.git'</span>, <span class="string">'citare-tmp'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Dealing with generation for github pages is pretty involved, and requires a lot of back
 and forth with git.  Rather than descend into callback hell in Node, we farm the logic
-out to a shell script.</p></div></div><div class="code"><div class="wrapper">      project.generate options, (error) -&gt;
+out to a shell script.</p></div></div><div class="code"><div class="wrapper">      project.generate options, <span class="function"><span class="params">(error)</span> -&gt;</span>
         <span class="keyword">return</span> callback error <span class="keyword">if</span> error
 
         project.log.info <span class="string">''</span>
@@ -222,10 +222,10 @@ out to a shell script.</p></div></div><div class="code"><div class="wrapper">   
 <li>Cleans up and switches back to the user&#39;s original branch.</li>
 </ol></div></div><div class="code"><div class="wrapper">        script = childProcess.spawn path.resolve(__dirname, <span class="string">'..'</span>, <span class="string">'scripts'</span>, <span class="string">'publish-git-pages.sh'</span>), [remote]
 
-        script.stdout.<span class="literal">on</span> <span class="string">'data'</span>, (data) -&gt; project.log.info  data.toString().trim()
-        script.stderr.<span class="literal">on</span> <span class="string">'data'</span>, (data) -&gt; project.log.error data.toString().trim()
+        script.stdout.<span class="literal">on</span> <span class="string">'data'</span>, <span class="function"><span class="params">(data)</span> -&gt;</span> project.log.info  data.toString().trim()
+        script.stderr.<span class="literal">on</span> <span class="string">'data'</span>, <span class="function"><span class="params">(data)</span> -&gt;</span> project.log.error data.toString().trim()
 
-        script.<span class="literal">on</span> <span class="string">'exit'</span>, (code) -&gt;
+        script.<span class="literal">on</span> <span class="string">'exit'</span>, <span class="function"><span class="params">(code)</span> -&gt;</span>
           <span class="keyword">return</span> callback <span class="keyword">new</span> Error <span class="string">'Git publish failed'</span> <span class="keyword">if</span> code != <span class="number">0</span>
 
           callback()</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>
