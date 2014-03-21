@@ -122,3 +122,4 @@ Here are some suggested guidelines to follow when writing your code:
   smaller files if it makes them more readable.
 
 Writing documentation is _hard_; hopefully citare helps to streamline the process for you!
+
