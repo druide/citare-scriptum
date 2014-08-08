@@ -92,7 +92,7 @@ understands `.groc.json`) and have the following changes:
 - multiline comments are used for documentation too
 - code is highlighted by [highlight.js](https://github.com/isagalaev/highlight.js) javascript
   syntax highlighter
-- Default light style, Callout style
+- Default light style, Callout style, Groc darken style
 - table of contents includes all the files with all the titles from project
 - `{{TOC}}` tag to insert auto generated table of contents in your markdown
 - `[Any Title]` syntax for auto linking to any title in the project (for now citare does

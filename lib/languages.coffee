@@ -2,7 +2,7 @@
 
 module.exports = LANGUAGES =
   Markdown:
-    nameMatchers: ['.md', '.txt', '.litcoffee']
+    nameMatchers: ['.md', '.txt', '.litcoffee', ".markdown"]
     commentsOnly: true
 
   ActionScript:
@@ -15,11 +15,10 @@ module.exports = LANGUAGES =
     lexer: 'cs'
     singleLineComment: ['//']
 
-  # TODO: use Stylus lexer
   CSS:
-    nameMatchers: ['.css', '.styl']
+    nameMatchers: ['.css']
     lexer: 'css'
-    singleLineComment: ['//']
+    singleLineComment: ['/*-']
 
   CPP:
     nameMatchers: ['.c', '.h', '.cpp', '.hpp', '.c++', '.h++', '.cc', '.hh', '.cxx', '.hxx']
@@ -114,6 +113,12 @@ module.exports = LANGUAGES =
     lexer: 'ruby'
     singleLineComment: ['#']
 
+  # TODO: use Stylus lexer
+  SCSS:
+    nameMatchers: ['.scss', '.less', '.sass', '.styl']
+    lexer: 'scss'
+    singleLineComment: ['/*-']
+
   SQL:
     nameMatchers: ['.sql']
     lexer: 'sql'
@@ -122,10 +127,17 @@ module.exports = LANGUAGES =
   XML:
     nameMatchers: ['.xml','.rdf']
     lexer: 'xml'
-    singleLineComment: ['<!--']
+    singleLineComment: ['<!---']
     multiLineComment: [///^\s*\<\!\-\-+///, ///\s*\-+\>///]
 
   CMD:
     nameMatchers: ['.cmd', '.bat']
     lexer: 'dos'
     singleLineComment: ['@rem']
+
+  HTML:
+    nameMatchers: ['.html', '.htm']
+    lexer: 'html'
+    singleLineComment: ['<!---']
+    multiLineComment: [///^\s*\<\!\-\-+///, ///\s*\-+\>///]
+  
