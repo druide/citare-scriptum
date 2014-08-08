@@ -1,31 +1,31 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/base</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/base"><meta name="citare-project-path" content="lib/styles/base.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/base.coffee">lib/styles/base.coffee</a></div></div><div id="document"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
-path = require <span class="string">'path'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/base</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/base"><meta name="citare-project-path" content="lib/styles/base.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/base.coffee">lib/styles/base.coffee</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = <span class="built_in">require</span> <span class="string">'fs'</span>
+path = <span class="built_in">require</span> <span class="string">'path'</span>
 
-fsTools = require <span class="string">'fs-tools'</span>
+fsTools = <span class="built_in">require</span> <span class="string">'fs-tools'</span>
 
-StyleHelpers = require <span class="string">'../utils/style_helpers'</span>
-Utils        = require <span class="string">'../utils'</span>
+StyleHelpers = <span class="built_in">require</span> <span class="string">'../utils/style_helpers'</span>
+Utils        = <span class="built_in">require</span> <span class="string">'../utils'</span>
 
 
-module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Base</span></span>
-  constructor: (project) -&gt;
+<span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Base</span></span>
+  <span class="attribute">constructor</span>: <span class="function"><span class="params">(project)</span> -&gt;</span>
     <span class="property">@project</span> = project
     <span class="property">@log</span>     = project.log
     <span class="property">@files</span>   = []
     <span class="property">@outline</span> = {} <span class="comment"># Keyed on target path</span>
 
-  renderFile: (data, fileInfo, callback) -&gt;
+  <span class="attribute">renderFile</span>: <span class="function"><span class="params">(data, fileInfo, callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'BaseStyle#renderFile(..., %j, ...)'</span>, fileInfo
 
     <span class="property">@files</span>.push fileInfo
 
     segments = Utils.splitSource data, fileInfo.language,
-      requireWhitespaceAfterToken: !!<span class="property">@project</span>.options.requireWhitespaceAfterToken,
-      commentsOnly: <span class="property">@project</span>.options.commentsOnly
+      <span class="attribute">requireWhitespaceAfterToken</span>: !!<span class="property">@project</span>.options.requireWhitespaceAfterToken,
+      <span class="attribute">commentsOnly</span>: <span class="property">@project</span>.options.commentsOnly
 
     <span class="property">@log</span>.debug <span class="string">'Split %s into %d segments'</span>, fileInfo.projectPath, segments.length
 
-    Utils.highlightCode segments, fileInfo.language, (error) =&gt;
+    Utils.highlightCode segments, fileInfo.language, <span class="function"><span class="params">(error)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="keyword">if</span> error.failedHighlights
           <span class="keyword">for</span> highlight, i <span class="keyword">in</span> error.failedHighlights
@@ -36,7 +36,7 @@ module.exports = <span class="class"><span class="keyword">class</span> <span cl
         <span class="property">@log</span>.error <span class="string">'Failed to highlight %s as %s: %s'</span>, fileInfo.projectPath, fileInfo.language.name, error.message <span class="keyword">or</span> error
         <span class="keyword">return</span> callback error
 
-      Utils.markdownComments segments, <span class="property">@project</span>, (error) =&gt;
+      Utils.markdownComments segments, <span class="property">@project</span>, <span class="function"><span class="params">(error)</span> =&gt;</span>
         <span class="keyword">if</span> error
           <span class="property">@log</span>.error <span class="string">'Failed to markdown %s: %s'</span>, fileInfo.projectPath, error.message
           <span class="keyword">return</span> callback error
@@ -50,14 +50,14 @@ segments = StyleHelpers.segmentizeSoloHeaders segments</p></div></div><div class
 
         <span class="property">@renderDocFile</span> segments, fileInfo, missingDoc, callback
 
-  renderDocFile: (segments, fileInfo, missingDoc, callback) -&gt;
+  <span class="attribute">renderDocFile</span>: <span class="function"><span class="params">(segments, fileInfo, missingDoc, callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'BaseStyle#renderDocFile(..., %j, ...)'</span>, fileInfo
 
     <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">"@templateFunc must be defined by subclasses!"</span> <span class="keyword">unless</span> <span class="property">@templateFunc</span>
 
     docPath = path.resolve <span class="property">@project</span>.outPath, <span class="string">"<span class="subst">#{fileInfo.targetPath}</span>.html"</span>
 
-    fsTools.mkdir path.dirname(docPath), <span class="string">'0755'</span>, (error) =&gt;
+    fsTools.mkdir path.dirname<span class="function"><span class="params">(docPath)</span>, '0755', <span class="params">(error)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Unable to create directory %s: %s'</span>, path.dirname(docPath), error.message
         <span class="keyword">return</span> callback error
@@ -71,16 +71,16 @@ segments = StyleHelpers.segmentizeSoloHeaders segments</p></div></div><div class
         footer = <span class="property">@project</span>.options.footer + <span class="string">'  |  '</span> + footer
 
       templateContext =
-        project:     <span class="property">@project</span>
-        segments:    segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  fileInfo.sourcePath</p></div></div><div class="code"><div class="wrapper">        targetPath:  fileInfo.targetPath
-        projectPath: fileInfo.projectPath
-        commentsOnly: fileInfo.language.commentsOnly || <span class="property">@project</span>.options.commentsOnly
-        missingDoc: missingDoc
-        footerText: footer</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>How many levels deep are we?</p></div></div><div class="code"><div class="wrapper">      pathChunks = path.dirname(fileInfo.targetPath).split(<span class="regexp">/[\/\\]/</span>)
+        <span class="attribute">project</span>:     <span class="property">@project</span>
+        <span class="attribute">segments</span>:    segments</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  fileInfo.sourcePath</p></div></div><div class="code"><div class="wrapper">        <span class="attribute">targetPath</span>:  fileInfo.targetPath
+        <span class="attribute">projectPath</span>: fileInfo.projectPath
+        <span class="attribute">commentsOnly</span>: fileInfo.language.commentsOnly || <span class="property">@project</span>.options.commentsOnly
+        <span class="attribute">missingDoc</span>: missingDoc
+        <span class="attribute">footerText</span>: footer</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>How many levels deep are we?</p></div></div><div class="code"><div class="wrapper">      pathChunks = path.dirname(fileInfo.targetPath).split(<span class="regexp">/[\/\\]/</span>)
       <span class="keyword">if</span> pathChunks.length == <span class="number">1</span> &amp;&amp; pathChunks[<span class="number">0</span>] == <span class="string">'.'</span>
         templateContext.relativeRoot = <span class="string">''</span>
       <span class="keyword">else</span>
-        templateContext.relativeRoot = <span class="string">"<span class="subst">#{pathChunks.map(-&gt; '..').join '/'}</span>/"</span>
+        templateContext.relativeRoot = <span class="string">"<span class="subst">#{pathChunks.map(-&gt; <span class="string">'..'</span>).join <span class="string">'/'</span>}</span>/"</span>
 
       <span class="keyword">try</span>
         data = <span class="property">@templateFunc</span> templateContext
@@ -89,7 +89,7 @@ segments = StyleHelpers.segmentizeSoloHeaders segments</p></div></div><div class
         <span class="property">@log</span>.error <span class="string">'Rendering documentation template for %s failed: %s'</span>, docPath, error.message
         <span class="keyword">return</span> callback error
 
-      fs.writeFile docPath, data, <span class="string">'utf-8'</span>, (error) =&gt;
+      fs.writeFile docPath, data, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error)</span> =&gt;</span>
         <span class="keyword">if</span> error
           <span class="property">@log</span>.error <span class="string">'Failed to write documentation file %s: %s'</span>, docPath, error.message
           <span class="keyword">return</span> callback error
@@ -97,7 +97,7 @@ segments = StyleHelpers.segmentizeSoloHeaders segments</p></div></div><div class
         <span class="property">@log</span>.pass docPath
         callback()
 
-  renderCompleted: (callback) -&gt;
+  <span class="attribute">renderCompleted</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'BaseStyle#renderCompleted(...)'</span>
 
     <span class="property">@tableOfContents</span> = StyleHelpers.buildTableOfContents <span class="property">@files</span>, <span class="property">@outline</span>

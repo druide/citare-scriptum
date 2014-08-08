@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/callout/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/callout/style"><meta name="citare-project-path" content="lib/styles/callout/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/callout/style.styl">lib/styles/callout/style.styl</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">contentWidth = 760px
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/groc/style</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../../"><meta name="citare-document-path" content="lib/styles/groc/style"><meta name="citare-project-path" content="lib/styles/groc/style.styl"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/groc/style.styl">lib/styles/groc/style.styl</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">contentWidth = 760px
 
 vendor(prop, args)
   -webkit-{prop} args
@@ -43,11 +43,16 @@ background-linear-gradient()
   <span class="attribute">height</span> 100%
 
 <span class="tag">body</span>
-  <span class="attribute">background-color</span> <span class="id">#f2f2ff</span>
+  <span class="attribute">background-color</span> <span class="id">#4a525a</span>
   <span class="attribute">min-width</span> 460px
   -webkit-<span class="value">text</span>-size-adjust 100%
-  <span class="attribute">color</span> <span class="id">#333</span>
+  <span class="attribute">color</span> <span class="id">#cbd1d8</span>
   <span class="attribute">font-size</span> 15px
+  <span class="attribute">position</span> <span class="value">relative</span>
+  <span class="attribute">height</span> <span class="attribute">auto</span>
+  <span class="attribute">margin</span> 0
+  <span class="attribute">padding</span> 8px
+  <span class="attribute">min-height</span> 100%
 
 <span class="id">#document</span>
   <span class="attribute">min-height</span> 100%
@@ -55,50 +60,74 @@ background-linear-gradient()
   <span class="attribute">padding-right</span> 0<span class="class">.5em</span>
   <span class="attribute">width</span> 100%
   <span class="attribute">font-family</span> "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
-  <span class="attribute">padding-bottom</span> 0<span class="class">.4em</span>
-  <span class="attribute">background-color</span> <span class="id">#f2f2ff</span>
+  <span class="attribute">margin-left</span> -8px
+
+  &amp;<span class="class">.commentsonly</span>
+    <span class="attribute">margin-left</span> 0
 
   &amp;<span class="class">.codedoc</span> &gt; <span class="class">.segment</span>
+    &amp; &gt; <span class="class">.comments</span>
+      <span class="attribute">padding</span> 0 1em 0 0<span class="class">.3em</span>
+    &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span>
+      <span class="attribute">padding</span> 0 4px 0 22px
     &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:first-child</span>
-      <span class="attribute">margin-top</span> 12px
+      <span class="attribute">margin-top</span> 7px
     &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:last-child</span>
       <span class="attribute">margin-bottom</span> 12px
-    &amp; &gt; <span class="class">.comments</span>
-      <span class="attribute">padding</span> 0 1em 0 0
-    &amp; &gt; <span class="class">.comments</span> &gt; <span class="class">.wrapper</span>
-      <span class="attribute">padding</span> 0 0 0 22px
-    &amp;<span class="pseudo">:after</span>
-      <span class="attribute">margin-left</span> 22px
-    &amp; <span class="tag">a</span><span class="class">.anchor</span>, &amp; <span class="tag">a</span><span class="class">.anchor</span> &gt; <span class="tag">span</span>
-      <span class="attribute">padding-left</span> 28px
-      <span class="attribute">margin-left</span> -28px
+
+    &amp;<span class="pseudo">:hover</span>
+      <span class="attribute">border-top</span> 1px <span class="value">dotted</span> gray
+      <span class="attribute">border-bottom</span> 1px <span class="value">dotted</span> gray
+      <span class="attribute">margin-top</span> -1px
+      <span class="attribute">margin-bottom</span> -1px
 
 <span class="id">#meta</span>
   <span class="attribute">float</span> <span class="attribute">left</span>
-  <span class="attribute">padding</span> 0 1em 0<span class="class">.8em</span> 1<span class="class">.2em</span>
-  <span class="attribute">color</span> brown
+  <span class="attribute">padding</span> 0 0em <span class="class">.5em</span> 1<span class="class">.4em</span>
+  <span class="attribute">color</span> <span class="id">#9faab7</span>
   <span class="attribute">font-size</span> 13px
   <span class="attribute">font-family</span> "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
   <span class="attribute">width</span> 36%
   <span class="attribute">word-wrap</span> <span class="value">break-word</span>
+  <span class="attribute">border-bottom</span> 1px <span class="value">dotted</span> silver
+  <span class="attribute">margin-left</span> -8px
+  <span class="class">.file-path</span>
+    <span class="attribute">padding</span> 0 1<span class="class">.4em</span> 0 0<span class="class">.8em</span>
 
   &amp;<span class="class">.commentsonly</span>
     <span class="attribute">border-bottom</span> 0
-    <span class="attribute">padding</span> 0<span class="class">.25em</span> 1em 0<span class="class">.5em</span> 1em
+    <span class="attribute">padding</span> <span class="class">.25em</span> 1em <span class="class">.5em</span> 2<span class="class">.5em</span>
     <span class="attribute">max-width</span> contentWidth
     <span class="attribute">margin</span> 0 <span class="attribute">auto</span>
     <span class="attribute">width</span> 97%
     <span class="attribute">float</span> <span class="attribute">none</span>
 
+<span class="id">#bg</span>
+  <span class="attribute">position</span> <span class="value">absolute</span>
+  <span class="attribute">width</span> 36%
+  <span class="attribute">min-width</span> 180px
+  <span class="attribute">background-color</span> <span class="id">#f5fbff</span>
+  <span class="attribute">box-shadow</span> 1px 1px 15px <span class="id">#272c30</span>
+  <span class="attribute">padding</span> 0 1em 0 0<span class="class">.3em</span>
+  <span class="attribute">top</span> 0
+  <span class="attribute">left</span> 0
+  <span class="attribute">bottom</span> 0
+  <span class="attribute">overflow</span> <span class="value">hidden</span>
+  <span class="attribute">z-index</span> -1
+  <span class="attribute">margin</span> -8px
+
 <span class="id">#footer</span>
   <span class="attribute">font-family</span> "Helvetica Neue", Helvetica, "Droid Sans", sans-serif
-  <span class="attribute">padding</span> 2px 1<span class="class">.4em</span> 0 1<span class="class">.3em</span>
+  <span class="attribute">padding</span> 2px 0<span class="class">.4em</span> 0 1<span class="class">.3em</span>
   <span class="attribute">font-size</span> 11px
   <span class="attribute">font-style</span> <span class="value">italic</span>
   <span class="attribute">color</span> silver
+  <span class="attribute">text-align</span> <span class="attribute">right</span>
   <span class="attribute">float</span> <span class="attribute">left</span>
   <span class="attribute">width</span> 36%
-  <span class="attribute">margin</span> 0
+  <span class="attribute">border-top</span> 1px <span class="value">dotted</span>
+  &amp; &gt; <span class="tag">a</span>
+    <span class="attribute">padding-right</span> 1em
 
   <span class="tag">a</span>
     <span class="attribute">color</span> silver
@@ -108,11 +137,12 @@ background-linear-gradient()
 
   &amp;<span class="class">.commentsonly</span>
     <span class="attribute">max-width</span> contentWidth
-    <span class="attribute">margin</span> 2px <span class="attribute">auto</span>
+    <span class="attribute">margin</span> 0 <span class="attribute">auto</span>
     <span class="attribute">color</span> <span class="id">#A0A0A0</span>
     <span class="attribute">width</span> <span class="attribute">auto</span>
     <span class="attribute">float</span> <span class="attribute">none</span>
-    <span class="attribute">text-align</span> <span class="attribute">right</span>
+    <span class="attribute">border-top</span> 0
+    <span class="attribute">padding-top</span> 0
     <span class="tag">a</span>
       <span class="attribute">color</span> <span class="id">#A0A0A0</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="navigation" class="anchor" href="#navigation"><span></span></a>Navigation</h1></div></div><div class="code"><div class="wrapper"><span class="tag">nav</span>
   <span class="attribute">position</span> <span class="value">fixed</span>
@@ -196,7 +226,7 @@ background-linear-gradient()
     <span class="attribute">width</span> 100%
     <span class="attribute">overflow-x</span> <span class="value">hidden</span>
     <span class="attribute">overflow-y</span> <span class="attribute">auto</span>
-    <span class="attribute">transition</span> <span class="attribute">left</span> 150ms
+    <span class="attribute">transition</span> <span class="attribute">right</span> 150ms
     <span class="attribute">right</span> <span class="attribute">auto</span>
     <span class="attribute">left</span> 100%
     <span class="attribute">box-shadow</span> <span class="function">rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>)</span> 0 0 0<span class="class">.5em</span> 0<span class="class">.1em</span>
@@ -289,27 +319,27 @@ background-linear-gradient()
         background <span class="hexcolor">#f5fbff</span>
 
     .file
+      font-weight bold
       &amp; &gt; .label
         em
           color <span class="hexcolor">#101214</span>
 
     .folder
+      font-weight bold
       &amp; &gt; .label
         &amp; &gt; .text
           background url(<span class="string">"folder-icon.png"</span>) top left no-repeat
           padding-left <span class="number">20</span>px
 
     .file-folder
+      font-weight bold
       &amp; &gt; .label
         &amp; &gt; .text
           background url(<span class="string">"file-folder-icon.png"</span>) top left no-repeat
           padding-left <span class="number">20</span>px
 
     .heading
-      &amp; &gt; .label
-        &amp; &gt; .text
-          font-size <span class="number">0.88</span>em
-          color <span class="hexcolor">#707070</span>
+      font-weight normal
 
   &amp;.active
     transition height <span class="number">0</span> <span class="number">0</span>
@@ -341,7 +371,7 @@ background-linear-gradient()
 
 a
   word-wrap break-word
-  color <span class="hexcolor">#4183C4</span>
+  color <span class="hexcolor">#a8614e</span>
   text-decoration: none
   &amp;:hover
     text-decoration underline
@@ -410,130 +440,121 @@ a
     <span class="attribute">width</span> 36%
     <span class="attribute">padding</span> 0 1em 0 1em
     <span class="attribute">z-index</span> 998
-    <span class="attribute">background-color</span> white
-    <span class="attribute">border-radius</span> 6px
-    <span class="attribute">box-shadow</span> 1px 1px 15px <span class="id">#cbcbcb</span>
-    <span class="attribute">margin</span><span class="value">: <span class="number">0</span> <span class="number">5</span>px <span class="number">5</span>px <span class="number">10</span>px
-    line-height <span class="number">1.7</span>
+    <span class="attribute">line-height</span> 1<span class="class">.7</span>
+    <span class="attribute">color</span> <span class="id">#4a525a</span>
 
-    .wrapper
-      padding <span class="number">0</span> <span class="number">20</span>px
-      word-wrap break-word
-    .toc
-      padding <span class="number">1</span>em
-      border <span class="number">1</span>px solid <span class="hexcolor">#DDD</span>
-      border-radius <span class="number">3</span>px
-      background <span class="hexcolor">#FAF6FF</span>
+    <span class="class">.wrapper</span>
+      <span class="attribute">padding</span> 0 20px
+      <span class="attribute">word-wrap</span> <span class="value">break-word</span>
+    <span class="class">.toc</span>
+      <span class="attribute">padding</span> 1em
+      <span class="attribute">border</span> 1px <span class="value">solid</span> <span class="id">#DDD</span>
+      <span class="attribute">border-radius</span> 3px
+      <span class="attribute">background</span> <span class="id">#FAF6FF</span>
     &amp; &gt; *
-      overflow hidden
-    code, tt
-      font-family Consolas, <span class="string">"Liberation Mono"</span>, Courier, monospace
-      font-size <span class="number">12</span>px
-      margin <span class="number">0</span> <span class="number">2</span>px
-      padding <span class="number">0</span> <span class="number">5</span>px
-      border <span class="number">1</span>px solid <span class="hexcolor">#DDD</span>
-      border-radius <span class="number">3</span>px
-      background-color <span class="hexcolor">#F8F8F8</span>
-      display inline-block
-    pre
-      font-family Consolas, <span class="string">"Liberation Mono"</span>, Courier, monospace
-      font-size <span class="number">12</span>px
-      border <span class="number">1</span>px solid <span class="hexcolor">#DDD</span>
-      overflow auto
-      padding <span class="number">6</span>px <span class="number">10</span>px
-      border-radius <span class="number">3</span>px
-      background-color <span class="hexcolor">#F8F8F8</span>
-      line-height <span class="number">19</span>px
-      code
-        overflow auto
-        background transparent
-        margin <span class="number">0</span>
-        padding <span class="number">0</span>
-        border none
-        &amp;.brief, &amp; span.brief
-          white-space normal
-          display block
-    blockquote
-      border-left <span class="number">4</span>px solid <span class="hexcolor">#dddddd</span>
-      padding <span class="number">0</span> <span class="number">15</span>px
-      color <span class="hexcolor">#777777</span>
-      &amp; &gt; :first-child
-        margin-top <span class="number">0</span>
-      &amp; &gt; :last-child
-        margin-bottom <span class="number">0</span>
-    table
-      overflow auto
-      border-collapse collapse
-      border-spacing <span class="number">0</span>
-      padding <span class="number">0</span>
-      tr
-        border-top <span class="number">1</span>px solid <span class="hexcolor">#cccccc</span>
-        background-color white
-        margin <span class="number">0</span>
-        padding <span class="number">0</span>
-        &amp;:nth-child(<span class="number">2</span>n)
-          background-color <span class="hexcolor">#f8f8f8</span>
-        th
-          font-weight bold
-          border <span class="number">1</span>px solid <span class="hexcolor">#cccccc</span>
-          text-align center
-          margin <span class="number">0</span>
-          padding <span class="number">6</span>px <span class="number">13</span>px
-        td
-          border <span class="number">1</span>px solid <span class="hexcolor">#cccccc</span>
-          text-align left
-          margin <span class="number">0</span>
-          padding <span class="number">6</span>px <span class="number">13</span>px
-        &amp; th :first-child, &amp; td :first-child
-          margin-top <span class="number">0</span>
-        &amp; th :last-child, &amp; td :last-child
-          margin-bottom <span class="number">0</span>
-    dl
-      padding <span class="number">0</span>
-      dt
-        font-size <span class="number">14</span>px
-        font-weight bold
-        font-style italic
-        padding <span class="number">0</span>
-        margin <span class="number">15</span>px <span class="number">0</span> <span class="number">5</span>px
-        &amp;:first-child
-          padding <span class="number">0</span>
-        &amp; &gt; :first-child
-          margin-top <span class="number">0</span>
-        &amp; &gt; :last-child
-          margin-bottom <span class="number">0</span>
-      dd
-        margin-left <span class="number">0</span>
-        padding <span class="number">0</span> <span class="number">15</span>px
-        &amp; &gt; :first-child
-          margin-top <span class="number">0</span>
-        &amp; &gt; :last-child
-          margin-bottom <span class="number">0</span>
-</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout arrow </p></div></div><div class="code"><div class="wrapper">    &amp;<span class="pseudo">:after</span>
-      <span class="attribute">position</span> <span class="value">absolute</span>
-      <span class="attribute">top</span> -3px
-      <span class="attribute">left</span> 100%
-      <span class="attribute">margin-left</span> -7px
-      <span class="attribute">font-size</span> 27px
-      <span class="attribute">content</span> "►"
-      <span class="attribute">color</span> white
-      <span class="attribute">z-index</span> 999
+      <span class="attribute">overflow</span> <span class="value">hidden</span>
+    <span class="tag">code</span>, <span class="tag">tt</span>
+      <span class="attribute">font-family</span> Consolas, "Liberation Mono", Courier, monospace
+      <span class="attribute">font-size</span> 12px
+      <span class="attribute">margin</span> 0 2px
+      <span class="attribute">padding</span> 0 5px
+      <span class="attribute">border</span> 1px <span class="value">solid</span> <span class="id">#DDD</span>
+      <span class="attribute">border-radius</span> 3px
+      <span class="attribute">background-color</span> <span class="id">#4a525a</span>
+      <span class="attribute">display</span> <span class="value">inline</span>-<span class="value">block</span>
+      <span class="attribute">text-shadow</span> <span class="id">#272c30</span> 1px 1px 0
+      <span class="attribute">color</span> <span class="id">#cbd1d8</span>
+    <span class="tag">pre</span>
+      <span class="attribute">font-family</span> Consolas, "Liberation Mono", Courier, monospace
+      <span class="attribute">font-size</span> 12px
+      <span class="attribute">border</span> 1px <span class="value">solid</span> <span class="id">#DDD</span>
+      <span class="attribute">overflow</span> <span class="attribute">auto</span>
+      <span class="attribute">padding</span> 6px 10px
+      <span class="attribute">border-radius</span> 3px
+      <span class="attribute">background-color</span> <span class="id">#4a525a</span>
+      <span class="attribute">line-height</span> 19px
+      <span class="attribute">box-shadow</span> <span class="id">#f2ece3</span> 0 0 0<span class="class">.4em</span> 0<span class="class">.2em</span>
+      <span class="tag">code</span>
+        <span class="attribute">overflow</span> <span class="attribute">auto</span>
+        <span class="attribute">background</span> <span class="value">transparent</span>
+        <span class="attribute">margin</span> 0
+        <span class="attribute">padding</span> 0
+        <span class="attribute">border</span> <span class="attribute">none</span>
+        &amp;<span class="class">.brief</span>, &amp; <span class="tag">span</span><span class="class">.brief</span>
+          <span class="attribute">white-space</span> <span class="attribute">normal</span>
+          <span class="attribute">display</span> <span class="value">block</span>
+    <span class="tag">blockquote</span>
+      <span class="attribute">border-left</span> 4px <span class="value">solid</span> <span class="id">#dddddd</span>
+      <span class="attribute">padding</span> 0 15px
+      <span class="attribute">color</span> <span class="id">#777777</span>
+      &amp; &gt; <span class="pseudo">:first-child</span>
+        <span class="attribute">margin-top</span> 0
+      &amp; &gt; <span class="pseudo">:last-child</span>
+        <span class="attribute">margin-bottom</span> 0
+    <span class="tag">table</span>
+      <span class="attribute">overflow</span> <span class="attribute">auto</span>
+      <span class="attribute">border-collapse</span> <span class="value">collapse</span>
+      <span class="attribute">border-spacing</span> 0
+      <span class="attribute">padding</span> 0
+      <span class="tag">tr</span>
+        <span class="attribute">border-top</span> 1px <span class="value">solid</span> <span class="id">#cccccc</span>
+        <span class="attribute">background-color</span> white
+        <span class="attribute">margin</span> 0
+        <span class="attribute">padding</span> 0
+        &amp;<span class="pseudo">:nth-child</span>(2n)
+          <span class="attribute">background-color</span> <span class="id">#f8f8f8</span>
+        <span class="tag">th</span>
+          <span class="attribute">font-weight</span> <span class="value">bold</span>
+          <span class="attribute">border</span> 1px <span class="value">solid</span> <span class="id">#cccccc</span>
+          <span class="attribute">text-align</span> <span class="value">center</span>
+          <span class="attribute">margin</span> 0
+          <span class="attribute">padding</span> 6px 13px
+        <span class="tag">td</span>
+          <span class="attribute">border</span> 1px <span class="value">solid</span> <span class="id">#cccccc</span>
+          <span class="attribute">text-align</span> <span class="attribute">left</span>
+          <span class="attribute">margin</span> 0
+          <span class="attribute">padding</span> 6px 13px
+        &amp; <span class="tag">th</span> <span class="pseudo">:first-child</span>, &amp; <span class="tag">td</span> <span class="pseudo">:first-child</span>
+          <span class="attribute">margin-top</span> 0
+        &amp; <span class="tag">th</span> <span class="pseudo">:last-child</span>, &amp; <span class="tag">td</span> <span class="pseudo">:last-child</span>
+          <span class="attribute">margin-bottom</span> 0
+    <span class="tag">dl</span>
+      <span class="attribute">padding</span> 0
+      <span class="tag">dt</span>
+        <span class="attribute">font-size</span> 14px
+        <span class="attribute">font-weight</span> <span class="value">bold</span>
+        <span class="attribute">font-style</span> <span class="value">italic</span>
+        <span class="attribute">padding</span> 0
+        <span class="attribute">margin</span> 15px 0 5px
+        &amp;<span class="pseudo">:first-child</span>
+          <span class="attribute">padding</span> 0
+        &amp; &gt; <span class="pseudo">:first-child</span>
+          <span class="attribute">margin-top</span> 0
+        &amp; &gt; <span class="pseudo">:last-child</span>
+          <span class="attribute">margin-bottom</span> 0
+      <span class="tag">dd</span>
+        <span class="attribute">margin-left</span> 0
+        <span class="attribute">padding</span> 0 15px
+        &amp; &gt; <span class="pseudo">:first-child</span>
+          <span class="attribute">margin-top</span> 0
+        &amp; &gt; <span class="pseudo">:last-child</span>
+          <span class="attribute">margin-bottom</span> 0
+
+  &amp;<span class="class">.nocomment</span>
+    <span class="class">.comments</span>
+      <span class="attribute">margin</span> 1px 0
 
   <span class="class">.commentsonly</span>
     <span class="attribute">width</span> <span class="attribute">auto</span>
     <span class="attribute">max-width</span> contentWidth
     <span class="attribute">float</span> <span class="attribute">none</span>
-    <span class="attribute">padding</span> 1em 1<span class="class">.2em</span>
-    <span class="attribute">margin</span> 0<span class="class">.5em</span> <span class="attribute">auto</span> 0 <span class="attribute">auto</span>
-    &amp;<span class="pseudo">:after</span>
-      <span class="attribute">content</span> ""
-      <span class="attribute">display</span> <span class="attribute">none</span>
+    <span class="attribute">padding</span> 1em 1em 1em 1em
+    <span class="attribute">background-color</span> <span class="id">#f5fbff</span>
+    <span class="attribute">border-radius</span> 6px
+    <span class="attribute">box-shadow</span> 1px 1px 15px <span class="id">#272c30</span>
+    <span class="attribute">margin</span> 0<span class="class">.5em</span> <span class="attribute">auto</span> 4px <span class="attribute">auto</span>
     &amp; &gt; <span class="class">.wrapper</span> &gt; <span class="pseudo">:first-child</span>
       <span class="attribute">margin-top</span> 12px
-
-  &amp;<span class="class">.commentsonly</span><span class="pseudo">:after</span>
-    <span class="attribute">content</span> ""
-    <span class="attribute">display</span> <span class="attribute">none</span>
 
   <span class="class">.code</span>
     <span class="attribute">float</span> <span class="attribute">left</span>
@@ -543,67 +564,49 @@ a
     <span class="attribute">font-size</span> 14px
     <span class="attribute">white-space</span> <span class="tag">pre</span>
     <span class="attribute">padding</span> 12px 1em 12px 1<span class="class">.2em</span>
+    <span class="attribute">text-shadow</span> <span class="id">#272c30</span> 1px 1px 0
     <span class="class">.wrapper</span>
       <span class="attribute">display</span> <span class="value">inline</span>-<span class="value">block</span>
       <span class="attribute">margin-right</span> 1em
 
-  &amp;<span class="class">.nocomment</span>, &amp;<span class="class">.nocode</span>
-    &amp;<span class="pseudo">:after</span>
-      <span class="attribute">content</span> ""
-      <span class="attribute">text-shadow</span> 0
-    <span class="class">.comments</span><span class="pseudo">:after</span>
-      <span class="attribute">content</span> ""
-      <span class="attribute">display</span> <span class="attribute">none</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>callout shadow </p></div></div><div class="code"><div class="wrapper">  &amp;<span class="pseudo">:after</span>
-    <span class="attribute">position</span> <span class="value">absolute</span>
-    <span class="attribute">top</span> 7px
-    <span class="attribute">left</span> 36%
-    <span class="attribute">margin-left</span> 34px
-    <span class="attribute">font-size</span> 27px
-    <span class="attribute">content</span> "►"
-    <span class="attribute">color</span> <span class="value">transparent</span>
-    <span class="attribute">text-shadow</span> 0 0 15px <span class="id">#cbcbcb</span>
-    <span class="attribute">z-index</span><span class="value">: <span class="number">997</span>
-
-  hr
-    background transparent url(<span class="string">"dirty-shade.png"</span>) repeat-x <span class="number">0</span> <span class="number">0</span>
-    border <span class="number">0</span> none
-    color <span class="hexcolor">#cccccc</span>
-    height <span class="number">4</span>px
-    padding <span class="number">0</span>
+  <span class="tag">hr</span>
+    <span class="attribute">background</span> <span class="value">transparent</span> <span class="function">url(<span class="string">"dirty-shade.png"</span>)</span> <span class="value">repeat</span>-x 0 0
+    <span class="attribute">border</span> 0 <span class="attribute">none</span>
+    <span class="attribute">color</span> <span class="id">#cccccc</span>
+    <span class="attribute">height</span> 4px
+    <span class="attribute">padding</span> 0
 
 
-.segment, #segment-footer
-  position relative
-  page-break-inside avoid
-  text-rendering optimizeLegibility
-  float left
-  width <span class="number">100</span>%
-
-</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="syntax-highlighting" class="anchor" href="#syntax-highlighting"><span></span></a>Syntax Highlighting</h1></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
+<span class="class">.segment</span>, <span class="id">#segment-footer</span>
+  <span class="attribute">position</span> <span class="value">relative</span>
+  <span class="attribute">page-break-inside</span> avoid
+  <span class="attribute">text-rendering</span> optimizeLegibility
+  <span class="attribute">float</span> <span class="attribute">left</span>
+  <span class="attribute">width</span> 100%</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="syntax-highlighting" class="anchor" href="#syntax-highlighting"><span></span></a>Syntax Highlighting</h1></div></div><div class="code"><div class="wrapper"><span class="class">.code</span>, <span class="tag">code</span>
   <span class="attribute">tab-size</span> 2
 
   <span class="class">.comment</span>, <span class="class">.template_comment</span>, <span class="class">.diff</span> <span class="class">.header</span>, <span class="class">.doctype</span>, <span class="class">.pi</span>, <span class="class">.lisp</span> <span class="class">.string</span>, <span class="class">.javadoc</span>
-    <span class="attribute">color</span> <span class="id">#93a1a1</span>
+    <span class="attribute">color</span> <span class="id">#b1bac4</span>
     <span class="attribute">font-style</span> <span class="value">italic</span>
 
   <span class="class">.keyword</span>, <span class="class">.winutils</span>, <span class="class">.method</span>, <span class="class">.addition</span>, <span class="class">.css</span> <span class="class">.tag</span>, <span class="class">.request</span>, <span class="class">.status</span>, <span class="class">.nginx</span> <span class="class">.title</span>
-    <span class="attribute">color</span> <span class="id">#859900</span>
+    <span class="attribute">color</span> <span class="id">#e0c090</span>
 
   <span class="class">.number</span>, <span class="class">.command</span>, <span class="class">.string</span>, <span class="class">.tag</span> <span class="class">.value</span>, <span class="class">.phpdoc</span>, <span class="class">.tex</span> <span class="class">.formula</span>, <span class="class">.hexcolor</span>
-    <span class="attribute">color</span> <span class="id">#2aa198</span>
+    <span class="attribute">color</span> <span class="id">#e9baba</span>
 
  <span class="class">.regexp</span>
-    <span class="attribute">color</span> <span class="id">#C343EB</span>
+    <span class="attribute">color</span> <span class="id">#cba8d6</span>
 
   <span class="class">.title</span>, <span class="class">.localvars</span>, <span class="class">.chunk</span>, <span class="class">.decorator</span>, <span class="class">.built_in</span>, <span class="class">.identifier</span>, <span class="class">.vhdl</span> <span class="class">.literal</span>, <span class="class">.literal</span>, <span class="class">.id</span>
-    <span class="attribute">color</span> <span class="id">#268bd2</span>
+    <span class="attribute">color</span> <span class="id">#b9d0af</span>
 
   <span class="class">.attribute</span>, <span class="class">.variable</span>, <span class="class">.lisp</span> <span class="class">.body</span>, <span class="class">.smalltalk</span> <span class="class">.number</span>, <span class="class">.constant</span>, <span class="class">.class</span> <span class="class">.title</span>, <span class="class">.parent</span>, <span class="class">.haskell</span> <span class="class">.type</span>
-    <span class="attribute">color</span> <span class="id">#b58900</span>
+    <span class="attribute">color</span> <span class="id">#89A07F</span>
 
   <span class="class">.preprocessor</span>, <span class="class">.preprocessor</span> <span class="class">.keyword</span>, <span class="class">.shebang</span>, <span class="class">.symbol</span>, <span class="class">.symbol</span> <span class="class">.string</span>, <span class="class">.diff</span> <span class="class">.change</span>,
   <span class="class">.special</span>, <span class="class">.attr_selector</span>, <span class="class">.important</span>, <span class="class">.subst</span>, <span class="class">.cdata</span>, <span class="class">.clojure</span> <span class="class">.title</span>
-    <span class="attribute">color</span> <span class="id">#cb4b16</span>
+    <span class="attribute">color</span> <span class="id">#b98a8a</span>
 
   <span class="class">.deletion</span>
     <span class="attribute">color</span> <span class="id">#dc322f</span>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/styles/default</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/default"><meta name="citare-project-path" content="lib/styles/default.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/default.coffee">lib/styles/default.coffee</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = <span class="built_in">require</span> <span class="string">'fs'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/styles/groc</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/styles/groc"><meta name="citare-project-path" content="lib/styles/groc.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/styles/groc.coffee">lib/styles/groc.coffee</a></div></div><div id="document" class="codedoc"><div class="segment nocomment"><div class="comments"></div><div class="code"><div class="wrapper">fs   = <span class="built_in">require</span> <span class="string">'fs'</span>
 path = <span class="built_in">require</span> <span class="string">'path'</span>
 
 _            = <span class="built_in">require</span> <span class="string">'underscore'</span>
@@ -11,20 +11,20 @@ stylus       = <span class="built_in">require</span> <span class="string">'stylu
 Base = <span class="built_in">require</span> <span class="string">'./base'</span>
 
 
-<span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Default</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
+<span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Groc</span> <span class="keyword">extends</span> <span class="title">Base</span></span>
   <span class="attribute">STATIC_ASSETS</span>: []
 
   <span class="attribute">constructor</span>: <span class="function"><span class="params">(args...)</span> -&gt;</span>
     <span class="keyword">super</span>(args...)
 
-    <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'default'</span>
+    <span class="property">@sourceAssets</span> = path.join __dirname, <span class="string">'groc'</span>
     <span class="property">@targetAssets</span> = path.resolve <span class="property">@project</span>.outPath, <span class="string">'assets'</span>
 
     templateData  = fs.readFileSync path.join(<span class="property">@sourceAssets</span>, <span class="string">'docPage.jade'</span>), <span class="string">'utf-8'</span>
     <span class="property">@templateFunc</span> = jade.compile templateData
 
   <span class="attribute">renderCompleted</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#renderCompleted(...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Groc#renderCompleted(...)'</span>
 
     <span class="keyword">super</span> <span class="function"><span class="params">(error)</span> =&gt;</span>
       <span class="keyword">return</span> error <span class="keyword">if</span> error
@@ -33,7 +33,7 @@ Base = <span class="built_in">require</span> <span class="string">'./base'</span
           <span class="property">@compileCss</span> callback
 
   <span class="attribute">copyAssets</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
+    <span class="property">@log</span>.trace <span class="string">'styles.Groc#copyAssets(...)'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Even though fsTools.copy creates directories if they&#39;re missing - we want a bit more control
 over it (permissions), as well as wanting to avoid contention.</p></div></div><div class="code"><div class="wrapper">    fsTools.mkdir <span class="property">@targetAssets</span>, <span class="string">'0755'</span>, <span class="function"><span class="params">(error)</span> =&gt;</span>
       <span class="keyword">if</span> error
         <span class="property">@log</span>.error <span class="string">'Unable to create directory %s: %s'</span>, <span class="property">@targetAssets</span>, error.message
@@ -54,7 +54,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
       callback()
 
   <span class="attribute">compileScript</span>: <span class="function"><span class="params">(callback)</span> -&gt;</span>
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#compileScript(...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Groc#compileScript(...)'</span>
 
     scriptPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'behavior.coffee'</span>
     fs.readFile scriptPath, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>
@@ -79,7 +79,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
       <span class="property">@compressScript</span> scriptSource, callback
 
   <span class="attribute">compressScript</span>: <span class="function"><span class="params">(scriptSource, callback)</span> -&gt;</span>
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#compressScript(..., ...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Groc#compressScript(..., ...)'</span>
 
     <span class="keyword">try</span>
       compiledSource = uglifyJs.minify(scriptSource, {<span class="attribute">fromString</span>: <span class="literal">true</span>, <span class="attribute">mangle</span>: <span class="literal">true</span>, <span class="attribute">unsafe</span>: <span class="literal">true</span>}).code
@@ -91,7 +91,7 @@ over it (permissions), as well as wanting to avoid contention.</p></div></div><d
     <span class="property">@concatenateScripts</span> compiledSource, callback
 
   <span class="attribute">concatenateScripts</span>: <span class="function"><span class="params">(scriptSource, callback)</span> -&gt;</span>
-    <span class="property">@log</span>.trace <span class="string">'styles.Default#concatenateScripts(..., ...)'</span>
+    <span class="property">@log</span>.trace <span class="string">'styles.Groc#concatenateScripts(..., ...)'</span>
 
     jqueryPath = path.join <span class="property">@sourceAssets</span>, <span class="string">'jquery.min.js'</span>
     fs.readFile jqueryPath, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>

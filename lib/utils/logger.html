@@ -1,62 +1,62 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/utils/logger</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/utils/logger"><meta name="citare-project-path" content="lib/utils/logger.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/utils/logger.coffee">lib/utils/logger.coffee</a></div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="logger">Logger</h1></div></div><div class="code"><div class="wrapper">colors = require <span class="string">'colors'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/utils/logger</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../../"><meta name="citare-document-path" content="lib/utils/logger"><meta name="citare-project-path" content="lib/utils/logger.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/utils/logger.coffee">lib/utils/logger.coffee</a></div></div><div id="document" class="codedoc"><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="logger" class="anchor" href="#logger"><span></span></a>Logger</h1></div></div><div class="code"><div class="wrapper">colors = <span class="built_in">require</span> <span class="string">'colors'</span>
 
-CompatibilityHelpers = require <span class="string">'./compatibility_helpers'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We have pretty simple needs for a logger, and so far have been unable to find a reasonable
-off-the-shelf solution that fits them without being too overbearing:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+CompatibilityHelpers = <span class="built_in">require</span> <span class="string">'./compatibility_helpers'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We have pretty simple needs for a logger, and so far have been unable to find a reasonable
+off-the-shelf solution that fits them without being too overbearing:</p></div></div><div class="code"><div class="wrapper"><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>We want the standard levels of output, plus a few more.</li>
-</ul></div></div><div class="code"><div class="wrapper">  LEVELS:
-    TRACE: <span class="number">0</span>
-    DEBUG: <span class="number">1</span>
-    INFO:  <span class="number">2</span>
-    PASS:  <span class="number">2</span>
-    WARN:  <span class="number">3</span>
-    ERROR: <span class="number">4</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="attribute">LEVELS</span>:
+    <span class="attribute">TRACE</span>: <span class="number">0</span>
+    <span class="attribute">DEBUG</span>: <span class="number">1</span>
+    <span class="attribute">INFO</span>:  <span class="number">2</span>
+    <span class="attribute">PASS</span>:  <span class="number">2</span>
+    <span class="attribute">WARN</span>:  <span class="number">3</span>
+    <span class="attribute">ERROR</span>: <span class="number">4</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>Full on level: labels are <strong>extremely</strong> heavy for what is primarily a command-line tool.  The
 common case - <code>INFO</code> - does not even expose a label.  We only want it to call out uncommon
 events with some slight symbolism.</li>
-</ul></div></div><div class="code"><div class="wrapper">  LEVEL_PREFIXES:
-    TRACE: <span class="string">'∴ '</span>
-    DEBUG: <span class="string">'‡ '</span>
-    INFO:  <span class="string">'  '</span>
-    PASS:  <span class="string">'✓ '</span>
-    WARN:  <span class="string">'» '</span>
-    ERROR: <span class="string">'! '</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="attribute">LEVEL_PREFIXES</span>:
+    <span class="attribute">TRACE</span>: <span class="string">'∴ '</span>
+    <span class="attribute">DEBUG</span>: <span class="string">'‡ '</span>
+    <span class="attribute">INFO</span>:  <span class="string">'  '</span>
+    <span class="attribute">PASS</span>:  <span class="string">'✓ '</span>
+    <span class="attribute">WARN</span>:  <span class="string">'» '</span>
+    <span class="attribute">ERROR</span>: <span class="string">'! '</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>Colors make the world better.</li>
-</ul></div></div><div class="code"><div class="wrapper">  LEVEL_COLORS:
-    TRACE: <span class="string">'grey'</span>
-    DEBUG: <span class="string">'grey'</span>
-    INFO:  <span class="string">'black'</span>
-    PASS:  <span class="string">'green'</span>
-    WARN:  <span class="string">'yellow'</span>
-    ERROR: <span class="string">'red'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="attribute">LEVEL_COLORS</span>:
+    <span class="attribute">TRACE</span>: <span class="string">'grey'</span>
+    <span class="attribute">DEBUG</span>: <span class="string">'grey'</span>
+    <span class="attribute">INFO</span>:  <span class="string">'black'</span>
+    <span class="attribute">PASS</span>:  <span class="string">'green'</span>
+    <span class="attribute">WARN</span>:  <span class="string">'yellow'</span>
+    <span class="attribute">ERROR</span>: <span class="string">'red'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>Don&#39;t forget the semantics of our output.</li>
-</ul></div></div><div class="code"><div class="wrapper">  LEVEL_STREAMS:
-    TRACE: console.log
-    DEBUG: console.log
-    INFO:  console.log
-    PASS:  console.log
-    WARN:  console.error
-    ERROR: console.error
+</ul></div></div><div class="code"><div class="wrapper">  <span class="attribute">LEVEL_STREAMS</span>:
+    <span class="attribute">TRACE</span>: <span class="built_in">console</span>.log
+    <span class="attribute">DEBUG</span>: <span class="built_in">console</span>.log
+    <span class="attribute">INFO</span>:  <span class="built_in">console</span>.log
+    <span class="attribute">PASS</span>:  <span class="built_in">console</span>.log
+    <span class="attribute">WARN</span>:  <span class="built_in">console</span>.error
+    <span class="attribute">ERROR</span>: <span class="built_in">console</span>.error
 
-  constructor: (minLevel = <span class="property">@LEVELS</span>.INFO) -&gt;
+  <span class="attribute">constructor</span>: <span class="function"><span class="params">(minLevel = <span class="property">@LEVELS</span>.INFO)</span> -&gt;</span>
     <span class="property">@minLevel</span> = minLevel
 
     <span class="keyword">for</span> name <span class="keyword">of</span> <span class="property">@LEVELS</span>
-      <span class="keyword">do</span> (name) =&gt;
-        @[name.toLowerCase()] = (args...) -&gt;
+      <span class="keyword">do</span> <span class="function"><span class="params">(name)</span> =&gt;</span>
+        @[name.toLowerCase<span class="function"><span class="params">()</span>] = <span class="params">(args...)</span> -&gt;</span>
           <span class="property">@emit</span> name, args...
 
-  emit: (levelName, args...) -&gt;
+  <span class="attribute">emit</span>: <span class="function"><span class="params">(levelName, args...)</span> -&gt;</span>
     <span class="keyword">if</span> <span class="property">@LEVELS</span>[levelName] &gt;= <span class="property">@minLevel</span>
       output = CompatibilityHelpers.format args...</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>We like nicely indented output</li>
 </ul></div></div><div class="code"><div class="wrapper">      output = output.split(<span class="regexp">/\r?\n/</span>).join(<span class="string">'\n  '</span>)
 
-      <span class="property">@LEVEL_STREAMS</span>[levelName] colors[<span class="property">@LEVEL_COLORS</span>[levelName]] <span class="string">"<span class="subst">#{@LEVEL_PREFIXES[levelName]}</span><span class="subst">#{output}</span>"</span>
+      <span class="property">@LEVEL_STREAMS</span>[levelName] colors[<span class="property">@LEVEL_COLORS</span>[levelName]] <span class="string">"<span class="subst">#{<span class="property">@LEVEL_PREFIXES</span>[levelName]}</span><span class="subst">#{output}</span>"</span>
 
       output</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>Sometimes we just want one-off logging</li>
-</ul></div></div><div class="code"><div class="wrapper">globalLogger = <span class="keyword">new</span> Logger Logger::LEVELS.TRACE
+</ul></div></div><div class="code"><div class="wrapper">globalLogger = <span class="keyword">new</span> Logger <span class="attribute">Logger</span>::LEVELS.TRACE
 
 <span class="keyword">for</span> level <span class="keyword">of</span> globalLogger.LEVELS
-  <span class="keyword">do</span> (level) -&gt;
-    Logger[level.toLowerCase()] = (args...) -&gt; globalLogger[level.toLowerCase()] args...</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>
+  <span class="keyword">do</span> <span class="function"><span class="params">(level)</span> -&gt;</span>
+    Logger[level.toLowerCase<span class="function"><span class="params">()</span>] = <span class="params">(args...)</span> -&gt;</span> globalLogger[level.toLowerCase()] args...</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>

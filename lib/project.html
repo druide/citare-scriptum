@@ -1,16 +1,17 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/project</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/project"><meta name="citare-project-path" content="lib/project.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/project.coffee">lib/project.coffee</a></div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="citare-api">Citare API</h1></div></div><div class="code"><div class="wrapper">fs   = require <span class="string">'fs'</span>
-path = require <span class="string">'path'</span>
+<!DOCTYPE html><html lang="en"><head><title>lib/project</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="citare-relative-root" content="../"><meta name="citare-document-path" content="lib/project"><meta name="citare-project-path" content="lib/project.coffee"><meta name="citare-github-url" content="https://github.com/druide/citare-scriptum"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="bg"></div><div id="meta"><div class="file-path"><a href="https://github.com/druide/citare-scriptum/blob/master/lib/project.coffee">lib/project.coffee</a></div></div><div id="document" class="codedoc"><div class="segment"><div class="comments"><div class="wrapper"><h1><a name="citare-api" class="anchor" href="#citare-api"><span></span></a>Citare API</h1></div></div><div class="code"><div class="wrapper">fs   = <span class="built_in">require</span> <span class="string">'fs'</span>
+path = <span class="built_in">require</span> <span class="string">'path'</span>
 
-spate = require <span class="string">'spate'</span>
+spate = <span class="built_in">require</span> <span class="string">'spate'</span>
 
-CompatibilityHelpers = require <span class="string">'./utils/compatibility_helpers'</span>
-Logger               = require <span class="string">'./utils/logger'</span>
-Utils                = require <span class="string">'./utils'</span>
-hljs = require(<span class="string">'highlight.js'</span>)
-hljs.LANGUAGES[<span class="string">'brief'</span>] = require(<span class="string">'./utils/brief'</span>)(hljs);</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A core concept of <code>citare</code> is that your code is grouped into a project, and that there is a certain
+CompatibilityHelpers = <span class="built_in">require</span> <span class="string">'./utils/compatibility_helpers'</span>
+Logger               = <span class="built_in">require</span> <span class="string">'./utils/logger'</span>
+Utils                = <span class="built_in">require</span> <span class="string">'./utils'</span>
+hljs = <span class="built_in">require</span>(<span class="string">'highlight.js'</span>)
+hljs.registerLanguage(<span class="string">'brief'</span>, <span class="built_in">require</span>(<span class="string">'./utils/brief'</span>))
+hljs.configure({<span class="class">classPrefix: ''})</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A core concept of <code>citare</code> is that your code is grouped into a project, and that there is a certain
 amount of context that it lends to your documentation.</p>
-<p>A project:</p></div></div><div class="code"><div class="wrapper">module.exports = <span class="class"><span class="keyword">class</span> <span class="title">Project</span></span>
-  constructor: (root, outPath, minLogLevel=Logger::INFO) -&gt;
+<p>A project:</p></div></div><div class="code"><div class="wrapper"><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="class"><span class="keyword">class</span> <span class="title">Project</span></span>
+  <span class="attribute">constructor</span>: <span class="function"><span class="params">(root, outPath, minLogLevel=Logger::INFO)</span> -&gt;</span>
     <span class="property">@options</span> = {}
     <span class="property">@log</span>     = <span class="keyword">new</span> Logger minLogLevel</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>Has a single root directory that contains (most of) it.</li>
@@ -28,8 +29,8 @@ emulation for old-style streams.  For now, we’re dropping concurrent doc
 generation to play it safe.</p></div></div><div class="code"><div class="wrapper">  oldNode = process.version.match <span class="regexp">/v0\.[0-8]\./</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>This is both a performance (over-)optimization and debugging aid.  Instead of spamming the
 system with file I/O and overhead all at once, we only process a certain number of source files
 concurrently.  This is similar to what <a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
-accomplishes.</p></div></div><div class="code"><div class="wrapper">  BATCH_SIZE: <span class="keyword">if</span> oldNode <span class="keyword">then</span> <span class="number">10</span> <span class="keyword">else</span> <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Where the magic happens.</p>
-<p>Currently, the only supported option is:</p></div></div><div class="code"><div class="wrapper">  generate: (options, callback) -&gt;
+accomplishes.</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">BATCH_SIZE</span>: <span class="keyword">if</span> oldNode <span class="keyword">then</span> <span class="number">10</span> <span class="keyword">else</span> <span class="number">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Where the magic happens.</p>
+<p>Currently, the only supported option is:</p></div></div><div class="code"><div class="wrapper">  <span class="attribute">generate</span>: <span class="function"><span class="params">(options, callback)</span> -&gt;</span>
     <span class="property">@log</span>.trace <span class="string">'Project#Generate(%j, ...)'</span>, options
     <span class="property">@log</span>.info <span class="string">'Generating documentation...'</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
 <li>style: The style prototype to use.  Defaults to <code>styles.Default</code></li>
@@ -40,7 +41,7 @@ so that they can strip from the remainder.</p></div></div><div class="code"><div
     fileMap   = Utils.mapFiles <span class="property">@root</span>, <span class="property">@files</span>, <span class="property">@stripPrefixes</span>
     indexPath = path.resolve <span class="property">@root</span>, <span class="property">@index</span>
 
-    pool = spate.pool (k <span class="keyword">for</span> k <span class="keyword">of</span> fileMap), maxConcurrency: <span class="property">@BATCH_SIZE</span>, (currentFile, done) =&gt;
+    pool = spate.pool <span class="function"><span class="params">(k <span class="keyword">for</span> k <span class="keyword">of</span> fileMap)</span>, <span class="title">maxConcurrency</span>: @<span class="title">BATCH_SIZE</span>, <span class="params">(currentFile, done)</span> =&gt;</span>
       <span class="property">@log</span>.debug <span class="string">"Processing %s"</span>, currentFile
 
       language = Utils.getLanguage currentFile
@@ -48,23 +49,23 @@ so that they can strip from the remainder.</p></div></div><div class="code"><div
         <span class="property">@log</span>.warn <span class="string">'%s is not in a supported language, skipping.'</span>, currentFile
         <span class="keyword">return</span> done()
 
-      fs.readFile currentFile, <span class="string">'utf-8'</span>, (error, data) =&gt;
+      fs.readFile currentFile, <span class="string">'utf-8'</span>, <span class="function"><span class="params">(error, data)</span> =&gt;</span>
         <span class="keyword">if</span> error
           <span class="property">@log</span>.error <span class="string">"Failed to process %s: %s"</span>, currentFile, error.message
           <span class="keyword">return</span> callback error
 
         fileInfo =
-          language:    language</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  currentFile</p></div></div><div class="code"><div class="wrapper">          projectPath: currentFile.replace(<span class="regexp">///^<span class="comment">#{Utils.regexpEscape @root + CompatibilityHelpers.pathSep}///, '').replace(///\\///g, "/")</span>
-          targetPath:  (if currentFile == indexPath then 'index' else fileMap[currentFile]).replace(///</span>\\<span class="regexp">///g, "/")
+          <span class="attribute">language</span>:    language</div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sourcePath:  currentFile</p></div></div><div class="code"><div class="wrapper">          <span class="attribute">projectPath</span>: currentFile.replace(<span class="regexp">///^<span class="subst">#{Utils.regexpEscape <span class="property">@root</span> + CompatibilityHelpers.pathSep}</span>///</span>, <span class="string">''</span>).replace(<span class="regexp">///\\///</span>g, <span class="string">"/"</span>)
+          <span class="attribute">targetPath</span>:  (<span class="keyword">if</span> currentFile == indexPath <span class="keyword">then</span> <span class="string">'index'</span> <span class="keyword">else</span> fileMap[currentFile]).replace(<span class="regexp">///\\///</span>g, <span class="string">"/"</span>)
 
         style.renderFile data, fileInfo, done
 
-    pool.exec (error) =&gt;
-      return callback error if error
+    pool.exec <span class="function"><span class="params">(error)</span> =&gt;</span>
+      <span class="keyword">return</span> callback error <span class="keyword">if</span> error
 
-      style.renderCompleted (error) =&gt;
-        return callback error if error
+      style.renderCompleted <span class="function"><span class="params">(error)</span> =&gt;</span>
+        <span class="keyword">return</span> callback error <span class="keyword">if</span> error
 
-        @log.info ''
-        @log.pass 'Documentation generated'
+        <span class="property">@log</span>.info <span class="string">''</span>
+        <span class="property">@log</span>.pass <span class="string">'Documentation generated'</span>
         callback()</div></div></div><div id="segment-footer"><div id="footer"><a href="https://github.com/druide/citare-scriptum" target="_blank">Generated by Citare scriptum</a></div></div></div></body></html>
