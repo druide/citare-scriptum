@@ -123,3 +123,6 @@ Here are some suggested guidelines to follow when writing your code:
 
 Writing documentation is _hard_; hopefully citare helps to streamline the process for you!
 
+## Grunt task
+
+A Grunt plugin is available [here](https://github.com/naganowl/grunt-citare-scriptum).
